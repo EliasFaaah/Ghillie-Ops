@@ -244,6 +244,17 @@ function branchGeometry(bb, lod) {
   return g;
 }
 
+function trunkBase(data) {
+  const { boxC, boxH, branches } = data.meta;
+  const trunks = branches.parts.filter(p => p.trunk);
+  let lo = 32767;
+  for (const p of trunks.length ? trunks : branches.parts) {
+    const l = p.lods[0], pos = new Int16Array(data.bb, l.pos, l.verts * 4);
+    for (let i = 1; i < pos.length; i += 4) lo = Math.min(lo, pos[i]);
+  }
+  return boxC[1] + boxH[1] * Math.max(lo, -32767) / 32767;
+}
+
 export async function loadFoliage(assets, names) {
   const out = new Map();
   await Promise.all(names.map(async name => {
@@ -401,6 +412,8 @@ class Species {
     this.radius = Math.max(meta.boxH[0], meta.boxH[2]);
     this.top = meta.boxC[1] + meta.boxH[1];
     this.leafSize = meta.leafSize;
+    this.trunkBase = trunkBase(data);
+    if (this.trunkBase > 0.05) report('veg/foliage', new Error(`${data.name}: trunk ends ${this.trunkBase.toFixed(2)} m above the ground, rebuild the tree assets with build_all.py`));
     this.build(list);
     this.main = new PassSet(this, null);
     this.casters = shadow.map((s, i) => new PassSet(this, { shadow: s, index: i }));
@@ -631,6 +644,7 @@ register('veg/foliage', 'leaf and branch lanes follow screen size and never list
   const f = ctx.world.foliage;
   assert(physPatched, 'leaf translucency patch missing');
   assert(f && f.sets.length > 0, 'foliage sets missing');
+  for (const s of f.sets) assert(s.trunkBase < 0.05, `${s.name} trunk ends ${s.trunkBase.toFixed(2)} m above the ground: rebuild the tree assets with build_all.py`);
   const sp = f.sets[0];
   f.update(ctx.world.camera, 1080);
   const c = sp.counts();

@@ -195,6 +195,10 @@ def build_leaves(spec):
     quad_n = np.repeat(pnorm[:, None, :], 4, axis=1)
     lo = np.minimum(pos.min(0), quad.reshape(-1, 3).min(0))
     hi = np.maximum(pos.max(0), quad.reshape(-1, 3).max(0))
+    for pi in spec.get('branch', []):
+        bp = (g.acc(prims[pi][1]['attributes']['POSITION']).astype(np.float32) - off) * scale
+        lo = np.minimum(lo, bp.min(0))
+        hi = np.maximum(hi, bp.max(0))
     boxc = (lo + hi) / 2
     boxh = (hi - lo) / 2 * 1.0005
 

@@ -24,6 +24,8 @@ def trunk_offset(spec):
     g = G(spec['dir'])
     p = g.prims()[spec['trunkPrims'][0]][1]
     pos = g.acc(p['attributes']['POSITION']).astype(np.float64)
+    idx, _ = branches.strip_plates(pos, g.acc(p['indices']).ravel().astype(np.uint32), float(pos[:, 1].min()), 1.0)
+    pos = pos[np.unique(idx)]
     lo = pos[:, 1].min()
     sel = pos[pos[:, 1] < lo + 0.12 / max(spec['scale'], 0.2)]
     return [float(sel[:, 0].mean()), float(lo), float(sel[:, 2].mean())]
