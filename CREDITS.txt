@@ -1,0 +1,112 @@
+Ghillie Ops - external assets, libraries and tools
+
+Models (served from C:\Users\Leschke\Downloads\Models\GhillieOps under /models)
+  WoodenMilitaryCrate.glb
+    Source: "Wooden Military Crate" by Prabhjinder Singh, Poly Haven
+    URL: https://polyhaven.com/a/wooden_military_crate
+    License: CC0 1.0
+    Processing: 2k glTF imported into Blender 5.2, parts joined, origin at floor center, ARM red channel wired as occlusion, single sided, exported as glTF, packed with gltfpack (meshopt, KTX2: ETC1S color, UASTC normal and ARM, named node kept)
+  Jerrycan.glb
+    Source: "Metal Jerrycan Green" by Ulan Cabanilla, Poly Haven
+    URL: https://polyhaven.com/a/metal_jerrycan_green
+    License: CC0 1.0
+    Processing: 2k glTF imported into Blender 5.2, parts joined, origin at floor center, ARM red channel wired as occlusion, single sided, exported as glTF, packed with gltfpack (meshopt, KTX2: ETC1S color, UASTC normal and ARM, named node kept)
+
+  World models derived from Poly Haven (CC0 1.0, https://polyhaven.com/a/<id>), imported into Blender 5.2, split, decimated, scaled, origin on the floor, collision proxies added, exported and packed with gltfpack
+    RockA.glb - "Rock 07" by Jenelle van Heerden - https://polyhaven.com/a/rock_07
+    RockMoss1, RockMoss2, RockMoss3.glb - "Rock Moss Set 01" by Kless Gyzen - https://polyhaven.com/a/rock_moss_set_01
+    RockMoss4, RockMoss5.glb - "Rock Moss Set 02" by Kless Gyzen - https://polyhaven.com/a/rock_moss_set_02
+    RockFaceA.glb - "Rock Face 01" by Dario Barresi - https://polyhaven.com/a/rock_face_01
+    RockFaceB.glb - "Rock Face 02" by Dario Barresi, Rico Cilliers - https://polyhaven.com/a/rock_face_02
+    Fern.glb - "Fern 02" by Rob Tuytel, Rico Cilliers - https://polyhaven.com/a/fern_02
+    FallenLog.glb - "Dead Tree Trunk" by Rob Tuytel - https://polyhaven.com/a/dead_tree_trunk
+    Stump.glb - "Tree Stump 01" by Rob Tuytel - https://polyhaven.com/a/tree_stump_01
+    Barrel.glb - "Barrel 03" by Serhii Khromov - https://polyhaven.com/a/barrel_03
+    OilBarrel.glb - "Barrel_01" by Jorge Camacho - https://polyhaven.com/a/Barrel_01
+    MilitaryCrate.glb - "Old Military Crate" by Jack Mava - https://polyhaven.com/a/old_military_crate
+    ConcreteBarrier.glb - "Concrete Road Barrier 02" by Amal Kumar - https://polyhaven.com/a/concrete_road_barrier_02
+    Tyre.glb - "Old Tyre" by MP - https://polyhaven.com/a/old_tyre
+
+  Textures from Poly Haven (CC0 1.0, https://polyhaven.com/a/<id>): terrain layers graded and packed to assets/textures/terrain/terrain_<layer>_a.ktx2 and _n.ktx2 (grass: leafy_grass, forest: forrest_ground_01, rock: rock_face_03, dirt: brown_mud_dry, bed: river_small_rocks); the same and further sets are used as materials inside the structure and tree models
+    leafy_grass - "Leafy Grass" by Charlotte Baglioni
+    forrest_ground_01 - "Forest Ground 01" by Rob Tuytel
+    rock_face_03 - "Rock Face 03" by Dario Barresi, Rico Cilliers
+    brown_mud_dry - "Brown Mud Dry" by Rob Tuytel
+    river_small_rocks - "River Small Rocks" by Rob Tuytel, Rico Cilliers
+    dirt_floor - "Dirt Floor" by eye-candy.xyz
+    bark_brown_02 - "Bark Brown 02" by Rob Tuytel
+    pine_bark - "Pine Bark" by Dimitrios Savva
+    beige_wall_001 - "Beige Wall 001" by Dimitrios Savva, Rico Cilliers
+    white_plaster_02 - "White Plaster 02" by Rob Tuytel
+    broken_brick_wall - "Broken Brick Wall" by Amal Kumar
+    brick_wall_005 - "Brick Wall 005" by Dario Barresi, Dimitrios Savva
+    clay_roof_tiles_02 - "Clay Roof Tiles 02" by Amal Kumar
+    roof_tiles_14 - "Roof Tiles 14" by Rob Tuytel
+    weathered_planks - "Weathered Planks" by Dario Barresi, Dimitrios Savva
+    wood_planks_grey - "Wood Planks Grey" by Rob Tuytel
+    old_planks_02 - "Old Planks 02" by Rob Tuytel
+    concrete_wall_004 - "Concrete Wall 004" by Dario Barresi, Charlotte Baglioni
+    precast_concrete_wall - "Precast Concrete Wall" by Dimitrios Savva
+    corrugated_iron_02 - "Corrugated Iron 02" by Jenelle van Heerden, Sergej Majboroda
+    rusty_metal_02 - "Rusty Metal 02" by Rob Tuytel
+    green_metal_rust - "Green Metal Rust" by Rob Tuytel
+    hessian_230 - "Hessian 230" by colormass, Rico Cilliers
+    hessian_380 - "Hessian 380" by colormass, Rico Cilliers
+    old_stone_wall - "Old Stone Wall" by Charlotte Baglioni
+    stone_wall_02 - "Stone Wall 02" by Dario Barresi, Charlotte Baglioni
+    reed_roof_03 - "Reed Roof 03" by Rob Tuytel
+    metal_plate - "Metal Plate" by Rob Tuytel
+    rough_concrete - "Rough Concrete" by Dimitrios Savva
+
+  Built in Blender 5.2 for this project (no external source): GrassTuft0 to GrassTuft6 (tools/blender/bl_grass.py), HouseA, HouseB, HouseC, Chapel, Farmhouse, Barn, FarmShed, Well, HayBale, WoodFence, BaseHQ, WatchTower, RadioTower, RadioHut, QuarryCrusher, QuarryOffice, ShippingContainer, FuelTank, GravelPile, StoneBridge, SandbagWall, SandbagNest, Hesco, MilitaryTent, CamoNet, FlagPole, StoneWall, WoodPile, MilTruck, Bunker (scripts in tools/blender; the Hesco, canvas and camouflage textures are generated procedurally by tools/blender/bl_gen.py)
+  Trees and bush (S2-R), real photogrammetry and scan models converted in Blender 5.2 by tools/blender/bl_r_*.py and tools/blender/tree_atlas.py (decimated trunk and branches, leaf cluster cards and octahedral impostors baked from the original geometry, packed with gltfpack)
+    OakTree.glb - "Island Tree 01" by Rob Tuytel, Rico Cilliers, Poly Haven, CC0 1.0 - https://polyhaven.com/a/island_tree_01
+    BeechTree.glb - "Jacaranda Tree" by Rico Cilliers, Rob Tuytel, Poly Haven, CC0 1.0 - https://polyhaven.com/a/jacaranda_tree
+    SpruceTree.glb - "Fir Tree 01" by Rob Tuytel, Rico Cilliers, Poly Haven, CC0 1.0 - https://polyhaven.com/a/fir_tree_01
+    BirchTree.glb - "Birch Tree" by blend.file, CC Attribution 4.0 (CC-BY), https://sketchfab.com/3d-models/23a16e74154443d7b67149db31eee816 (obtained from the Objaverse dataset allenai/objaverse, https://huggingface.co/datasets/allenai/objaverse)
+    BushA.glb - "Photorealistic Bush" by Adrian Sheremet, CC Attribution 4.0 (CC-BY), https://sketchfab.com/3d-models/8db54bf299954daa9ee29b233e923672 (obtained from the Objaverse dataset allenai/objaverse)
+  Reference photographs for realism comparison (qa/S2R/ref, never shipped): Poly Haven backplates of "meadow", "meadow_2", "resting_place_2" and "sunny_country_road", CC0 1.0, https://polyhaven.com/a/<id>
+  CoveredCar.glb - "Covered Car" by MP - https://polyhaven.com/a/covered_car (CC0 1.0)
+  ChainlinkFence.glb - "Modular Chainlink Fence" by James Ray Cock, Amal Kumar - https://polyhaven.com/a/modular_chainlink_fence (CC0 1.0)
+
+Textures
+  assets/textures/sparse_grass/sparse_grass_diff.ktx2, sparse_grass_nor_gl.ktx2, sparse_grass_arm.ktx2
+    Source: "Sparse Grass" by Amal Kumar, Poly Haven
+    URL: https://polyhaven.com/a/sparse_grass
+    License: CC0 1.0
+    Processing: 2k JPG maps converted to KTX2 (BasisU ETC1S color/ARM, UASTC normal) with gltfpack
+  assets/selftest/meshopt_ktx2.glb
+    Derived from the Sparse Grass maps above (16 px), decoder fixture for the selftest
+  assets/selftest/draco.glb
+    Built in Blender 5.2 for this project, decoder fixture for the selftest
+
+First-person arms and weapons (S3 part A), modelled and animated in Blender 5.2 for this project with the scripts in tools/blender/fp_*.py, packed with gltfpack
+  FPArms.glb, WpnCarbine.glb, WpnPistol.glb, WpnBullpup.glb, WpnBattle.glb, WpnAkPattern.glb, WpnRevolver.glb, WpnCompact.glb, WpnGrenade.glb, WpnBandage.glb
+    Own work, no external geometry. Surface detail from the CC0 texture sets below, ambient occlusion and edge wear baked into vertex colours.
+  assets/textures/ghillie/strands_*.ktx2 (six variants) and the woodland strand map inside FPArms.glb
+    Generated procedurally by tools/blender/fp_tex.py, no external source
+
+  Material textures from ambientCG (CC0 1.0, https://ambientcg.com/a/<id>), 1K maps, roughness/metalness/ambient occlusion packed into one ARM map by tools/blender/fp_dl.py
+    Metal038, Metal061B, Metal029, Metal055A, Metal042A - metal finishes (parkerized steel, anodized aluminium, bluing, stainless, brass)
+    Plastic012A, Plastic011 - polymer
+    Rubber004 - rubber
+    Leather027 - leather (gloves, grips)
+    Fabric030, Fabric066, Fabric081C - glove fabric, sleeve cloth, bandage
+    Wood066 - furniture of the AK pattern rifle and revolver grips
+
+Fonts
+  assets/fonts/BarlowCondensed-600.woff2, Barlow-400.woff2, Barlow-600.woff2
+    Source: Barlow by Jeremy Tribby, packaged by Fontsource (@fontsource/barlow 5.3.0, @fontsource/barlow-condensed 5.3.0)
+    URL: https://github.com/jpt/barlow
+    License: SIL Open Font License 1.1 (assets/fonts/OFL.txt)
+
+Libraries (vendor/, versions and integrity hashes in vendor/VERSIONS.txt)
+  three.js 0.186.1 - MIT - https://github.com/mrdoob/three.js
+  three-mesh-bvh 0.9.15 - MIT - https://github.com/gkjohnson/three-mesh-bvh
+  postprocessing 6.39.5 - Zlib - https://github.com/pmndrs/postprocessing
+  n8ao 2.0.1 - ISC - https://github.com/N8python/n8ao
+  peerjs 1.5.5 - MIT - https://github.com/peers/peerjs
+  acorn 8.18.0 - MIT - https://github.com/acornjs/acorn (tools/check.mjs only, not shipped to the page)
+
+Tools
+  tools/gltfpack.exe 1.3 (meshoptimizer) - MIT - https://github.com/zeux/meshoptimizer/releases/tag/v1.3
