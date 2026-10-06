@@ -270,7 +270,7 @@ async function main() {
           if (step.as) report.results[step.as] = v;
           rec.value = v;
         } else if (step.shot) {
-          const r = await cdp.send('Page.captureScreenshot', { format: 'png' });
+          const r = await cdp.send('Page.captureScreenshot', /\.jpe?g$/i.test(step.shot) ? { format: 'jpeg', quality: 90 } : { format: 'png' });
           writeFileSync(join(out, step.shot), Buffer.from(r.data, 'base64'));
           report.shots.push(join(out, step.shot));
         } else if (step.stats) {

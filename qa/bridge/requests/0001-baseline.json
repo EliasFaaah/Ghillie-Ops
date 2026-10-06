@@ -1,0 +1,99 @@
+{
+  "note": "baseline screenshots, deploys jpeg support for qa.mjs and the trunk check in foliage.js",
+  "files": {
+    "qa.mjs": "tools/qa.mjs",
+    "foliage.js": "src/veg/foliage.js"
+  },
+  "size": "1920x1080",
+  "url": "/?autostart=1",
+  "timeout": 600,
+  "steps": [
+    {
+      "until": "window.__GO && __GO.state().boot.ready",
+      "timeout": 180
+    },
+    {
+      "eval": "__GO.setTime(10)"
+    },
+    {
+      "eval": "__GO.bookmark('overview')"
+    },
+    {
+      "wait": 5
+    },
+    {
+      "shot": "overview.jpg"
+    },
+    {
+      "eval": "__GO.bookmark('river_bridge')"
+    },
+    {
+      "wait": 5
+    },
+    {
+      "shot": "river_bridge.jpg"
+    },
+    {
+      "eval": "__GO.bookmark('meadow_ground')"
+    },
+    {
+      "wait": 5
+    },
+    {
+      "shot": "meadow_ground.jpg"
+    },
+    {
+      "eval": "__GO.bookmark('farm')"
+    },
+    {
+      "wait": 5
+    },
+    {
+      "shot": "farm.jpg"
+    },
+    {
+      "eval": "__GO.bookmark('radio_tower')"
+    },
+    {
+      "wait": 5
+    },
+    {
+      "shot": "radio_tower.jpg"
+    },
+    {
+      "eval": "__GO.bookmark('village')"
+    },
+    {
+      "wait": 5
+    },
+    {
+      "shot": "village.jpg"
+    },
+    {
+      "eval": "__GO.bookmark('quarry')"
+    },
+    {
+      "wait": 5
+    },
+    {
+      "shot": "quarry.jpg"
+    },
+    {
+      "eval": "__GO.bookmark('red_base')"
+    },
+    {
+      "wait": 5
+    },
+    {
+      "shot": "red_base.jpg"
+    },
+    {
+      "eval": "__GO.help()",
+      "as": "help"
+    },
+    {
+      "eval": "__GO.state()",
+      "as": "state"
+    }
+  ]
+}
