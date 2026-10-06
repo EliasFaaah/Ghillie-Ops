@@ -23,6 +23,33 @@ const DEFAULT_STEPS = [
 const KEYS = { Space: [' ', 32], ShiftLeft: ['Shift', 16], ControlLeft: ['Control', 17], Escape: ['Escape', 27], Tab: ['Tab', 9], Enter: ['Enter', 13] };
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+const UA = { 'User-Agent': 'GhillieOpsQA/1.0 (local game QA tool)' };
+
+async function fetchRefs(step, out) {
+  const count = step.count || 6, prefix = step.prefix || 'ref_', got = [];
+  let items = [];
+  if (step.commons) {
+    const q = new URLSearchParams({ action: 'query', format: 'json', generator: 'search', gsrnamespace: '6', gsrlimit: '50', gsrsearch: step.commons, prop: 'imageinfo', iiprop: 'url|size|mime|extmetadata', iiurlwidth: '1920' });
+    const j = await (await fetch(`https://commons.wikimedia.org/w/api.php?${q}`, { headers: UA })).json();
+    items = Object.values((j.query && j.query.pages) || {}).sort((a, b) => a.index - b.index)
+      .map(p => ({ p, i: p.imageinfo && p.imageinfo[0] }))
+      .filter(({ i }) => i && i.mime === 'image/jpeg' && i.width >= 1600 && i.width > i.height * 1.2)
+      .map(({ p, i }) => ({ url: i.thumburl || i.url, source: i.descriptionurl, title: p.title, license: i.extmetadata && i.extmetadata.LicenseShortName ? i.extmetadata.LicenseShortName.value : null }));
+  } else {
+    const j = await (await fetch(`https://store.steampowered.com/api/appdetails?appids=${step.steam}`, { headers: UA })).json();
+    const d = j[step.steam] && j[step.steam].data;
+    items = ((d && d.screenshots) || []).map(s => ({ url: s.path_full, source: `https://store.steampowered.com/app/${step.steam}`, title: `${d.name} screenshot ${s.id}`, license: 'store screenshot' }));
+  }
+  for (const it of items) {
+    if (got.length >= count) break;
+    const r = await fetch(it.url, { headers: UA }).catch(() => null);
+    if (!r || !r.ok) continue;
+    const file = `${prefix}${got.length + 1}.jpg`;
+    writeFileSync(join(out, file), Buffer.from(await r.arrayBuffer()));
+    got.push({ file, ...it });
+  }
+  return got;
+}
 
 function parseArgs(argv) {
   const a = { url: '/?autostart=1', out: null, size: '3840x1080', steps: null, timeout: 300, serve: true, flags: [], gpuCost: false, allowHosts: [] };
@@ -293,6 +320,11 @@ async function main() {
           const gpuValid = gpuState.available && gpuState.fullClockShare >= FULL_SHARE;
           report.stats[step.stats] = { seconds, frames, cpu: summarize(s.cpu), gpu: summarize(s.gpu.filter(x => x !== null)), interval: summarize(s.dt), mainThreadMsPerFrame: frames ? Math.round((task1 - task0) * 1e6 / frames) / 1000 : null, gpuCoverage: coverage, gpuValid, gpuState };
           if (report.gpu.timerQuery && coverage < MIN_GPU_COVERAGE) report.problems.push(`stats ${step.stats}: GPU timer covered ${Math.round(coverage * 100)}% of frames, expected at least ${MIN_GPU_COVERAGE * 100}%`);
+        } else if (step.commons || step.steam) {
+          const got = await fetchRefs(step, out);
+          (report.results.refs ||= []).push(...got);
+          rec.value = got.length;
+          if (!got.length) throw new Error(`no reference images for ${step.commons || step.steam}`);
         } else if (step.key) {
           const [key, code] = KEYS[step.key] || (/^Key[A-Z]$/.test(step.key) ? [step.key[3].toLowerCase(), step.key.charCodeAt(3)] : /^Digit\d$/.test(step.key) ? [step.key[5], step.key.charCodeAt(5)] : [step.key, 0]);
           await cdp.send('Input.dispatchKeyEvent', { type: 'keyDown', code: step.key, key, windowsVirtualKeyCode: code });

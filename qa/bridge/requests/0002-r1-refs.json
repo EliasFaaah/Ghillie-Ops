@@ -1,0 +1,160 @@
+{
+  "note": "gauntlet round 1 extra shots (forest, golden hour), perf in forest, reference images, selftest",
+  "files": {
+    "qa.mjs": "tools/qa.mjs"
+  },
+  "size": "1920x1080",
+  "url": "/?autostart=1",
+  "timeout": 1200,
+  "steps": [
+    {
+      "until": "window.__GO && __GO.state().boot.ready",
+      "timeout": 180
+    },
+    {
+      "eval": "__GO.setTime(10)"
+    },
+    {
+      "eval": "__GO.teleport(-435, 89.75, -285, -1.401, -0.05)"
+    },
+    {
+      "wait": 6
+    },
+    {
+      "shot": "forest_1.jpg"
+    },
+    {
+      "eval": "__GO.teleport(-225, 52.3, 195, 2.63, -0.05)"
+    },
+    {
+      "wait": 6
+    },
+    {
+      "shot": "forest_2.jpg"
+    },
+    {
+      "eval": "__GO.teleport(-615, 80.54, 735, -3.025, -0.05)"
+    },
+    {
+      "wait": 6
+    },
+    {
+      "shot": "forest_3.jpg"
+    },
+    {
+      "eval": "__GO.teleport(663.2, 30.67, 108.2, 0.785, 0.02)"
+    },
+    {
+      "wait": 6
+    },
+    {
+      "shot": "forest_edge.jpg"
+    },
+    {
+      "eval": "__GO.teleport(-435, 89.75, -285, -1.401, -0.05)"
+    },
+    {
+      "wait": 3
+    },
+    {
+      "stats": "forest",
+      "seconds": 6
+    },
+    {
+      "eval": "__GO.setTime(18)"
+    },
+    {
+      "eval": "__GO.bookmark('overview')"
+    },
+    {
+      "wait": 6
+    },
+    {
+      "shot": "overview_18h.jpg"
+    },
+    {
+      "eval": "__GO.setTime(8)"
+    },
+    {
+      "eval": "__GO.bookmark('village')"
+    },
+    {
+      "wait": 6
+    },
+    {
+      "shot": "village_08h.jpg"
+    },
+    {
+      "eval": "__GO.setTime(10)"
+    },
+    {
+      "commons": "filetype:bitmap mixed forest interior summer Germany",
+      "count": 5,
+      "prefix": "wald_photo_"
+    },
+    {
+      "commons": "filetype:bitmap forest edge meadow summer Germany",
+      "count": 5,
+      "prefix": "waldrand_photo_"
+    },
+    {
+      "commons": "filetype:bitmap meadow tall grass summer Germany",
+      "count": 5,
+      "prefix": "gras_photo_"
+    },
+    {
+      "commons": "filetype:bitmap hilly landscape forest fields Germany summer panorama",
+      "count": 5,
+      "prefix": "landschaft_photo_"
+    },
+    {
+      "commons": "filetype:bitmap quarry Germany",
+      "count": 5,
+      "prefix": "steinbruch_photo_"
+    },
+    {
+      "commons": "filetype:bitmap stone bridge stream Germany",
+      "count": 5,
+      "prefix": "wasser_photo_"
+    },
+    {
+      "commons": "filetype:bitmap village street Bavaria summer",
+      "count": 5,
+      "prefix": "dorf_photo_"
+    },
+    {
+      "steam": 1874880,
+      "count": 6,
+      "prefix": "aaa_arma_"
+    },
+    {
+      "steam": 221100,
+      "count": 6,
+      "prefix": "aaa_dayz_"
+    },
+    {
+      "steam": 686810,
+      "count": 6,
+      "prefix": "aaa_hll_"
+    },
+    {
+      "steam": 393380,
+      "count": 6,
+      "prefix": "aaa_squad_"
+    },
+    {
+      "steam": 1938090,
+      "count": 6,
+      "prefix": "aaa_cod_"
+    },
+    {
+      "steam": 2507950,
+      "count": 6,
+      "prefix": "aaa_deltaforce_"
+    },
+    {
+      "eval": "__GO.selftest()",
+      "as": "selftest"
+    }
+  ]
+}
