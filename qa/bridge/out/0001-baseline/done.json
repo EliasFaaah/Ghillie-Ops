@@ -1,0 +1,8 @@
+{
+  "id": "0001-baseline",
+  "started": "2026-10-07T04:52:23.496Z",
+  "errors": [],
+  "qaExit": 1,
+  "qaLog": "qa: PROBLEMS http://localhost:8790/?autostart=1\ngpu: ANGLE (NVIDIA, NVIDIA GeForce RTX 4080 (0x00002704) Direct3D11 vs_5_0 ps_5_0, D3D11) | timer query: true\nconsole error: [veg/foliage] src/veg/foliage.js:416 - OakA: trunk ends 1.62 m above the ground, rebuild the tree assets with build_all.py /src/core/selftest.js:29\nconsole error: [veg/foliage] src/veg/foliage.js:416 - OakB: trunk ends 1.95 m above the ground, rebuild the tree assets with build_all.py /src/core/selftest.js:29\nconsole error: [veg/foliage] src/veg/foliage.js:416 - OakC: trunk ends 4.67 m above the ground, rebuild the tree assets with build_all.py /src/core/selftest.js:29\nconsole error: [veg/foliage] src/veg/foliage.js:416 - Beech: trunk ends 1.48 m above the ground, rebuild the tree assets with build_all.py /src/core/selftest.js:29\nconsole error: [veg/foliage] src/veg/foliage.js:416 - FirA: trunk ends 5.56 m above the ground, rebuild the tree assets with build_all.py /src/core/selftest.js:29\nconsole error: [veg/foliage] src/veg/foliage.js:416 - FirB: trunk ends 4.64 m above the ground, rebuild the tree assets with build_all.py /src/core/selftest.js:29\nconsole error: [veg/foliage] src/veg/foliage.js:416 - FirC: trunk ends 7.70 m above the ground, rebuild the tree assets with build_all.py /src/core/selftest.js:29\nconsole error: [veg/foliage] src/veg/foliage.js:416 - Birch: trunk ends 3.85 m above the ground, rebuild the tree assets with build_all.py /src/core/selftest.js:29\n",
+  "finished": "2026-10-07T04:53:34.534Z"
+}

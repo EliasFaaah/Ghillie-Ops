@@ -1,0 +1,1434 @@
+{
+  "url": "http://localhost:8790/?autostart=1",
+  "size": "1920x1080",
+  "started": "2026-10-07T04:52:23.580Z",
+  "chrome": "Chrome/154.0.8037.98",
+  "flags": [
+    "--headless=new",
+    "--use-angle=d3d11",
+    "--enable-gpu",
+    "--ignore-gpu-blocklist",
+    "--window-size=1920,1080",
+    "--remote-debugging-port=0",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--disable-extensions",
+    "--disable-sync",
+    "--mute-audio",
+    "--disable-background-networking",
+    "--disable-background-timer-throttling",
+    "--disable-renderer-backgrounding",
+    "--disable-backgrounding-occluded-windows",
+    "about:blank"
+  ],
+  "gpuCost": false,
+  "allowedHosts": [
+    "localhost",
+    "127.0.0.1",
+    "[::1]"
+  ],
+  "gpu": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4080 (0x00002704) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "timerQuery": true,
+    "hardware": true,
+    "maxClocksMHz": {
+      "gr": 3105,
+      "mem": 11201
+    }
+  },
+  "viewport": {
+    "w": 1920,
+    "h": 1080,
+    "dpr": 1
+  },
+  "console": [
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - OakA: trunk ends 1.62 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - OakB: trunk ends 1.95 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - OakC: trunk ends 4.67 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - Beech: trunk ends 1.48 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - FirA: trunk ends 5.56 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - FirB: trunk ends 4.64 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - FirC: trunk ends 7.70 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - Birch: trunk ends 3.85 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [],
+  "foreignRequests": [],
+  "workers": [
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/98a7093d-6915-43a5-b939-3f9772615db8"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/98a7093d-6915-43a5-b939-3f9772615db8"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/98a7093d-6915-43a5-b939-3f9772615db8"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/98a7093d-6915-43a5-b939-3f9772615db8"
+    }
+  ],
+  "steps": [
+    {
+      "i": 0,
+      "step": {
+        "until": "window.__GO && __GO.state().boot.ready",
+        "timeout": 180
+      },
+      "ms": 24154
+    },
+    {
+      "i": 1,
+      "step": {
+        "eval": "__GO.setTime(10)"
+      },
+      "value": 10,
+      "ms": 138
+    },
+    {
+      "i": 2,
+      "step": {
+        "eval": "__GO.bookmark('overview')"
+      },
+      "value": {
+        "eye": [
+          -700,
+          158.74158477783203,
+          -560
+        ],
+        "yaw": -2.300695984946628,
+        "pitch": -0.08467789179059301
+      },
+      "ms": 66
+    },
+    {
+      "i": 3,
+      "step": {
+        "wait": 5
+      },
+      "ms": 5010
+    },
+    {
+      "i": 4,
+      "step": {
+        "shot": "overview.jpg"
+      },
+      "ms": 183
+    },
+    {
+      "i": 5,
+      "step": {
+        "eval": "__GO.bookmark('river_bridge')"
+      },
+      "value": {
+        "eye": [
+          -66,
+          46.00340347290039,
+          -56
+        ],
+        "yaw": -3.048115872431204,
+        "pitch": -0.043735235697032686
+      },
+      "ms": 36
+    },
+    {
+      "i": 6,
+      "step": {
+        "wait": 5
+      },
+      "ms": 4999
+    },
+    {
+      "i": 7,
+      "step": {
+        "shot": "river_bridge.jpg"
+      },
+      "ms": 149
+    },
+    {
+      "i": 8,
+      "step": {
+        "eval": "__GO.bookmark('meadow_ground')"
+      },
+      "value": {
+        "eye": [
+          -330,
+          43.71213073730469,
+          70
+        ],
+        "yaw": -0.5516549825285468,
+        "pitch": 0.2147712444462839
+      },
+      "ms": 30
+    },
+    {
+      "i": 9,
+      "step": {
+        "wait": 5
+      },
+      "ms": 5011
+    },
+    {
+      "i": 10,
+      "step": {
+        "shot": "meadow_ground.jpg"
+      },
+      "ms": 116
+    },
+    {
+      "i": 11,
+      "step": {
+        "eval": "__GO.bookmark('farm')"
+      },
+      "value": {
+        "eye": [
+          -555,
+          76.44298706054687,
+          -147
+        ],
+        "yaw": 1.174714885230589,
+        "pitch": -0.017467598571438005
+      },
+      "ms": 26
+    },
+    {
+      "i": 12,
+      "step": {
+        "wait": 5
+      },
+      "ms": 5013
+    },
+    {
+      "i": 13,
+      "step": {
+        "shot": "farm.jpg"
+      },
+      "ms": 103
+    },
+    {
+      "i": 14,
+      "step": {
+        "eval": "__GO.bookmark('radio_tower')"
+      },
+      "value": {
+        "eye": [
+          516,
+          135.38259582519532,
+          -150
+        ],
+        "yaw": 1.1606689862534056,
+        "pitch": 0.5031470674108659
+      },
+      "ms": 28
+    },
+    {
+      "i": 15,
+      "step": {
+        "wait": 5
+      },
+      "ms": 5004
+    },
+    {
+      "i": 16,
+      "step": {
+        "shot": "radio_tower.jpg"
+      },
+      "ms": 95
+    },
+    {
+      "i": 17,
+      "step": {
+        "eval": "__GO.bookmark('village')"
+      },
+      "value": {
+        "eye": [
+          16,
+          79.49097595214843,
+          215
+        ],
+        "yaw": 2.761086276477428,
+        "pitch": 0.03911188066960242
+      },
+      "ms": 27
+    },
+    {
+      "i": 18,
+      "step": {
+        "wait": 5
+      },
+      "ms": 5007
+    },
+    {
+      "i": 19,
+      "step": {
+        "shot": "village.jpg"
+      },
+      "ms": 109
+    },
+    {
+      "i": 20,
+      "step": {
+        "eval": "__GO.bookmark('quarry')"
+      },
+      "value": {
+        "eye": [
+          620,
+          164.24032592773438,
+          430
+        ],
+        "yaw": -2.356194490192345,
+        "pitch": -0.41674614240162955
+      },
+      "ms": 33
+    },
+    {
+      "i": 21,
+      "step": {
+        "wait": 5
+      },
+      "ms": 5013
+    },
+    {
+      "i": 22,
+      "step": {
+        "shot": "quarry.jpg"
+      },
+      "ms": 134
+    },
+    {
+      "i": 23,
+      "step": {
+        "eval": "__GO.bookmark('red_base')"
+      },
+      "value": {
+        "eye": [
+          -120,
+          45.02955551147461,
+          -690
+        ],
+        "yaw": 0.5191461142465229,
+        "pitch": 0.05256679488461242
+      },
+      "ms": 30
+    },
+    {
+      "i": 24,
+      "step": {
+        "wait": 5
+      },
+      "ms": 5009
+    },
+    {
+      "i": 25,
+      "step": {
+        "shot": "red_base.jpg"
+      },
+      "ms": 110
+    },
+    {
+      "i": 26,
+      "step": {
+        "eval": "__GO.help()",
+        "as": "help"
+      },
+      "value": {
+        "state": "state() -> read-only snapshot of every module",
+        "help": "help() -> this list",
+        "pause": "pause(true|false) -> pause or resume the simulation without pointer lock",
+        "step": "step(n) -> run n fixed 60 Hz ticks immediately",
+        "setScale": "setScale(0.25..2) -> change the render scale",
+        "setPreset": "setPreset(medium|high|ultra) -> switch the graphics preset at runtime",
+        "perfReset": "perfReset() -> start a new frame-time measurement window",
+        "perfSamples": "perfSamples() -> per-frame cpu/gpu/interval ms since perfReset",
+        "perf": "perf() -> p50/p95/p99/histogram since perfReset",
+        "selftest": "selftest() -> run every registered check, resolves to the result",
+        "loadModel": "loadModel(name) -> load /models/<name>.glb through the game loader",
+        "teleport": "teleport(x, y, z, yaw?, pitch?) -> move the world camera",
+        "bookmark": "bookmark(name|index) -> fly camera to a map bookmark",
+        "mode": "mode(fly|walk) -> free-fly or ground-following walk camera",
+        "setTime": "setTime(hours 5..19) -> move the sun, rebuild sky lighting and fog",
+        "foliage": "foliage({ leafPx, r1Px, branchPx, shadowTexels, full }) -> tune or force full detail of the foliage LOD",
+        "flatten": "flatten(x, z, radius) -> flatten grass like a grenade blast"
+      },
+      "ms": 11
+    },
+    {
+      "i": 27,
+      "step": {
+        "eval": "__GO.state()",
+        "as": "state"
+      },
+      "value": {
+        "boot": {
+          "ready": true,
+          "view": "world",
+          "seed": 2303906349,
+          "error": null,
+          "contextLost": false,
+          "flags": {
+            "mode": null,
+            "autostart": true,
+            "bench": false,
+            "seed": null,
+            "netsim": null,
+            "selftest": false,
+            "view": null,
+            "preset": "high",
+            "scale": 1,
+            "errors": []
+          }
+        },
+        "loop": {
+          "tick": 2308,
+          "frame": 2358,
+          "simTime": 38.46666666666667,
+          "alpha": 0.35200000000008386,
+          "paused": false,
+          "lastTicks": 1
+        },
+        "render": {
+          "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4080 (0x00002704) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "width": 1920,
+          "height": 1080,
+          "scale": 1,
+          "preset": "high",
+          "drawingBuffer": [
+            1920,
+            1080
+          ],
+          "calls": 437,
+          "triangles": 35310349,
+          "geometries": 1181,
+          "textures": 337,
+          "programs": 75
+        },
+        "input": {
+          "locked": false,
+          "raw": false,
+          "lockError": null,
+          "held": [],
+          "lookX": 0,
+          "lookY": 0,
+          "moveEvent": "pointerrawupdate",
+          "bindings": [
+            [
+              "Move forward",
+              [
+                "W"
+              ]
+            ],
+            [
+              "Move back",
+              [
+                "S"
+              ]
+            ],
+            [
+              "Strafe left",
+              [
+                "A"
+              ]
+            ],
+            [
+              "Strafe right",
+              [
+                "D"
+              ]
+            ],
+            [
+              "Sprint",
+              [
+                "Shift"
+              ]
+            ],
+            [
+              "Jump",
+              [
+                "Space"
+              ]
+            ],
+            [
+              "Crouch (toggle)",
+              [
+                "C"
+              ]
+            ],
+            [
+              "Prone (toggle)",
+              [
+                "Z"
+              ]
+            ],
+            [
+              "Fire",
+              [
+                "Left mouse"
+              ]
+            ],
+            [
+              "Aim down sights",
+              [
+                "Right mouse"
+              ]
+            ],
+            [
+              "Reload",
+              [
+                "R"
+              ]
+            ],
+            [
+              "Assault rifle",
+              [
+                "1"
+              ]
+            ],
+            [
+              "Handgun",
+              [
+                "2"
+              ]
+            ],
+            [
+              "Bandage",
+              [
+                "3"
+              ]
+            ],
+            [
+              "Grenade (hold to cook)",
+              [
+                "4"
+              ]
+            ],
+            [
+              "Next weapon",
+              [
+                "Wheel down"
+              ]
+            ],
+            [
+              "Previous weapon",
+              [
+                "Wheel up"
+              ]
+            ],
+            [
+              "Scoreboard",
+              [
+                "Tab"
+              ]
+            ],
+            [
+              "Pause menu",
+              [
+                "Esc"
+              ]
+            ]
+          ]
+        },
+        "assets": {
+          "fraction": 1,
+          "pending": 0,
+          "placeholders": [],
+          "errors": 0
+        },
+        "perf": {
+          "gpuTimer": true
+        },
+        "selftest": {
+          "running": false,
+          "done": false,
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "failures": []
+        },
+        "view": {
+          "name": "world",
+          "mode": "fly",
+          "time": 10,
+          "camera": {
+            "x": -120,
+            "y": 45.02955551147461,
+            "z": -690,
+            "yaw": 0.5191461142465229,
+            "pitch": 0.05256679488461242,
+            "ground": 41.82955551147461
+          },
+          "bookmarks": [
+            "overview",
+            "river_bridge",
+            "meadow_ground",
+            "farm",
+            "radio_tower",
+            "village",
+            "quarry",
+            "red_base"
+          ],
+          "trees": {
+            "BushA": [
+              7,
+              15,
+              16042
+            ],
+            "Fern": [
+              0
+            ]
+          },
+          "foliage": {
+            "OakA": {
+              "main": {
+                "r0": 0,
+                "r1": 23332,
+                "branch": 59275,
+                "trees": 0
+              },
+              "cascades": [
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 7612,
+                  "branch": 6354,
+                  "trees": 0
+                }
+              ]
+            },
+            "OakB": {
+              "main": {
+                "r0": 0,
+                "r1": 22840,
+                "branch": 50072,
+                "trees": 0
+              },
+              "cascades": [
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 5384,
+                  "branch": 3532,
+                  "trees": 0
+                }
+              ]
+            },
+            "OakC": {
+              "main": {
+                "r0": 0,
+                "r1": 31742,
+                "branch": 41122,
+                "trees": 0
+              },
+              "cascades": [
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 9072,
+                  "branch": 2884,
+                  "trees": 0
+                }
+              ]
+            },
+            "Beech": {
+              "main": {
+                "r0": 0,
+                "r1": 103370,
+                "branch": 291593,
+                "trees": 0
+              },
+              "cascades": [
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 39750,
+                  "branch": 28528,
+                  "trees": 0
+                }
+              ]
+            },
+            "FirA": {
+              "main": {
+                "r0": 0,
+                "r1": 827592,
+                "branch": 489796,
+                "trees": 0
+              },
+              "cascades": [
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 6078,
+                  "branch": 4326,
+                  "trees": 0
+                }
+              ]
+            },
+            "FirB": {
+              "main": {
+                "r0": 0,
+                "r1": 429044,
+                "branch": 334590,
+                "trees": 0
+              },
+              "cascades": [
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 4372,
+                  "branch": 2054,
+                  "trees": 0
+                }
+              ]
+            },
+            "FirC": {
+              "main": {
+                "r0": 0,
+                "r1": 92682,
+                "branch": 286611,
+                "trees": 0
+              },
+              "cascades": [
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 1064,
+                  "branch": 3360,
+                  "trees": 0
+                }
+              ]
+            },
+            "Birch": {
+              "main": {
+                "r0": 0,
+                "r1": 31888,
+                "branch": 101454,
+                "trees": 0
+              },
+              "cascades": [
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 0,
+                  "branch": 0,
+                  "trees": 0
+                },
+                {
+                  "r0": 0,
+                  "r1": 8008,
+                  "branch": 6505,
+                  "trees": 0
+                }
+              ]
+            }
+          },
+          "collisionTriangles": 2377015,
+          "navOpen": 0.8339004516601562,
+          "draw": {
+            "propCells": 411
+          }
+        }
+      },
+      "ms": 9
+    }
+  ],
+  "results": {
+    "help": {
+      "state": "state() -> read-only snapshot of every module",
+      "help": "help() -> this list",
+      "pause": "pause(true|false) -> pause or resume the simulation without pointer lock",
+      "step": "step(n) -> run n fixed 60 Hz ticks immediately",
+      "setScale": "setScale(0.25..2) -> change the render scale",
+      "setPreset": "setPreset(medium|high|ultra) -> switch the graphics preset at runtime",
+      "perfReset": "perfReset() -> start a new frame-time measurement window",
+      "perfSamples": "perfSamples() -> per-frame cpu/gpu/interval ms since perfReset",
+      "perf": "perf() -> p50/p95/p99/histogram since perfReset",
+      "selftest": "selftest() -> run every registered check, resolves to the result",
+      "loadModel": "loadModel(name) -> load /models/<name>.glb through the game loader",
+      "teleport": "teleport(x, y, z, yaw?, pitch?) -> move the world camera",
+      "bookmark": "bookmark(name|index) -> fly camera to a map bookmark",
+      "mode": "mode(fly|walk) -> free-fly or ground-following walk camera",
+      "setTime": "setTime(hours 5..19) -> move the sun, rebuild sky lighting and fog",
+      "foliage": "foliage({ leafPx, r1Px, branchPx, shadowTexels, full }) -> tune or force full detail of the foliage LOD",
+      "flatten": "flatten(x, z, radius) -> flatten grass like a grenade blast"
+    },
+    "state": {
+      "boot": {
+        "ready": true,
+        "view": "world",
+        "seed": 2303906349,
+        "error": null,
+        "contextLost": false,
+        "flags": {
+          "mode": null,
+          "autostart": true,
+          "bench": false,
+          "seed": null,
+          "netsim": null,
+          "selftest": false,
+          "view": null,
+          "preset": "high",
+          "scale": 1,
+          "errors": []
+        }
+      },
+      "loop": {
+        "tick": 2308,
+        "frame": 2358,
+        "simTime": 38.46666666666667,
+        "alpha": 0.35200000000008386,
+        "paused": false,
+        "lastTicks": 1
+      },
+      "render": {
+        "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4080 (0x00002704) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "width": 1920,
+        "height": 1080,
+        "scale": 1,
+        "preset": "high",
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "calls": 437,
+        "triangles": 35310349,
+        "geometries": 1181,
+        "textures": 337,
+        "programs": 75
+      },
+      "input": {
+        "locked": false,
+        "raw": false,
+        "lockError": null,
+        "held": [],
+        "lookX": 0,
+        "lookY": 0,
+        "moveEvent": "pointerrawupdate",
+        "bindings": [
+          [
+            "Move forward",
+            [
+              "W"
+            ]
+          ],
+          [
+            "Move back",
+            [
+              "S"
+            ]
+          ],
+          [
+            "Strafe left",
+            [
+              "A"
+            ]
+          ],
+          [
+            "Strafe right",
+            [
+              "D"
+            ]
+          ],
+          [
+            "Sprint",
+            [
+              "Shift"
+            ]
+          ],
+          [
+            "Jump",
+            [
+              "Space"
+            ]
+          ],
+          [
+            "Crouch (toggle)",
+            [
+              "C"
+            ]
+          ],
+          [
+            "Prone (toggle)",
+            [
+              "Z"
+            ]
+          ],
+          [
+            "Fire",
+            [
+              "Left mouse"
+            ]
+          ],
+          [
+            "Aim down sights",
+            [
+              "Right mouse"
+            ]
+          ],
+          [
+            "Reload",
+            [
+              "R"
+            ]
+          ],
+          [
+            "Assault rifle",
+            [
+              "1"
+            ]
+          ],
+          [
+            "Handgun",
+            [
+              "2"
+            ]
+          ],
+          [
+            "Bandage",
+            [
+              "3"
+            ]
+          ],
+          [
+            "Grenade (hold to cook)",
+            [
+              "4"
+            ]
+          ],
+          [
+            "Next weapon",
+            [
+              "Wheel down"
+            ]
+          ],
+          [
+            "Previous weapon",
+            [
+              "Wheel up"
+            ]
+          ],
+          [
+            "Scoreboard",
+            [
+              "Tab"
+            ]
+          ],
+          [
+            "Pause menu",
+            [
+              "Esc"
+            ]
+          ]
+        ]
+      },
+      "assets": {
+        "fraction": 1,
+        "pending": 0,
+        "placeholders": [],
+        "errors": 0
+      },
+      "perf": {
+        "gpuTimer": true
+      },
+      "selftest": {
+        "running": false,
+        "done": false,
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "failures": []
+      },
+      "view": {
+        "name": "world",
+        "mode": "fly",
+        "time": 10,
+        "camera": {
+          "x": -120,
+          "y": 45.02955551147461,
+          "z": -690,
+          "yaw": 0.5191461142465229,
+          "pitch": 0.05256679488461242,
+          "ground": 41.82955551147461
+        },
+        "bookmarks": [
+          "overview",
+          "river_bridge",
+          "meadow_ground",
+          "farm",
+          "radio_tower",
+          "village",
+          "quarry",
+          "red_base"
+        ],
+        "trees": {
+          "BushA": [
+            7,
+            15,
+            16042
+          ],
+          "Fern": [
+            0
+          ]
+        },
+        "foliage": {
+          "OakA": {
+            "main": {
+              "r0": 0,
+              "r1": 23332,
+              "branch": 59275,
+              "trees": 0
+            },
+            "cascades": [
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 7612,
+                "branch": 6354,
+                "trees": 0
+              }
+            ]
+          },
+          "OakB": {
+            "main": {
+              "r0": 0,
+              "r1": 22840,
+              "branch": 50072,
+              "trees": 0
+            },
+            "cascades": [
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 5384,
+                "branch": 3532,
+                "trees": 0
+              }
+            ]
+          },
+          "OakC": {
+            "main": {
+              "r0": 0,
+              "r1": 31742,
+              "branch": 41122,
+              "trees": 0
+            },
+            "cascades": [
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 9072,
+                "branch": 2884,
+                "trees": 0
+              }
+            ]
+          },
+          "Beech": {
+            "main": {
+              "r0": 0,
+              "r1": 103370,
+              "branch": 291593,
+              "trees": 0
+            },
+            "cascades": [
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 39750,
+                "branch": 28528,
+                "trees": 0
+              }
+            ]
+          },
+          "FirA": {
+            "main": {
+              "r0": 0,
+              "r1": 827592,
+              "branch": 489796,
+              "trees": 0
+            },
+            "cascades": [
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 6078,
+                "branch": 4326,
+                "trees": 0
+              }
+            ]
+          },
+          "FirB": {
+            "main": {
+              "r0": 0,
+              "r1": 429044,
+              "branch": 334590,
+              "trees": 0
+            },
+            "cascades": [
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 4372,
+                "branch": 2054,
+                "trees": 0
+              }
+            ]
+          },
+          "FirC": {
+            "main": {
+              "r0": 0,
+              "r1": 92682,
+              "branch": 286611,
+              "trees": 0
+            },
+            "cascades": [
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 1064,
+                "branch": 3360,
+                "trees": 0
+              }
+            ]
+          },
+          "Birch": {
+            "main": {
+              "r0": 0,
+              "r1": 31888,
+              "branch": 101454,
+              "trees": 0
+            },
+            "cascades": [
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 0,
+                "branch": 0,
+                "trees": 0
+              },
+              {
+                "r0": 0,
+                "r1": 8008,
+                "branch": 6505,
+                "trees": 0
+              }
+            ]
+          }
+        },
+        "collisionTriangles": 2377015,
+        "navOpen": 0.8339004516601562,
+        "draw": {
+          "propCells": 411
+        }
+      }
+    }
+  },
+  "stats": {},
+  "shots": [
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0001-baseline\\overview.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0001-baseline\\river_bridge.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0001-baseline\\meadow_ground.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0001-baseline\\farm.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0001-baseline\\radio_tower.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0001-baseline\\village.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0001-baseline\\quarry.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0001-baseline\\red_base.jpg"
+  ],
+  "problems": [],
+  "ok": false,
+  "finished": "2026-10-07T04:53:34.527Z"
+}
