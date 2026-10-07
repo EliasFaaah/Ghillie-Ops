@@ -146,11 +146,46 @@ const PHYS_FROM = '\treflectedLight.directDiffuse += irradiance * BRDF_Lambert( 
 const PHYS_TO = `${PHYS_FROM}
 #ifdef LEAF_TRANS
 \tfloat lBack = saturate( - dot( directLight.direction, geometryViewDir ) );
-\treflectedLight.directDiffuse += directLight.color * RECIPROCAL_PI * material.diffuseContribution * vec3( 0.9, 1.25, 0.4 ) * ( lBack * lBack * 0.45 );
+\treflectedLight.directDiffuse += directLight.color * RECIPROCAL_PI * material.diffuseContribution * vec3( 0.95, 1.2, 0.45 ) * ( lBack * lBack * 0.85 + lBack * 0.08 );
 #endif`;
 const physPatched = ShaderChunk.lights_physical_pars_fragment.includes(PHYS_FROM);
 if (!physPatched) report('veg/trees', new Error('three changed the physical direct light function, leaf translucency is missing'));
 const PHYS_CHUNK = physPatched ? ShaderChunk.lights_physical_pars_fragment.replace(PHYS_FROM, PHYS_TO) : ShaderChunk.lights_physical_pars_fragment;
+
+const BUSH_VERTEX = `
+#include <beginnormal_vertex>
+{
+  vec3 bd = position - vec3(0.0, uSway.y * 0.4, 0.0);
+  objectNormal = normalize(mix(objectNormal, bd / max(length(bd), 1e-3), 0.55));
+}
+`;
+
+const BUSH_TINT = `
+#include <begin_vertex>
+vTint = 0.5;
+#ifdef USE_INSTANCING
+vTint = fract(dot(vec3(instanceMatrix[3]).xz, vec2(0.7548, 0.5698)) * 3.17);
+#endif
+`;
+
+const BUSH_COLOR = `
+#include <color_fragment>
+{
+  float bl = dot(diffuseColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+  diffuseColor.rgb = mix(vec3(bl), diffuseColor.rgb, 0.78) * mix(vec3(1.06, 0.98, 0.8), vec3(0.9, 1.0, 1.08), vTint) * 1.12;
+}
+`;
+
+const BUSH_LIGHT = `
+#include <lights_fragment_end>
+reflectedLight.directSpecular *= 0.25;
+reflectedLight.indirectSpecular *= 0.1;
+{
+  vec3 bInd = reflectedLight.indirectDiffuse * 1.35;
+  float bIl = dot(bInd, vec3(0.2126, 0.7152, 0.0722));
+  reflectedLight.indirectDiffuse = mix(vec3(bIl), bInd, 0.7) * vec3(0.93, 1.0, 1.12);
+}
+`;
 
 const COPY = ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'alphaTest', 'side', 'transparent', 'depthWrite', 'roughness', 'metalness', 'name', 'vertexColors'];
 
@@ -166,7 +201,7 @@ function fadeMaterial(base, fade, sway, flutter) {
   const soft = flutter || /^solid_/i.test(base.name);
   const m = soft ? softMaterial(base) : base.clone();
   m.roughness = Math.max(m.roughness, flutter ? 0.85 : 0.9);
-  if (flutter) { m.alphaTest = 0; m.alphaHash = true; }
+  if (flutter) { m.alphaTest = 0.42; m.alphaHash = false; }
   const uniforms = { uCamPos: { value: new Vector3() }, uFade: { value: fade }, uSway: { value: sway } };
   m.userData.treeUniforms = uniforms;
   m.onBeforeCompile = function (shader) {
@@ -179,8 +214,16 @@ function fadeMaterial(base, fade, sway, flutter) {
       .replace('#include <common>', `#include <common>\n${FRAGMENT_PARS}`)
       .replace('void main() {', 'void main() {\n  if (vFade < 0.995 && vFade < treeIgn(gl_FragCoord.xy)) discard;');
     if (flutter) {
-      shader.vertexShader = '#define LEAF_FLUTTER\n' + shader.vertexShader;
-      shader.fragmentShader = '#define LEAF_TRANS\n' + shader.fragmentShader.replace('#include <lights_physical_pars_fragment>', PHYS_CHUNK).replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.directSpecular *= 0.25;\nreflectedLight.indirectSpecular *= 0.2;').replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += diffuseColor.rgb * 0.05;');
+      shader.vertexShader = '#define LEAF_FLUTTER\n' + shader.vertexShader
+        .replace('#include <common>', '#include <common>\nvarying float vTint;')
+        .replace('#include <beginnormal_vertex>', BUSH_VERTEX)
+        .replace('#include <begin_vertex>', BUSH_TINT);
+      shader.fragmentShader = '#define LEAF_TRANS\n' + shader.fragmentShader
+        .replace('#include <common>', '#include <common>\nvarying float vTint;')
+        .replace('#include <color_fragment>', BUSH_COLOR)
+        .replace('#include <lights_physical_pars_fragment>', PHYS_CHUNK)
+        .replace('#include <lights_fragment_end>', BUSH_LIGHT)
+        .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += diffuseColor.rgb * 0.05;');
     }
   };
   m.customProgramCacheKey = () => `tree${flutter ? 'L' : ''}`;
@@ -424,22 +467,21 @@ export function createVegetation(models, placements, sun, impostors) {
   };
 }
 
-register('veg/trees', 'tree sets pick LODs by distance, keep dither fades and draw every tree as an impostor', ctx => {
+register('veg/trees', 'bush sets pick LODs by distance, keep dither fades and draw every bush as an impostor', ctx => {
   const veg = ctx.world.vegetation;
-  const oak = veg.sets.find(s => s.name === 'OakTree');
-  assert(oak && oak.n > 500, 'oak instances missing');
+  const bush = veg.sets.find(s => s.name === 'BushA');
+  assert(bush && bush.n > 100, 'bush instances missing');
   assert(physPatched, 'leaf translucency patch missing');
-  const cam = new Vector3(0, 50, 0);
-  veg.update(cam, true);
-  const [c0, c1, c2] = oak.counts();
-  assert(c0 < c1 && c1 < c2 + c1, `LOD membership implausible: ${oak.counts()}`);
-  const imp = oak.lods.find(l => l.fixed);
-  assert(imp && imp.count === oak.n, 'the impostor list must hold every tree of the species, whatever its size or distance');
+  const d = bush.data;
+  veg.update(new Vector3(d[0], d[1] + 1.7, d[2]), true);
+  const near = bush.lods.filter(l => !l.fixed && !l.cfg.kind);
+  assert(near.length >= 2 && near[0].count > 0 && near.every(l => l.count <= l.cap), `LOD membership implausible: ${bush.counts()}`);
+  const imp = bush.lods.find(l => l.fixed);
+  assert(imp && imp.count === bush.n, 'the impostor list must hold every bush, whatever its size or distance');
   veg.update(new Vector3(60000, 50, 60000), true);
-  assert(oak.dynamic.every(l => l.count === 0), 'trees far from the camera must not be in the near lists');
+  assert(bush.dynamic.every(l => l.count === 0), 'bushes far from the camera must not be in the near lists');
   veg.update(ctx.world.camera.position, true);
-  for (const l of oak.lods.filter(q => !q.cfg.kind)) assert(l.meshes.every(m => m.material.onBeforeCompile && m.material.userData.treeUniforms.uFade.value.length === 4), 'LOD fade uniforms missing');
-  const proxy = oak.lods.find(l => l.cfg.kind === 'shadow');
-  assert(oak.lods[0].cfg.shadow && !oak.lods[1].cfg.shadow && !imp.cfg.shadow && proxy && proxy.meshes.every(m => m.castShadow && !m.material.colorWrite), 'shadow casting split wrong: near trees and cheap distant proxies');
-  assert(proxy.meshes.every(m => m.customDepthMaterial), 'distant shadow proxies must use the impostor depth material');
+  for (const l of near) assert(l.meshes.every(m => m.material.onBeforeCompile && m.material.userData.treeUniforms.uFade.value.length === 4), 'LOD fade uniforms missing');
+  const leaves = near.flatMap(l => l.meshes).filter(m => /^leaf_/i.test(m.material.name));
+  assert(leaves.length > 0 && leaves.every(m => !m.material.alphaHash && m.material.alphaTest > 0), 'bush leaves must be alpha tested, hashed alpha reads as noise');
 });

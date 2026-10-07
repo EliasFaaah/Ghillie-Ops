@@ -16,6 +16,7 @@ const BRANCH_DIST = [0, 3, 6, 12, 24, 48, 96, 192, 384, 768, 1536];
 const BRANCH_FOCAL = 960 / 0.7;
 const BLEND = 0.5;
 const GAP = 0.1;
+const HAZE = { lum: 1.6, max: 0.12, k: 0.008 };
 
 const PHYS_FROM = '\treflectedLight.directDiffuse += irradiance * BRDF_Lambert( material.diffuseContribution ) * ( 1.0 - F );';
 const PHYS_TO = `${PHYS_FROM}
@@ -152,7 +153,11 @@ reflectedLight.directDiffuse *= mix(0.55, 1.0, vAO);
 
 const HAZE_FRAGMENT = `
 #ifdef USE_FOG
-gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor * vec3(0.94, 0.98, 1.06), ${HAZE.max.toFixed(3)} * (1.0 - exp(-vFogDepth * ${HAZE.k.toFixed(4)})));
+{
+  vec3 hzC = fogColor * vec3(0.94, 0.98, 1.06);
+  hzC *= min(1.0, ${HAZE.lum.toFixed(2)} / max(dot(hzC, vec3(0.2126, 0.7152, 0.0722)), 1e-4));
+  gl_FragColor.rgb = mix(gl_FragColor.rgb, hzC, ${HAZE.max.toFixed(3)} * (1.0 - exp(-vFogDepth * ${HAZE.k.toFixed(4)})));
+}
 #endif
 #include <fog_fragment>
 `;
@@ -181,7 +186,8 @@ function leafMaterial(sp, r1) {
       .replace('#include <color_fragment>', `#include <color_fragment>\n${leafColor(r1)}`)
       .replace('#include <aomap_fragment>', AO_FRAGMENT)
       .replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.directSpecular *= 0.25;\nreflectedLight.indirectSpecular *= 0.2;')
-      .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += diffuseColor.rgb * 0.04;');
+      .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += diffuseColor.rgb * 0.04;')
+      .replace('#include <fog_fragment>', HAZE_FRAGMENT);
   };
   m.customProgramCacheKey = () => `foliageLeaf${r1 ? 1 : 0}`;
   return m;
@@ -203,12 +209,19 @@ function leafDepthMaterial(sp) {
 function branchMaterial(sp, part) {
   const t = part.textures;
   const m = new MeshStandardMaterial({ map: t.diff || null, normalMap: t.nor || null, roughnessMap: t.arm || null, roughness: 1, metalness: 0, side: DoubleSide });
+  m.normalScale.multiplyScalar(1.5);
   m.onBeforeCompile = shader => {
     injectFog(shader);
     Object.assign(shader.uniforms, windUniforms, sp.uniforms);
     shader.vertexShader = shader.vertexShader
-      .replace('#include <common>', `#include <common>\n${COMMON_PARS}`)
-      .replace('#include <begin_vertex>', BRANCH_BEGIN);
+      .replace('#include <common>', `#include <common>\n${COMMON_PARS}\nvarying float vBarkH;`)
+      .replace('#include <begin_vertex>', `${BRANCH_BEGIN}\nvBarkH = uBoxC.y + uBoxH.y * position.y;`);
+    shader.fragmentShader = shader.fragmentShader
+      .replace('#include <common>', '#include <common>\nvarying float vBarkH;')
+      .replace('#include <map_fragment>', BARK_FRAGMENT)
+      .replace('#include <roughnessmap_fragment>', '#include <roughnessmap_fragment>\nroughnessFactor = max(roughnessFactor, 0.85);')
+      .replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.directSpecular *= 0.4;\nreflectedLight.indirectSpecular *= 0.25;')
+      .replace('#include <fog_fragment>', HAZE_FRAGMENT);
   };
   m.customProgramCacheKey = () => 'foliageBranch';
   return m;
