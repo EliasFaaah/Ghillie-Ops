@@ -1,0 +1,309 @@
+{
+  "url": "http://localhost:8790/?autostart=1",
+  "size": "1920x1080",
+  "started": "2026-10-07T05:50:31.879Z",
+  "chrome": "Chrome/154.0.8037.98",
+  "flags": [
+    "--headless=new",
+    "--use-angle=d3d11",
+    "--enable-gpu",
+    "--ignore-gpu-blocklist",
+    "--window-size=1920,1080",
+    "--remote-debugging-port=0",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--disable-extensions",
+    "--disable-sync",
+    "--mute-audio",
+    "--disable-background-networking",
+    "--disable-background-timer-throttling",
+    "--disable-renderer-backgrounding",
+    "--disable-backgrounding-occluded-windows",
+    "about:blank"
+  ],
+  "gpuCost": false,
+  "allowedHosts": [
+    "localhost",
+    "127.0.0.1",
+    "[::1]"
+  ],
+  "gpu": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4080 (0x00002704) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "timerQuery": true,
+    "hardware": true,
+    "maxClocksMHz": {
+      "gr": 3105,
+      "mem": 11201
+    }
+  },
+  "viewport": {
+    "w": 1920,
+    "h": 1080,
+    "dpr": 1
+  },
+  "console": [
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/OakA.r0.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/OakA.r1.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/OakA.b.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/OakB.r0.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/OakB.r1.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/OakB.b.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/OakC.r0.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/OakC.r1.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/OakC.b.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/Beech.r0.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/Beech.r1.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/Beech.b.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/FirA.r0.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/FirA.r1.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/FirA.b.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/FirB.r0.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/FirB.r1.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/FirB.b.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/FirC.r0.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/FirC.r1.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/FirC.b.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/Birch.r0.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/Birch.r1.bin"
+    },
+    {
+      "level": "error",
+      "text": "[network] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "where": "http://localhost:8790/assets/trees/Birch.b.bin"
+    },
+    {
+      "level": "error",
+      "text": "[boot] src/veg/foliage.js:253 - Invalid typed array length: 3710112",
+      "where": "/src/core/selftest.js:29"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [
+    {
+      "url": "http://localhost:8790/assets/trees/OakA.r0.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/OakA.r1.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/OakA.b.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/OakB.r0.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/OakB.r1.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/OakB.b.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/OakC.r0.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/OakC.r1.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/OakC.b.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/Beech.r0.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/Beech.r1.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/Beech.b.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/FirA.r0.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/FirA.r1.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/FirA.b.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/FirB.r0.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/FirB.r1.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/FirB.b.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/FirC.r0.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/FirC.r1.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/FirC.b.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/Birch.r0.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/Birch.r1.bin",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8790/assets/trees/Birch.b.bin",
+      "status": 404
+    }
+  ],
+  "foreignRequests": [],
+  "workers": [
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/b28c581f-d392-4973-a417-89a9bbf8a0b0"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/b28c581f-d392-4973-a417-89a9bbf8a0b0"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/b28c581f-d392-4973-a417-89a9bbf8a0b0"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/b28c581f-d392-4973-a417-89a9bbf8a0b0"
+    }
+  ],
+  "steps": [
+    {
+      "i": 0,
+      "step": {
+        "until": "window.__GO && __GO.state().boot.ready",
+        "timeout": 180
+      },
+      "error": "boot failed: Invalid typed array length: 3710112",
+      "ms": 4629
+    }
+  ],
+  "results": {},
+  "stats": {},
+  "shots": [],
+  "problems": [
+    "step 0 {\"until\":\"window.__GO && __GO.state().boot.ready\",\"timeout\":180}: boot failed: Invalid typed array length: 3710112"
+  ],
+  "ok": false,
+  "finished": "2026-10-07T05:50:38.845Z"
+}

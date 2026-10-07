@@ -1,0 +1,195 @@
+[
+  {
+    "until": "window.__GO && __GO.state().boot.ready",
+    "timeout": 180
+  },
+  {
+    "eval": "__GO.setTime(10)"
+  },
+  {
+    "eval": "__GO.bookmark('overview')"
+  },
+  {
+    "wait": 5
+  },
+  {
+    "shot": "overview.jpg"
+  },
+  {
+    "eval": "__GO.bookmark('river_bridge')"
+  },
+  {
+    "wait": 5
+  },
+  {
+    "shot": "river_bridge.jpg"
+  },
+  {
+    "eval": "__GO.bookmark('meadow_ground')"
+  },
+  {
+    "wait": 5
+  },
+  {
+    "shot": "meadow_ground.jpg"
+  },
+  {
+    "eval": "__GO.bookmark('farm')"
+  },
+  {
+    "wait": 5
+  },
+  {
+    "shot": "farm.jpg"
+  },
+  {
+    "eval": "__GO.bookmark('radio_tower')"
+  },
+  {
+    "wait": 5
+  },
+  {
+    "shot": "radio_tower.jpg"
+  },
+  {
+    "eval": "__GO.bookmark('village')"
+  },
+  {
+    "wait": 5
+  },
+  {
+    "shot": "village.jpg"
+  },
+  {
+    "eval": "__GO.bookmark('quarry')"
+  },
+  {
+    "wait": 5
+  },
+  {
+    "shot": "quarry.jpg"
+  },
+  {
+    "eval": "__GO.bookmark('red_base')"
+  },
+  {
+    "wait": 5
+  },
+  {
+    "shot": "red_base.jpg"
+  },
+  {
+    "eval": "__GO.teleport(-435, 89.75, -285, -1.401, -0.05)"
+  },
+  {
+    "wait": 6
+  },
+  {
+    "shot": "forest_1.jpg"
+  },
+  {
+    "eval": "__GO.teleport(-225, 52.3, 195, 2.63, -0.05)"
+  },
+  {
+    "wait": 6
+  },
+  {
+    "shot": "forest_2.jpg"
+  },
+  {
+    "eval": "__GO.teleport(-615, 80.54, 735, -3.025, -0.05)"
+  },
+  {
+    "wait": 6
+  },
+  {
+    "shot": "forest_3.jpg"
+  },
+  {
+    "eval": "__GO.teleport(-657.9, 73.18, -180.5, 1.309, 0.02)"
+  },
+  {
+    "wait": 6
+  },
+  {
+    "shot": "forest_edge_1.jpg"
+  },
+  {
+    "eval": "__GO.teleport(95.3, 74.64, -242.5, 1.309, 0.02)"
+  },
+  {
+    "wait": 6
+  },
+  {
+    "shot": "forest_edge_2.jpg"
+  },
+  {
+    "eval": "__GO.teleport(810.2, 105.22, -211.7, 0.262, 0.02)"
+  },
+  {
+    "wait": 6
+  },
+  {
+    "shot": "forest_edge_3.jpg"
+  },
+  {
+    "eval": "__GO.teleport(-435, 89.75, -285, -1.401, -0.05)"
+  },
+  {
+    "wait": 3
+  },
+  {
+    "stats": "forest",
+    "seconds": 6
+  },
+  {
+    "eval": "__GO.bookmark('meadow_ground')"
+  },
+  {
+    "wait": 3
+  },
+  {
+    "stats": "meadow",
+    "seconds": 6
+  },
+  {
+    "eval": "__GO.bookmark('overview')"
+  },
+  {
+    "eval": "__GO.setTime(17)"
+  },
+  {
+    "wait": 8
+  },
+  {
+    "shot": "overview_17h.jpg"
+  },
+  {
+    "eval": "__GO.setTime(18)"
+  },
+  {
+    "wait": 8
+  },
+  {
+    "shot": "overview_18h.jpg"
+  },
+  {
+    "eval": "__GO.setTime(8)"
+  },
+  {
+    "eval": "__GO.bookmark('village')"
+  },
+  {
+    "wait": 8
+  },
+  {
+    "shot": "village_08h.jpg"
+  },
+  {
+    "eval": "__GO.setTime(10)"
+  },
+  {
+    "eval": "__GO.selftest()",
+    "as": "selftest"
+  }
+]
