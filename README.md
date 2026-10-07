@@ -1,45 +1,25 @@
-# Basis Universal GPU Texture Compression
+# Ghillie Ops
 
-Basis Universal is a "[supercompressed](http://gamma.cs.unc.edu/GST/gst.pdf)"
-GPU texture and texture video compression system that outputs a highly
-compressed intermediate file format (.basis) that can be quickly transcoded to
-a wide variety of GPU texture compression formats.
+First-person shooter in three.js: a 2 km hilly green map, 100 bots, ghillie suits, modes Normal, Team and Conquer, multiplayer over PeerJS.
 
-[GitHub](https://github.com/BinomialLLC/basis_universal)
+## Start
 
-## Transcoders
+Requires Node 24 and Chrome on Windows.
 
-Basis Universal texture data may be used in two different file formats:
-`.basis` and `.ktx2`, where `ktx2` is a standardized wrapper around basis texture data.
+1. Double-click `Start.bat`.
+2. Chrome opens http://localhost:8790.
 
-For further documentation about the Basis compressor and transcoder, refer to
-the [Basis GitHub repository](https://github.com/BinomialLLC/basis_universal).
+`server.js` has no dependencies. It serves the game, and serves models from `../Models/GhillieOps` if that folder exists, otherwise from `models/`.
 
-The folder contains two files required for transcoding `.basis` or `.ktx2` textures:
+## Project files
 
-* `basis_transcoder.js` — JavaScript wrapper for the WebAssembly transcoder.
-* `basis_transcoder.wasm` — WebAssembly transcoder.
+- `SPEC.md`: binding specification, quality bar and criteria.
+- `ARCHITECTURE.md`: modules, contracts and QA workflow.
+- `PROGRESS.md`: build status per stage.
+- `CREDITS.txt`: external assets and their licenses.
+- `tools/qa.mjs`: headless QA runner.
+- `tools/blender/`: Blender scripts used to build the models.
 
-Both are dependencies of `KTX2Loader`:
+## Status
 
-```js
-const ktx2Loader = new KTX2Loader();
-ktx2Loader.detectSupport( renderer );
-ktx2Loader.load( 'diffuse.ktx2', function ( texture ) {
-
-	const material = new THREE.MeshStandardMaterial( { map: texture } );
-
-}, function () {
-
-	console.log( 'onProgress' );
-
-}, function ( e ) {
-
-	console.error( e );
-
-} );
-```
-
-## License
-
-[Apache License 2.0](https://github.com/BinomialLLC/basis_universal/blob/master/LICENSE)
+Work in progress. The current stage is in `PROGRESS.md`.

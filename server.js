@@ -1,10 +1,11 @@
 import { createServer } from 'node:http';
-import { createReadStream, statSync } from 'node:fs';
+import { createReadStream, statSync, existsSync } from 'node:fs';
 import { resolve, extname, sep } from 'node:path';
 
 const PORT = Number(process.env.GHILLIE_PORT || 8790);
 const ROOT = resolve(import.meta.dirname);
-const MODELS = resolve(ROOT, '..', 'Models', 'GhillieOps');
+const EXTERNAL_MODELS = resolve(ROOT, '..', 'Models', 'GhillieOps');
+const MODELS = existsSync(EXTERNAL_MODELS) ? EXTERNAL_MODELS : resolve(ROOT, 'models');
 const SIGNATURE = 'ghillie-ops';
 
 const MIME = {

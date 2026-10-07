@@ -1,0 +1,47 @@
+{
+ "OakTree": {
+  "frames": 8,
+  "center": [
+   -0.006,
+   6.583,
+   -0.309
+  ],
+  "radius": 7.862
+ },
+ "BirchTree": {
+  "frames": 8,
+  "center": [
+   2.157,
+   5.5,
+   0.746
+  ],
+  "radius": 5.616
+ },
+ "BeechTree": {
+  "frames": 8,
+  "center": [
+   -0.431,
+   6.25,
+   0.04
+  ],
+  "radius": 8.373
+ },
+ "SpruceTree": {
+  "frames": 8,
+  "center": [
+   0.03,
+   9.5,
+   -0.358
+  ],
+  "radius": 9.503
+ },
+ "BushA": {
+  "frames": 8,
+  "center": [
+   0.038,
+   0.8,
+   0.107
+  ],
+  "radius": 0.87
+ }
+}

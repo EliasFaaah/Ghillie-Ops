@@ -1,0 +1,379 @@
+{
+ "carbine": {
+  "idle": {
+   "duration": 3.2,
+   "events": {}
+  },
+  "ads": {
+   "duration": 3.6,
+   "events": {}
+  },
+  "sprint": {
+   "duration": 0.72,
+   "events": {}
+  },
+  "draw": {
+   "duration": 0.5,
+   "events": {
+    "ready": 0.42
+   }
+  },
+  "holster": {
+   "duration": 0.36,
+   "events": {}
+  },
+  "fire": {
+   "duration": 0.14,
+   "events": {}
+  },
+  "reload": {
+   "duration": 2.3,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5
+   }
+  },
+  "reload_empty": {
+   "duration": 3.05,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5,
+    "charge": 2.05,
+    "release": 2.36
+   }
+  }
+ },
+ "pistol": {
+  "idle": {
+   "duration": 3.2,
+   "events": {}
+  },
+  "ads": {
+   "duration": 3.6,
+   "events": {}
+  },
+  "sprint": {
+   "duration": 0.72,
+   "events": {}
+  },
+  "draw": {
+   "duration": 0.5,
+   "events": {
+    "ready": 0.42
+   }
+  },
+  "holster": {
+   "duration": 0.36,
+   "events": {}
+  },
+  "fire": {
+   "duration": 0.14,
+   "events": {}
+  },
+  "reload": {
+   "duration": 2.3,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5
+   }
+  },
+  "reload_empty": {
+   "duration": 3.05,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5,
+    "charge": 2.05,
+    "release": 2.36
+   }
+  }
+ },
+ "compact": {
+  "idle": {
+   "duration": 3.2,
+   "events": {}
+  },
+  "ads": {
+   "duration": 3.6,
+   "events": {}
+  },
+  "sprint": {
+   "duration": 0.72,
+   "events": {}
+  },
+  "draw": {
+   "duration": 0.5,
+   "events": {
+    "ready": 0.42
+   }
+  },
+  "holster": {
+   "duration": 0.36,
+   "events": {}
+  },
+  "fire": {
+   "duration": 0.14,
+   "events": {}
+  },
+  "reload": {
+   "duration": 2.3,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5
+   }
+  },
+  "reload_empty": {
+   "duration": 3.05,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5,
+    "charge": 2.05,
+    "release": 2.36
+   }
+  }
+ },
+ "revolver": {
+  "idle": {
+   "duration": 3.2,
+   "events": {}
+  },
+  "ads": {
+   "duration": 3.6,
+   "events": {}
+  },
+  "sprint": {
+   "duration": 0.72,
+   "events": {}
+  },
+  "draw": {
+   "duration": 0.5,
+   "events": {
+    "ready": 0.42
+   }
+  },
+  "holster": {
+   "duration": 0.36,
+   "events": {}
+  },
+  "fire": {
+   "duration": 0.32,
+   "events": {}
+  },
+  "reload": {
+   "duration": 2.9,
+   "events": {
+    "cyl_open": 0.7,
+    "eject": 1.0,
+    "load": 1.8,
+    "cyl_close": 2.25
+   }
+  },
+  "reload_empty": {
+   "duration": 3.3,
+   "events": {
+    "cyl_open": 0.7,
+    "eject": 1.0,
+    "load": 1.8,
+    "cyl_close": 2.25
+   }
+  }
+ },
+ "akpattern": {
+  "idle": {
+   "duration": 3.2,
+   "events": {}
+  },
+  "ads": {
+   "duration": 3.6,
+   "events": {}
+  },
+  "sprint": {
+   "duration": 0.72,
+   "events": {}
+  },
+  "draw": {
+   "duration": 0.5,
+   "events": {
+    "ready": 0.42
+   }
+  },
+  "holster": {
+   "duration": 0.36,
+   "events": {}
+  },
+  "fire": {
+   "duration": 0.14,
+   "events": {}
+  },
+  "reload": {
+   "duration": 2.3,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5
+   }
+  },
+  "reload_empty": {
+   "duration": 3.05,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5,
+    "charge": 2.05,
+    "release": 2.36
+   }
+  }
+ },
+ "bullpup": {
+  "idle": {
+   "duration": 3.2,
+   "events": {}
+  },
+  "ads": {
+   "duration": 3.6,
+   "events": {}
+  },
+  "sprint": {
+   "duration": 0.72,
+   "events": {}
+  },
+  "draw": {
+   "duration": 0.5,
+   "events": {
+    "ready": 0.42
+   }
+  },
+  "holster": {
+   "duration": 0.36,
+   "events": {}
+  },
+  "fire": {
+   "duration": 0.14,
+   "events": {}
+  },
+  "reload": {
+   "duration": 2.3,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5
+   }
+  },
+  "reload_empty": {
+   "duration": 3.05,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5,
+    "charge": 2.05,
+    "release": 2.36
+   }
+  }
+ },
+ "battle": {
+  "idle": {
+   "duration": 3.2,
+   "events": {}
+  },
+  "ads": {
+   "duration": 3.6,
+   "events": {}
+  },
+  "sprint": {
+   "duration": 0.72,
+   "events": {}
+  },
+  "draw": {
+   "duration": 0.5,
+   "events": {
+    "ready": 0.42
+   }
+  },
+  "holster": {
+   "duration": 0.36,
+   "events": {}
+  },
+  "fire": {
+   "duration": 0.14,
+   "events": {}
+  },
+  "reload": {
+   "duration": 2.3,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5
+   }
+  },
+  "reload_empty": {
+   "duration": 3.05,
+   "events": {
+    "mag_out": 0.62,
+    "mag_in": 1.5,
+    "charge": 2.05,
+    "release": 2.36
+   }
+  }
+ },
+ "frag": {
+  "idle": {
+   "duration": 3.2,
+   "events": {}
+  },
+  "sprint": {
+   "duration": 0.72,
+   "events": {}
+  },
+  "draw": {
+   "duration": 0.46,
+   "events": {
+    "ready": 0.4
+   }
+  },
+  "holster": {
+   "duration": 0.32,
+   "events": {}
+  },
+  "pull_pin": {
+   "duration": 1.1,
+   "events": {
+    "pin": 0.46
+   }
+  },
+  "cook": {
+   "duration": 1.6,
+   "events": {}
+  },
+  "throw": {
+   "duration": 1.0,
+   "events": {
+    "release": 0.4
+   }
+  }
+ },
+ "bandage": {
+  "idle": {
+   "duration": 3.2,
+   "events": {}
+  },
+  "sprint": {
+   "duration": 0.72,
+   "events": {}
+  },
+  "draw": {
+   "duration": 0.46,
+   "events": {
+    "ready": 0.4
+   }
+  },
+  "holster": {
+   "duration": 0.32,
+   "events": {}
+  },
+  "unwrap": {
+   "duration": 1.0,
+   "events": {}
+  },
+  "apply": {
+   "duration": 2.0,
+   "events": {
+    "wrap": 0.7,
+    "tuck": 1.8
+   }
+  }
+ }
+}
