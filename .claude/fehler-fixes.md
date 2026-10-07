@@ -17,3 +17,30 @@ Problem: Eigener Fehler: Syntaxpruefung legte __pycache__/*.pyc an, git add -A h
 Fix: __pycache__ aus dem Repo entfernt, .gitignore mit __pycache__/ angelegt
 Status: funktioniert
 Regel: Nach py_compile vor dem Commit git status ansehen, nie blind git add -A.
+
+### 2026-10-07 | Kamerapunkt im Fluss, Screenshot unter Wasser
+Kontext: Python / Ghillie Ops / Gauntlet-Shots aus world.json
+Code:
+if d.min()<35: continue   # nur Abstand zu Baeumen und Hang geprueft
+Problem: Eigener Fehler: forest_edge (663, 108) lag im flachen Flussbett, der Shot zeigte Kies und Wasseroberflaeche
+Fix: Zusaetzlich Abstand zur Flusslinie aus world.json river >= 70 m verlangt
+Status: funktioniert
+Regel: Kamerapunkte gegen Fluss, Wege und Kartenrand pruefen, nicht nur gegen Hindernisse.
+
+### 2026-10-07 | Builder stellt CRLF auf LF um
+Kontext: JS / Ghillie Ops / terrain.js
+Code:
+git diff --stat a54cf01 -- terrain.js   # 1279 Zeilen statt 127
+Problem: Der Gelaende-Builder schrieb die Datei mit LF, das Original hatte CRLF, der Diff wurde unlesbar
+Fix: Nach dem Builder CRLF wiederhergestellt, Builder-Prompts verlangen kuenftig die Zeilenenden der Datei
+Status: funktioniert
+Regel: Nach jedem Builder Zeilenenden mit file pruefen, CRLF-Dateien bleiben CRLF.
+
+### 2026-10-07 | Workflow: Argumentdatei als scriptPath uebergeben
+Kontext: Workflow-Tool / Gauntlet-Orchestrierung
+Code:
+Workflow({ script: '...', scriptPath: 'r1_review_args.json' })
+Problem: Eigener Fehler: scriptPath hat Vorrang vor script, die JSON-Datei wurde als Skript geparst
+Fix: Grosse Eingaben als Dateien ablegen, nur Pfade in args uebergeben
+Status: funktioniert
+Regel: scriptPath nur fuer Workflow-Skripte, Daten immer ueber args.
