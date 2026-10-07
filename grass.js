@@ -17,7 +17,7 @@ const LIST_W = 512;
 const LIST_H = 16;
 const LIST_CAP = LIST_W * LIST_H;
 const REACH = 3700;
-const BLADE_TOP = 1.5;
+const BLADE_TOP = 2.2;
 const HG = 16;
 const HGN = MAP.size / HG;
 
@@ -26,6 +26,8 @@ const LAMBERT_TO = `\treflectedLight.directDiffuse += irradiance * BRDF_Lambert(
 \tfloat gBack = saturate( - dot( directLight.direction, geometryViewDir ) );
 \tfloat gTrans = gBack * gBack * gBack * ( 0.3 + 0.7 * vGrassV );
 \treflectedLight.directDiffuse += directLight.color * RECIPROCAL_PI * material.diffuseColor * vec3( 1.0, 1.3, 0.45 ) * ( gTrans * 0.85 );
+\tfloat gSpec = pow( saturate( dot( geometryNormal, normalize( directLight.direction + geometryViewDir ) ) ), 14.0 ) * vGrassV * 0.03;
+\treflectedLight.directDiffuse += directLight.color * vec3( 0.92, 0.96, 0.85 ) * gSpec;
 }`;
 const lambertPatched = ShaderChunk.lights_lambert_pars_fragment.includes(LAMBERT_FROM);
 if (!lambertPatched) report('veg/grass', new Error('three changed the Lambert direct light function, grass translucency is missing'));
@@ -54,15 +56,22 @@ vec2 gHash2(vec2 p) {
   q += dot(q, q.yzx + 33.33);
   return fract((q.xx + q.yz) * q.zy);
 }
-vec3 grassColor(int sp, float rid, float v, vec3 tint, float dryAmt) {
+vec3 grassColor(int sp, float rid, float v, vec3 tint, float dryAmt, float tr) {
   float r2 = fract(rid * 7.31), r3 = fract(rid * 3.77 + 0.3);
-  vec3 live = mix(vec3(0.040, 0.060, 0.020), vec3(0.115, 0.160, 0.052), smoothstep(0.0, 0.3, v));
-  live = mix(live, vec3(0.200, 0.250, 0.095), smoothstep(0.35, 1.0, v) * 0.45);
-  live *= tint * vec3(0.9 + 0.2 * rid, 0.93 + 0.14 * r2, 0.85 + 0.3 * r3);
+  if (sp == 4) {
+    float fk = fract(rid * 5.3);
+    vec3 fc = fk < 0.45 ? mix(vec3(0.150, 0.118, 0.068), vec3(0.115, 0.068, 0.078), r2) : (fk < 0.72 ? vec3(0.560, 0.555, 0.500) : (fk < 0.86 ? vec3(0.520, 0.380, 0.035) : vec3(0.250, 0.100, 0.310)));
+    return fc * (0.85 + 0.3 * r3);
+  }
+  vec3 live = mix(vec3(0.030, 0.046, 0.019), vec3(0.102, 0.145, 0.058), smoothstep(0.0, 0.32, v));
+  live = mix(live, vec3(0.180, 0.215, 0.105), smoothstep(0.35, 1.0, v) * 0.45);
+  live *= tint * mix(vec3(0.84, 0.98, 1.06), vec3(1.10, 1.02, 0.80), tr) * vec3(0.9 + 0.2 * rid, 0.93 + 0.14 * r2, 0.85 + 0.3 * r3);
   vec3 straw = vec3(0.170, 0.135, 0.075) * (0.8 + 0.5 * rid);
-  straw = mix(straw * 0.5, straw * 1.5, smoothstep(0.0, 0.8, v));
+  straw = mix(straw * 0.45, straw * 1.5, smoothstep(0.0, 0.8, v));
   if (sp == 1) live *= vec3(0.86, 0.96, 0.92);
-  float dk = sp == 2 ? 1.0 : clamp((dryAmt * 0.6 - rid) / 0.1 + 0.5, 0.0, 1.0);
+  if (sp == 3) live = mix(live, straw, 0.35);
+  live = mix(live, straw * 1.1, smoothstep(0.72, 1.0, v) * step(0.62, r2) * 0.55);
+  float dk = sp == 2 ? 1.0 : clamp((dryAmt * 0.6 + 0.05 - rid) / 0.1 + 0.5, 0.0, 1.0);
   return mix(live, straw, dk);
 }
 `;
@@ -99,11 +108,17 @@ vGrassAO = 1.0;
     vec4 clip = projectionMatrix * viewMatrix * vec4(center + vec3(0.0, 0.6, 0.0), 1.0);
     gCull = clip.w < -3.0 || abs(clip.x) > clip.w * 1.4 + 8.0 || abs(clip.y) > clip.w * 1.4 + 8.0;
   }
+  if (!gCull && aS > 2.5) {
+    float fl = mNoise(wxz * 0.085 + 31.0);
+    float pres = fract(aT.w * 5.3) > 0.45 ? smoothstep(0.5, 0.82, fl) * 0.3 : 0.1 + 0.3 * smoothstep(0.25, 0.7, 1.0 - fl);
+    gCull = fract(aT.w * 13.7) > pres * uTier.y;
+  }
   float ground = center.y;
   if (!gCull) {
     float v = aT.x;
     int sp = int(aS + 0.5);
-    float sc = mix(0.5, 1.0, smoothstep(0.1, 0.8, dens)) * meadowHeight(wxz) * (0.85 + 0.3 * h3.y) * (1.0 + dist * 0.0004);
+    float clump = smoothstep(0.2, 0.8, mNoise(wxz * 0.29 + 5.3) * 0.6 + mNoise(wxz * 0.071 + 11.0) * 0.4);
+    float sc = mix(0.5, 1.0, smoothstep(0.1, 0.8, dens)) * meadowHeight(wxz) * (0.85 + 0.3 * h3.y) * (0.65 + 0.6 * clump) * (1.0 + dist * 0.0004);
     vec3 push = vec3(0.0);
     float flatAmt = 0.0;
     if (dist < ${INTERACT.radius.toFixed(1)}) {
@@ -114,7 +129,7 @@ vGrassAO = 1.0;
     sc *= 1.0 - flatAmt * 0.82;
     float yaw = h4.x * 6.2831853;
     float cy = cos(yaw), sy = sin(yaw);
-    float bendW = pow(v, 1.6);
+    float bendW = pow(sp == 4 ? 1.0 : v, 1.6);
     vec2 fwd = vec2(cos(aB.z), sin(aB.z));
     vec2 base2 = aB.xy * uTier.y;
     vec3 local = vec3(base2.x + fwd.x * position.x * sc, position.y * sc, base2.y + fwd.y * position.x * sc);
@@ -124,7 +139,7 @@ vGrassAO = 1.0;
     float bendK = 1.0 / (1.0 + 0.6 * uTier.z);
     vec3 wind = vec3(g.x, -0.1 * length(g), g.y) * (0.22 * bendW * sc) * bendK + vec3(uWindDir.x, 0.0, uWindDir.y) * (flutter * 0.03 * bendW * sc * uWindAmp * bendK);
     vec3 away = push * (1.26 * bendW * sc);
-    float prof = (0.62 + 0.38 * min(1.0, v / 0.18)) * pow(max(1.0 - pow(v, 2.3), 0.0), 0.75);
+    float prof = sp == 4 ? 0.3 + 0.7 * sin(3.1415927 * v) : (0.62 + 0.38 * min(1.0, v / 0.18)) * pow(max(1.0 - pow(v, 2.3), 0.0), 0.75);
     float wr = ${W0.toFixed(4)} * aB.w * exp2(2.0 * ell);
     vec2 sideL = vec2(-fwd.y, fwd.x);
     vec3 sideW = vec3(sideL.x * cy + sideL.y * sy, 0.0, -sideL.x * sy + sideL.y * cy);
@@ -140,11 +155,13 @@ vGrassAO = 1.0;
     float colK = exp2(-ell);
     objectNormal = normalize(mix(up, nb, 0.62 * colK + 0.1));
     vec3 tint = meadowTint(wxz);
-    vec3 col = grassColor(sp, aT.w, v, tint, meadowDry(wxz) * (0.85 + 0.3 * h3.y));
+    float tr = fract((h2.x + h2.y) * 43.7);
+    vec3 col = grassColor(sp, aT.w, v, tint, meadowDry(wxz) * (0.85 + 0.3 * h3.y) + (1.0 - clump) * 0.12, tr);
     col = mix(col, col * 1.18, flatAmt * 0.4);
-    vGrassColor = mix(meadowMean(wxz) * (0.85 + 0.3 * v), col, colK);
-    vGrassV = v;
-    vGrassAO = mix(mix(0.3, 1.0, smoothstep(0.0, 0.55, v)), 0.92, 1.0 - colK);
+    vec3 mean = colK < 0.98 ? meadowMean(wxz) : col;
+    vGrassColor = mix(mean * (0.85 + 0.3 * v), col, colK) * mix(vec3(1.07, 1.05, 0.96), vec3(0.90, 0.93, 0.97), clump);
+    vGrassV = sp == 4 ? 1.0 : v;
+    vGrassAO = sp == 4 ? 1.0 : mix(mix(mix(0.24, 0.13, clump), 1.0, smoothstep(0.0, 0.7, v)), mix(0.98, 0.82, clump), 1.0 - colK);
   }
 }
 `;
@@ -188,19 +205,27 @@ function makeBlades() {
   const tillers = [];
   for (let i = 0; i < 9; i++) { const a = range(0, Math.PI * 2), r = 0.24 * Math.sqrt(rnd()) * 0.9; tillers.push({ x: Math.cos(a) * r, z: Math.sin(a) * r, a }); }
   const plan = [];
-  for (const [sp, n] of [[0, 44], [1, 12], [2, 8], [3, 32]]) for (let i = 0; i < n; i++) plan.push(sp);
+  for (const [sp, n] of [[0, 40], [1, 12], [2, 8], [3, 26], [9, 5]]) for (let i = 0; i < n; i++) plan.push(sp);
   for (let i = plan.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [plan[i], plan[j]] = [plan[j], plan[i]]; }
   const deg = Math.PI / 180;
-  return plan.map(sp => {
+  return plan.flatMap(sp => {
     const t = tillers[Math.floor(rnd() * tillers.length)];
     const off = range(0, 0.05), ao = range(0, Math.PI * 2);
     const base = { x: t.x + Math.cos(ao) * off * (sp === 3 ? 2.5 : 1), z: t.z + Math.sin(ao) * off * (sp === 3 ? 2.5 : 1) };
     const az = t.a + gauss() * 0.9;
     const rid = rnd();
-    if (sp === 0) return { ...base, az, rid, sp: 0, h: range(0.55, 1.0), wm: 1, bend: range(28, 78) * deg, lean: range(3, 16) * deg };
-    if (sp === 1) return { ...base, az, rid, sp: 1, h: range(0.4, 0.82), wm: 2.15, bend: range(40, 100) * deg, lean: range(5, 20) * deg };
-    if (sp === 2) return { ...base, az, rid, sp: 2, h: range(0.7, 1.05), wm: 0.93, bend: range(6, 40) * deg, lean: range(2, 12) * deg };
-    return { ...base, az, rid, sp: 0, h: range(0.12, 0.32), wm: 0.9, bend: range(30, 90) * deg, lean: range(5, 25) * deg };
+    if (sp === 0) return [{ ...base, az, rid, sp: 0, h: range(0.45, 1.05), wm: range(0.75, 1.3), bend: range(28, 78) * deg, lean: range(3, 16) * deg }];
+    if (sp === 1) return [{ ...base, az, rid, sp: 1, h: range(0.35, 0.85), wm: range(1.7, 2.6), bend: range(40, 100) * deg, lean: range(5, 20) * deg }];
+    if (sp === 2) return [{ ...base, az, rid, sp: 2, h: range(0.6, 1.1), wm: range(0.75, 1.15), bend: range(6, 40) * deg, lean: range(2, 12) * deg }];
+    if (sp === 9) {
+      const stalk = { ...base, az, rid, sp: 3, h: range(0.95, 1.3), wm: range(0.4, 0.55), bend: range(4, 22) * deg, lean: range(2, 9) * deg };
+      const tip = centerline(stalk, 1);
+      const head = (rid * 5.3) % 1 > 0.45
+        ? { ...base, az, rid, sp: 4, h: range(0.018, 0.028), wm: range(2.8, 3.8), bend: 0, lean: range(62, 84) * deg, ox: tip.x, oy: tip.y }
+        : { ...base, az, rid, sp: 4, h: range(0.05, 0.09), wm: range(1.3, 1.9), bend: range(5, 15) * deg, lean: tip.th + range(0.02, 0.12), ox: tip.x, oy: tip.y };
+      return [stalk, head];
+    }
+    return [{ ...base, az, rid, sp: 0, h: range(0.12, 0.32), wm: range(0.7, 1.1), bend: range(30, 90) * deg, lean: range(5, 25) * deg }];
   });
 }
 
@@ -220,22 +245,23 @@ function tuftGeometry(blades, segs) {
   const pos = [], aT = [], aB = [], aS = [], idx = [];
   for (const b of blades) {
     const first = pos.length / 3;
-    for (let r = 0; r <= segs; r++) {
-      const t = r / segs;
+    const n = b.sp === 4 ? Math.min(segs, 2) : segs;
+    for (let r = 0; r <= n; r++) {
+      const t = r / n;
       const c = centerline(b, t);
-      const rows = r === segs ? [0] : [-1, 1];
+      const rows = r === n ? [0] : [-1, 1];
       for (const side of rows) {
-        pos.push(c.x, c.y, 0);
+        pos.push(c.x + (b.ox || 0), c.y + (b.oy || 0), 0);
         aT.push(t, side, c.th, b.rid);
         aB.push(b.x, b.z, b.az, b.wm);
         aS.push(b.sp);
       }
     }
-    for (let r = 0; r < segs - 1; r++) {
+    for (let r = 0; r < n - 1; r++) {
       const a = first + r * 2;
       idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2);
     }
-    const last = first + (segs - 1) * 2;
+    const last = first + (n - 1) * 2;
     idx.push(last, last + 1, last + 2);
   }
   const g = new InstancedBufferGeometry();
@@ -259,6 +285,7 @@ export function createGrass(models, terrain, render) {
   interact.needsUpdate = true;
 
   const camUniform = { value: new Vector3() };
+  const _dir = new Vector3();
   const grassUniform = { value: [1, 0, 0.4] };
   const fwdUniform = { value: new Vector3(0, 1, -1) };
   const shared = {
@@ -297,7 +324,7 @@ export function createGrass(models, terrain, render) {
     tex.generateMipmaps = false;
     tex.needsUpdate = true;
     const tier = { k, cell, chunk: cell * CHUNK_CELLS, data, tex, count: 0 };
-    const geometry = tuftGeometry(blades, SEGS[k]);
+    const geometry = tuftGeometry(k < 2 ? blades : blades.filter(b => b.sp < 3), SEGS[k]);
     const mesh = new Mesh(geometry, createMaterial(tier, shared));
     mesh.frustumCulled = false;
     mesh.receiveShadow = true;
@@ -373,13 +400,15 @@ export function createGrass(models, terrain, render) {
     update(cam, dt, v = null) {
       camUniform.value.copy(cam);
       if (v && v.camera) {
+        const dir = v.dir || v.camera.getWorldDirection(_dir);
+        const tanH = v.tanH ?? Math.tan((v.camera.fov || 60) * Math.PI / 360) * (v.camera.aspect || 1);
         const pxPerRad = v.camera.projectionMatrix.elements[5] * v.heightPx * 0.5;
         grassUniform.value[0] = GRASS.px / (pxPerRad * W0);
         grassUniform.value[1] = terrain.heightAt(cam.x, cam.z);
         grassUniform.value[2] = GRASS.cover;
-        const h = Math.hypot(v.dir.x, v.dir.z), cosPitch = Math.max(h, 0.2);
-        const reach = Math.min(Math.PI, Math.atan(v.tanH / cosPitch) + 0.35);
-        fwdUniform.value.set(v.dir.x / Math.max(h, 1e-4), v.dir.z / Math.max(h, 1e-4), h < 0.55 ? -1 : Math.cos(reach));
+        const h = Math.hypot(dir.x, dir.z), cosPitch = Math.max(h, 0.2);
+        const reach = Math.min(Math.PI, Math.atan(tanH / cosPitch) + 0.35);
+        fwdUniform.value.set(dir.x / Math.max(h, 1e-4), dir.z / Math.max(h, 1e-4), h < 0.55 ? -1 : Math.cos(reach));
         view.planes = extractPlanes(v.camera, planes);
         view.horizon = v.horizon || null;
         for (const t of tiers) selectChunks(t, cam, pxPerRad);
@@ -401,9 +430,14 @@ register('veg/grass', 'grass tiers follow the camera, bend away from actors and 
   const g = ctx.world.grass;
   assert(g.group.length === TIER_COUNT, `${TIER_COUNT} grass tiers expected`);
   assert(lambertPatched, 'grass translucency patch missing');
-  const cam = ctx.world.camera;
+  const cam = ctx.world.camera.clone(false);
+  cam.position.set(0, ctx.world.terrain.heightAt(0, 0) + 1.7, 0);
+  cam.rotation.set(-0.1, 0, 0);
+  cam.updateMatrixWorld();
   g.update(cam.position, 1 / 60, { camera: cam, heightPx: 1080, horizon: null });
   assert(g.tiers[0].count > 0 && g.tiers[3].count > 0 && g.tiers[5].count >= 0, `chunk lists empty: ${g.tiers.map(t => t.count)}`);
+  const sp0 = g.tiers[0].geometry.attributes.aS.array, sp3 = g.tiers[3].geometry.attributes.aS.array;
+  assert(sp0.includes(3) && sp0.includes(4) && !sp3.includes(4), 'seed and flower heads belong to the near tiers only');
   const data = g.interact.image.data;
   const probe = (x, z) => { const t = INTERACT.span / INTERACT.size; const i = ((((Math.floor(z / t)) % 128) + 128) % 128 * 128 + (((Math.floor(x / t)) % 128) + 128) % 128) * 4; return [data[i], data[i + 1], data[i + 2]]; };
   g.actor('selftest', 10.2, 10.2, 0, 0, 1.2);

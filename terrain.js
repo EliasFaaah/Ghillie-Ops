@@ -38,16 +38,18 @@ float mNoise(vec2 p) {
 vec3 meadowTint(vec2 wp) {
   float a = mNoise(wp * 0.0065 + 3.0) * 0.6 + mNoise(wp * 0.021) * 0.4;
   float b = mNoise(wp * 0.0042 + 17.0) * 0.55 + mNoise(wp * 0.0135 + 9.0) * 0.45;
-  vec3 t = mix(vec3(0.84, 0.94, 0.82), vec3(1.10, 1.03, 0.90), smoothstep(0.28, 0.62, a));
-  t = mix(t, vec3(1.22, 1.08, 0.74), smoothstep(0.55, 0.82, b) * 0.65);
-  return t * (0.9 + 0.2 * mNoise(wp * 0.11));
+  float v = mNoise(wp * 0.11);
+  vec3 t = mix(vec3(0.80, 0.93, 0.86), vec3(1.10, 1.01, 0.82), smoothstep(0.25, 0.65, a));
+  t = mix(t, vec3(1.30, 1.10, 0.66), smoothstep(0.5, 0.8, b) * 0.75);
+  t = mix(t, vec3(t.y) * vec3(1.03, 0.98, 0.84), smoothstep(0.6, 0.9, a * 0.5 + v * 0.5) * 0.45);
+  return t * (0.84 + 0.32 * v);
 }
 float meadowDry(vec2 wp) {
-  return 0.05 + 0.30 * smoothstep(0.5, 0.85, mNoise(wp * 0.0052 + 23.0) * 0.6 + mNoise(wp * 0.017 + 5.0) * 0.4);
+  return 0.10 + 0.42 * smoothstep(0.42, 0.82, mNoise(wp * 0.0052 + 23.0) * 0.6 + mNoise(wp * 0.017 + 5.0) * 0.4);
 }
 float meadowHeight(vec2 wp) { return 0.72 + 0.46 * smoothstep(0.25, 0.75, mNoise(wp * 0.0085 + 41.0)); }
 vec3 meadowMean(vec2 wp) {
-  return mix(vec3(0.052, 0.092, 0.024) * meadowTint(wp), vec3(0.170, 0.135, 0.075), meadowDry(wp) * 0.8) * 0.88;
+  return mix(vec3(0.058, 0.088, 0.028) * meadowTint(wp), vec3(0.170, 0.135, 0.075), meadowDry(wp) * 0.8) * 0.88;
 }
 `;
 
@@ -69,8 +71,10 @@ float grassPattern(vec2 wp) {
 uniform vec3 tAvg[5];
 varying vec3 vTW;
 varying vec3 vTN;
+varying float vCav;
 vec3 tWN;
 float tRoughV;
+float tCavV;
 float tHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float tNoise(vec2 p) {
   vec2 i = floor(p), f = fract(p);
@@ -140,11 +144,16 @@ const MAP_FRAGMENT = `
   gDy = dFdy(wp);
   gDx3 = dFdx(vTW);
   gDy3 = dFdy(vTW);
+  float gFp = max(length(gDx3), length(gDy3));
   float dist = distance(vTW, cameraPosition);
   vec3 gN = normalize(vTN);
-  vec4 mk = texture2D(tMask, (wp + ${H.toFixed(1)}) / ${MAP.size.toFixed(1)}) * (1.0 - smoothstep(${(H - 90).toFixed(1)}, ${H.toFixed(1)}, max(abs(wp.x), abs(wp.y))));
+  float edgeK = 1.0 - smoothstep(${(H - 90).toFixed(1)}, ${H.toFixed(1)}, max(abs(wp.x), abs(wp.y)));
+  vec4 mk = texture2D(tMask, (wp + ${H.toFixed(1)}) / ${MAP.size.toFixed(1)}) * edgeK;
+  float cav = vCav * edgeK;
   float n1 = tNoise(wp * 0.05), n2 = tNoise(wp * 0.23), n3 = tNoise(wp * 0.011);
-  float wR = clamp(mk.g + 1.0 - smoothstep(0.50, 0.72, gN.y + (n1 - 0.5) * 0.12), 0.0, 1.0);
+  float fr = (gNz(wp, 1.2, 3) - 0.5) * 0.6 + (n2 - 0.5) * 0.4;
+  float wR = clamp(smoothstep(0.12, 0.5, mk.g + fr * 0.22) + 1.0 - smoothstep(0.56, 0.67, gN.y + fr * 0.09 + (n1 - 0.5) * 0.08), 0.0, 1.0);
+  float lip = clamp(wR * (1.0 - wR) * 4.0, 0.0, 1.0);
   float rest = 1.0 - wR;
   float bedK = smoothstep(0.55, 0.9, mk.b);
   float wB = rest * bedK;
@@ -170,34 +179,79 @@ const MAP_FRAGMENT = `
     vec3 B = cross(T, gN);
     float rough = 0.0;
     float dirtK = 0.78;
+    float pudW = 0.0;
     if (wG > 0.01) {
       vec3 gt = tAlbedo(tA0, wp, ${LAYERS[0][1].toFixed(2)}, nearK);
       float gl = pow(clamp(dot(gt, vec3(0.2126, 0.7152, 0.0722)) / ${LAYER_LUM.toFixed(4)}, 0.4, 2.0), 0.8 * nearK + 0.001);
       gcol = mix(gcol * mix(1.0, gl, 0.6), (gEarth * 0.6 + gcol * 0.4) * gl, 0.75 * (1.0 - smoothstep(10.0, 90.0, dist)));
       gcol *= grassPattern(wp);
+      float bare = smoothstep(0.7, 0.82, textureGrad(tNz, wp / 563.2, gDx / 563.2, gDy / 563.2).b * 0.6 + textureGrad(tNz, wp / 179.2, gDx / 179.2, gDy / 179.2).a * 0.4 + max(cav, 0.0) * 0.35);
+      gcol = mix(gcol, vec3(0.105, 0.082, 0.058) * (0.8 + 0.4 * n2) * gl, bare * 0.42);
       if (detail > 0.01) tdir += wG * tNormalTs(tN0, wp, ${LAYERS[0][1].toFixed(2)}, nearK);
       rough += wG * ${ROUGH[0].toFixed(2)};
     }
     if (wF > 0.01) { col += wF * tAlbedo(tA1, wp, ${LAYERS[1][1].toFixed(2)}, nearK); if (detail > 0.01) tdir += wF * tNormalTs(tN1, wp, ${LAYERS[1][1].toFixed(2)}, nearK); rough += wF * ${ROUGH[1].toFixed(2)}; }
-    if (wD > 0.01) { col += wD * tAlbedo(tA3, wp, ${LAYERS[3][1].toFixed(2)}, nearK) * (1.0 - 0.45 * wet) * dirtK; if (detail > 0.01) tdir += wD * tNormalTs(tN3, wp, ${LAYERS[3][1].toFixed(2)}, nearK); rough += wD * mix(${ROUGH[3].toFixed(2)}, 0.5, wet); }
+    if (wD > 0.01) {
+      vec3 dc = tAlbedo(tA3, wp, ${LAYERS[3][1].toFixed(2)}, nearK) * (1.0 - 0.45 * wet) * dirtK;
+      float dp = tNoise(wp * 0.07 + 13.0) * 0.6 + tNoise(wp * 0.27 + 2.0) * 0.4;
+      dc *= mix(vec3(0.8, 0.79, 0.8), vec3(1.26, 1.2, 1.08), smoothstep(0.3, 0.75, dp));
+      dc = mix(dc, vec3(dot(dc, vec3(0.33))) * vec3(1.3, 1.05, 0.7), smoothstep(0.55, 0.78, tNoise(wp * 0.045 + 50.0)) * 0.55);
+      dc = mix(dc, tAvg[2] * (1.0 + 0.4 * n2), smoothstep(0.2, 0.65, -cav) * 0.6);
+      float pud = smoothstep(0.71, 0.77, tNoise(wp * 0.085 + 31.0) * 0.75 + tNoise(wp * 0.33 + 4.0) * 0.25 + max(-cav, 0.0) * 0.25) * smoothstep(0.986, 0.997, gN.y) * (1.0 - smoothstep(180.0, 420.0, dist)) * (1.0 - wet);
+      dc = mix(dc, dc * 0.55, pud);
+      pudW = pud * wD;
+      col += wD * dc;
+      if (detail > 0.01) tdir += wD * tNormalTs(tN3, wp, ${LAYERS[3][1].toFixed(2)}, nearK);
+      rough += wD * mix(mix(${ROUGH[3].toFixed(2)}, 0.5, wet), 0.06, pud);
+    }
     if (wB > 0.01) { col += wB * tAlbedo(tA4, wp, ${LAYERS[4][1].toFixed(2)}, nearK) * 0.8; if (detail > 0.01) tdir += wB * tNormalTs(tN4, wp, ${LAYERS[4][1].toFixed(2)}, nearK); rough += wB * ${ROUGH[4].toFixed(2)}; }
-    nrm = normalize(gN + (T * tdir.x + B * tdir.y) * detail * 0.9);
+    nrm = normalize(gN + (T * tdir.x + B * tdir.y) * detail * 0.9 * (1.0 - pudW));
     if (wR > 0.01) {
       vec3 tw = pow(abs(gN), vec3(4.0));
       tw /= tw.x + tw.y + tw.z;
       vec3 rp = vec3(vTW.x, vTW.y, vTW.z);
-      col += wR * tTriAlbedo(tA2, rp, tw, ${LAYERS[2][1].toFixed(2)});
+      vec3 rc = tTriAlbedo(tA2, rp, tw, ${LAYERS[2][1].toFixed(2)});
+      float sy = vTW.y + (tNoise(wp * 0.031 + 9.0) - 0.5) * 4.0 + (n1 - 0.5) * 1.5;
+      float bands = tNoise(vec2(sy * 0.75, n3 * 4.0 + 13.0));
+      float sd = (0.5 - abs(fract(sy * 0.53) - 0.5)) * 1.887;
+      vec2 tg = normalize(vec2(-gN.z, gN.x) + 0.0001);
+      float cr = tNoise(vec2(dot(wp, tg) * 0.6, sy * 0.09 + 5.0));
+      float wall = (1.0 - tw.y) * (1.0 - smoothstep(0.12, 0.6, gFp));
+      float joint = max((1.0 - smoothstep(0.0, 0.07 + gFp, sd)) * (0.3 + 0.7 * tHash(vec2(floor(sy * 0.53), 7.0))), (1.0 - smoothstep(0.0, 0.035 + gFp * 0.6, abs(cr - 0.5))) * 0.6 * smoothstep(0.4, 0.7, tNoise(vec2(dot(wp, tg) * 0.15, sy * 0.3)))) * wall;
+      rc *= vec3(1.07, 1.01, 0.9) * mix(1.0, mix(0.74, 1.2, bands), wall) * (1.0 - 0.5 * joint);
+      col += wR * rc;
       if (detail > 0.01) nrm = normalize(nrm + wR * tTriNormal(tN2, rp, tw, ${LAYERS[2][1].toFixed(2)}) * detail);
       rough += wR * ${ROUGH[2].toFixed(2)};
     }
     tRoughV = rough;
   }
+  float outK = smoothstep(${(H - 40).toFixed(1)}, ${(H + 300).toFixed(1)}, max(abs(wp.x), abs(wp.y)));
+  if (outK > 0.001) {
+    vec2 fq = vec2(0.94 * wp.x + 0.34 * wp.y, 0.94 * wp.y - 0.34 * wp.x) + (vec2(tNoise(wp * 0.0037), tNoise(wp * 0.0037 + 7.0)) - 0.5) * 140.0;
+    vec2 fs = fq / vec2(230.0, 160.0);
+    vec2 fc = floor(fs);
+    vec2 fe = (0.5 - abs(fract(fs) - 0.5)) * vec2(230.0, 160.0);
+    float fh = tHash(fc + 3.7);
+    vec3 crop = fh < 0.28 ? vec3(0.165, 0.135, 0.072) : (fh < 0.46 ? vec3(0.092, 0.07, 0.048) : (fh < 0.72 ? vec3(0.062, 0.098, 0.032) : vec3(0.105, 0.112, 0.052)));
+    crop *= 0.85 + 0.3 * tHash(fc + 19.3);
+    float hedge = clamp((5.0 - min(fe.x, fe.y)) / max(gFp, 1.0) + 0.5, 0.0, 1.0) * step(0.35, tHash(fc + 41.0));
+    float fieldK = smoothstep(0.955, 0.985, gN.y) * smoothstep(0.35, 0.55, tNoise(wp * 0.0013 + 61.0)) * step(0.18, tHash(fc + 7.7));
+    float fo = tNoise(wp * 0.0017 + 21.0) * 0.55 + tNoise(wp * 0.0061 + 3.0) * 0.3 + tNoise(wp * 0.023 + 8.0) * 0.15 + (1.0 - gN.y) * 1.6 + smoothstep(120.0, 420.0, vTW.y) * 0.12;
+    float forestK = smoothstep(0.55, 0.6, fo);
+    vec4 cg = textureGrad(tNz, wp / 1280.0, gDx / 1280.0, gDy / 1280.0);
+    vec3 canopy = mix(vec3(0.020, 0.034, 0.018), vec3(0.044, 0.060, 0.025), smoothstep(0.3, 0.7, tNoise(wp * 0.0075 + 33.0))) * (0.55 + 0.9 * cg.r);
+    vec3 land = mix(gcol, crop, fieldK * 0.85);
+    land = mix(land, canopy, max(forestK, hedge * mix(0.35, 0.85, fieldK)));
+    gcol = mix(gcol, land, outK);
+  }
   float n4 = tNoise(wp * 0.0029 + 40.0), n5 = tNoise(wp * 0.0071 + 11.0);
   col *= mix(0.78, 1.22, n3 * 0.45 + n1 * 0.25 + n5 * 0.3) * mix(0.95, 1.05, n2);
   col *= mix(vec3(0.9, 1.0, 1.08), vec3(1.14, 1.02, 0.84), n4);
   col = col * 1.1 + gcol * wG;
+  col = mix(col, vec3(0.085, 0.062, 0.042) * (0.75 + 0.5 * n2), lip * 0.55 * (1.0 - smoothstep(300.0, 700.0, dist)));
+  tCavV = clamp(1.0 + min(cav, 0.0) * 0.65, 0.35, 1.0);
   tWN = nrm;
-  diffuseColor.rgb *= col;
+  diffuseColor.rgb *= col * (1.0 + min(cav, 0.0) * 0.2 + max(cav, 0.0) * 0.1);
 }
 `;
 
@@ -222,13 +276,14 @@ export function createTerrainMaterial(uniforms) {
   mat.onBeforeCompile = shader => {
     Object.assign(shader.uniforms, uniforms, windUniforms);
     shader.vertexShader = shader.vertexShader
-      .replace('#include <common>', '#include <common>\nvarying vec3 vTW;\nvarying vec3 vTN;')
-      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvTW = position;\nvTN = normal;');
+      .replace('#include <common>', '#include <common>\nattribute float cavity;\nvarying vec3 vTW;\nvarying vec3 vTN;\nvarying float vCav;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvTW = position;\nvTN = normal;\nvCav = cavity * 2.0 - 1.0;');
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', `#include <common>\n${FRAGMENT_PARS}`)
       .replace('#include <map_fragment>', MAP_FRAGMENT)
       .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = tRoughV;')
-      .replace('#include <normal_fragment_maps>', 'normal = normalize((viewMatrix * vec4(tWN, 0.0)).xyz);\nnormal = faceDirection * normal;');
+      .replace('#include <normal_fragment_maps>', 'normal = normalize((viewMatrix * vec4(tWN, 0.0)).xyz);\nnormal = faceDirection * normal;')
+      .replace('#include <aomap_fragment>', 'reflectedLight.indirectDiffuse *= tCavV;\nreflectedLight.indirectSpecular *= mix(1.0, tCavV, 0.7);\n#include <aomap_fragment>');
   };
   return mat;
 }
@@ -290,6 +345,20 @@ export async function createTerrain(ctx, placementsPromise = null) {
       normalBytes[o + 3] = 255;
     }
   }
+  const sat = new Float64Array((N + 1) * (N + 1));
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) sat[(j + 1) * (N + 1) + i + 1] = heights[j * N + i] + sat[j * (N + 1) + i + 1] + sat[(j + 1) * (N + 1) + i] - sat[j * (N + 1) + i];
+  const boxMean = (i, j, r) => {
+    const i0 = Math.max(0, i - r), i1 = Math.min(N, i + r + 1), j0 = Math.max(0, j - r), j1 = Math.min(N, j + r + 1);
+    return (sat[j1 * (N + 1) + i1] - sat[j0 * (N + 1) + i1] - sat[j1 * (N + 1) + i0] + sat[j0 * (N + 1) + i0]) / ((i1 - i0) * (j1 - j0));
+  };
+  const cavity = new Uint8Array(N * N);
+  for (let j = 0; j < N; j++) {
+    for (let i = 0; i < N; i++) {
+      const h = heights[j * N + i];
+      const s = (h - boxMean(i, j, 2)) * 0.32 + (h - boxMean(i, j, 6)) * 0.12 + (h - boxMean(i, j, 18)) * 0.035;
+      cavity[j * N + i] = Math.round(Math.min(1, Math.max(0, 0.5 + 0.5 * s)) * 255);
+    }
+  }
   const normalTex = dataTexture(normalBytes, N, N, RGBAFormat, UnsignedByteType, LinearFilter);
   const maskTex = dataTexture(maskBytes, MAP.size / 2, MAP.size / 2, RGBAFormat, UnsignedByteType, LinearFilter);
   const grassTex = dataTexture(grassBytes, MAP.size / 2, MAP.size / 2, RedFormat, UnsignedByteType, LinearFilter);
@@ -339,7 +408,7 @@ export async function createTerrain(ctx, placementsPromise = null) {
     const stride = 1 << lod, cells = span * MAP.chunk / stride, v = cells + 1;
     const skirt = (SKIRT + 1.5 * stride);
     const total = v * v + 4 * v;
-    const pos = new Float32Array(total * 3), nor = new Float32Array(total * 3);
+    const pos = new Float32Array(total * 3), nor = new Float32Array(total * 3), cav = new Uint8Array(total);
     const surface = stride === 1 ? heights : lifted.get(stride) || heights;
     const write = (o, a, b, drop) => {
       const i = ci * MAP.chunk + a * stride, j = cj * MAP.chunk + b * stride;
@@ -349,6 +418,7 @@ export async function createTerrain(ctx, placementsPromise = null) {
       const l = heights[j * N + Math.max(i - 1, 0)], r = heights[j * N + Math.min(i + 1, CELLS)], d = heights[Math.max(j - 1, 0) * N + i], u = heights[Math.min(j + 1, CELLS) * N + i];
       _n.set(l - r, 2 * MAP.cell, d - u).normalize();
       nor[o * 3] = _n.x; nor[o * 3 + 1] = _n.y; nor[o * 3 + 2] = _n.z;
+      cav[o] = cavity[j * N + i];
     };
     for (let b = 0; b < v; b++) for (let a = 0; a < v; a++) write(b * v + a, a, b, 0);
     const edges = [(k) => [k, 0], (k) => [k, cells], (k) => [0, k], (k) => [cells, k]];
@@ -373,6 +443,7 @@ export async function createTerrain(ctx, placementsPromise = null) {
     const g = new BufferGeometry();
     g.setAttribute('position', new BufferAttribute(pos, 3));
     g.setAttribute('normal', new BufferAttribute(nor, 3));
+    g.setAttribute('cavity', new BufferAttribute(cav, 1, true));
     g.setIndex(new BufferAttribute(idx, 1));
     g.computeBoundingSphere();
     g.computeBoundingBox();
@@ -434,11 +505,27 @@ export async function createTerrain(ctx, placementsPromise = null) {
     }
   }
 
+  const smooth = (a, b, x) => { const k = Math.min(1, Math.max(0, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
+  const hash2 = (i, j) => { let h = (Math.imul(i, 374761393) + Math.imul(j, 668265263)) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
+  const vnoise = (x, z) => {
+    const i = Math.floor(x), j = Math.floor(z), fx = x - i, fz = z - j, u = fx * fx * (3 - 2 * fx), w = fz * fz * (3 - 2 * fz);
+    const a = hash2(i, j), b = hash2(i + 1, j), c = hash2(i, j + 1), d = hash2(i + 1, j + 1);
+    return a + (b - a) * u + (c - a) * w + (a - b - c + d) * u * w;
+  };
+  const relief = (x, z) => {
+    const d = Math.max(Math.abs(x), Math.abs(z));
+    const k = smooth(H, H + 700, d) * (1 - smooth(3300, 4000, d));
+    if (k <= 0) return 0;
+    let r = 0, amp = 30, f = 1 / 420;
+    for (let o = 0; o < 3; o++) { r += (1 - Math.abs(2 * vnoise(x * f + o * 17.3, z * f - o * 9.1) - 1)) * amp; amp *= 0.45; f *= 2.1; }
+    return (r - 31.7) * k;
+  };
+
   function horizonRing(half, cell, hole, skirt) {
     const per = half * 2 / cell, v = per + 1;
     const pos = new Float32Array(v * v * 3), nor = new Float32Array(v * v * 3);
     const base = (HORIZON.half - half) / HORIZON.cell, step = cell / HORIZON.cell, last = HORIZON.samples - 1;
-    const sample = (a, b) => HEIGHT.min + (horizonU16[Math.min(last, Math.max(0, base + b * step)) * HORIZON.samples + Math.min(last, Math.max(0, base + a * step))] / 65535) * HEIGHT.range;
+    const sample = (a, b) => HEIGHT.min + (horizonU16[Math.min(last, Math.max(0, base + b * step)) * HORIZON.samples + Math.min(last, Math.max(0, base + a * step))] / 65535) * HEIGHT.range + relief(-half + a * cell, -half + b * cell);
     for (let b = 0; b < v; b++) {
       for (let a = 0; a < v; a++) {
         const o = b * v + a;
@@ -470,6 +557,7 @@ export async function createTerrain(ctx, placementsPromise = null) {
     const g = new BufferGeometry();
     g.setAttribute('position', new BufferAttribute(new Float32Array([...pos, ...extraPos]), 3));
     g.setAttribute('normal', new BufferAttribute(new Float32Array([...nor, ...extraNor]), 3));
+    g.setAttribute('cavity', new BufferAttribute(new Uint8Array(v * v + extraPos.length / 3).fill(128), 1, true));
     g.setIndex(idx);
     g.computeBoundingSphere();
     return g;
@@ -537,7 +625,7 @@ export async function createTerrain(ctx, placementsPromise = null) {
 
   const slopeAt = (x, z) => 1 - normalAt(x, z, _n).y;
 
-  return { group, material, uniforms, heights, heightAt, surfaceLod, normalAt, slopeAt, maskAt, grassAt, surfaceAt, raycast, update, chunks, mids, supers, horizon, textures: { height: heightTex, mask: maskTex, grass: grassTex, normal: normalTex }, chunkGeometry };
+  return { group, material, uniforms, heights, heightAt, surfaceLod, normalAt, slopeAt, maskAt, grassAt, surfaceAt, raycast, update, chunks, mids, supers, horizon, cavity, textures: { height: heightTex, mask: maskTex, grass: grassTex, normal: normalTex }, chunkGeometry };
 }
 
 register('world/terrain', 'height data, triangulation, raycast and chunk geometry agree', async ctx => {
@@ -582,4 +670,8 @@ register('world/terrain', 'height data, triangulation, raycast and chunk geometr
   const g0 = t.chunkGeometry(3, 3, 0), g3 = t.chunkGeometry(3, 3, 3);
   assert(g0.attributes.position.count === 65 * 65 + 4 * 65 && g3.attributes.position.count === 9 * 9 + 4 * 9, 'chunk vertex counts per LOD are wrong');
   assert(t.horizon.length === 2, 'two horizon rings expected');
+  assert(g0.attributes.cavity && g0.attributes.cavity.count === g0.attributes.position.count && t.horizon.every(h => h.geometry.attributes.cavity && h.geometry.attributes.cavity.count === h.geometry.attributes.position.count), 'every terrain mesh needs a cavity attribute');
+  let concave = 0, convex = 0;
+  for (let i = 0; i < t.cavity.length; i += 31) { if (t.cavity[i] < 110) concave++; else if (t.cavity[i] > 146) convex++; }
+  assert(concave > 0 && convex > 0, `cavity must mark hollows and crests: ${concave} concave, ${convex} convex samples`);
 });
