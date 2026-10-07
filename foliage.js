@@ -15,12 +15,13 @@ const LOG_RATIO = Math.log(RATIO);
 const BRANCH_DIST = [0, 3, 6, 12, 24, 48, 96, 192, 384, 768, 1536];
 const BRANCH_FOCAL = 960 / 0.7;
 const BLEND = 0.5;
+const GAP = 0.1;
 
 const PHYS_FROM = '\treflectedLight.directDiffuse += irradiance * BRDF_Lambert( material.diffuseContribution ) * ( 1.0 - F );';
 const PHYS_TO = `${PHYS_FROM}
 #ifdef LEAF_TRANS
 \tfloat lBack = saturate( - dot( directLight.direction, geometryViewDir ) );
-\treflectedLight.directDiffuse += directLight.color * RECIPROCAL_PI * material.diffuseContribution * vec3( 0.9, 1.25, 0.4 ) * ( lBack * lBack * 0.5 );
+\treflectedLight.directDiffuse += directLight.color * RECIPROCAL_PI * material.diffuseContribution * vec3( 0.95, 1.2, 0.45 ) * ( lBack * lBack * 0.85 + lBack * 0.08 );
 #endif`;
 const physPatched = ShaderChunk.lights_physical_pars_fragment.includes(PHYS_FROM);
 if (!physPatched) report('veg/foliage', new Error('three changed the physical direct light function, leaf translucency is missing'));
@@ -47,6 +48,7 @@ ${LEAF_ATTRS}
 varying float vAO;
 varying float vSeed;
 varying float vFk;
+varying float vTree;
 varying vec3 vLeafCol;
 `;
 
@@ -71,9 +73,19 @@ const LEAF_WIND = `
 #endif
 `;
 
+const LEAF_PICK = `
+float lTree = 0.5;
+#ifdef USE_INSTANCING
+lTree = lHash(vec3(instanceMatrix[3]) * 0.0173 + 0.31);
+#endif
+float lDrop = lHash(lcC * 3.917 + lTree * 17.0);
+`;
+
 const LEAF_BEGIN = `
 vec3 lcC = uBoxC + uBoxH * aLeaf.xyz;
 vec3 transformed = lcC + (uBoxC + uBoxH * position.xyz - lcC) * inversesqrt(max(iF.z, 1e-4));
+${LEAF_PICK}
+vTree = lTree;
 vSeed = lHash(lcC * 7.31);
 vFk = iF.z;
 vAO = aN4.w;
@@ -84,10 +96,11 @@ ${LEAF_WIND}
 const LEAF_DEPTH_BEGIN = `
 vec3 lcC = uBoxC + uBoxH * aLeaf.xyz;
 vec3 transformed = lcC + (uBoxC + uBoxH * position.xyz - lcC) * inversesqrt(max(iF.z, 1e-4));
+${LEAF_PICK}
 ${LEAF_WIND}
 `;
 
-const LEAF_CULL = '#include <project_vertex>\nif (aLeaf.w < iF.x || aLeaf.w >= iF.y) gl_Position = vec4(2.0, 2.0, 2.0, 1.0);';
+const LEAF_CULL = `#include <project_vertex>\nif (aLeaf.w < iF.x || aLeaf.w >= iF.y || lDrop < ${GAP.toFixed(3)}) gl_Position = vec4(2.0, 2.0, 2.0, 1.0);`;
 
 const BRANCH_BEGIN = `
 vec3 transformed = uBoxC + uBoxH * position.xyz;
@@ -107,6 +120,7 @@ const LEAF_FRAGMENT_PARS = `
 varying float vAO;
 varying float vSeed;
 varying float vFk;
+varying float vTree;
 varying vec3 vLeafCol;
 uniform vec3 uMean;
 `;
@@ -116,14 +130,39 @@ ${r1 ? 'diffuseColor.rgb = sRGBTransferEOTF(vec4(vLeafCol, 1.0)).rgb;' : ''}
 {
   float hv = vSeed - 0.5;
   vec3 lcol = diffuseColor.rgb * vec3(1.0 + 0.2 * hv, 1.0 + 0.1 * hv + 0.08 * fract(vSeed * 13.7), 1.0 - 0.24 * hv);
-  diffuseColor.rgb = mix(uMean, lcol, pow(clamp(vFk, 0.0, 1.0), 0.18));
+  vec3 lc = mix(uMean, lcol, pow(clamp(vFk, 0.0, 1.0), 0.18));
+  float ll = dot(lc, vec3(0.2126, 0.7152, 0.0722));
+  lc = mix(vec3(ll), lc, 0.74);
+  lc *= mix(vec3(1.05, 0.97, 0.78), vec3(0.88, 0.98, 1.1), vTree) * mix(0.8, 1.06, fract(vTree * 7.13));
+  float lDry = smoothstep(0.9, 0.97, fract(vSeed * 31.7));
+  lc = mix(lc, vec3(ll) * vec3(1.3, 1.02, 0.6), lDry * 0.4);
+  diffuseColor.rgb = lc;
 }
 `;
 
 const AO_FRAGMENT = `
 #include <aomap_fragment>
-reflectedLight.indirectDiffuse *= vAO;
+{
+  vec3 lInd = reflectedLight.indirectDiffuse * mix(0.22, 1.0, vAO) * 1.15;
+  float lIl = dot(lInd, vec3(0.2126, 0.7152, 0.0722));
+  reflectedLight.indirectDiffuse = mix(vec3(lIl), lInd, 0.7) * vec3(0.93, 1.0, 1.12);
+}
 reflectedLight.directDiffuse *= mix(0.55, 1.0, vAO);
+`;
+
+const HAZE_FRAGMENT = `
+#ifdef USE_FOG
+gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor * vec3(0.94, 0.98, 1.06), ${HAZE.max.toFixed(3)} * (1.0 - exp(-vFogDepth * ${HAZE.k.toFixed(4)})));
+#endif
+#include <fog_fragment>
+`;
+
+const BARK_FRAGMENT = `
+#include <map_fragment>
+{
+  float bl = dot(diffuseColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+  diffuseColor.rgb = mix(vec3(bl) * vec3(1.1, 0.98, 0.84), diffuseColor.rgb, 0.5) * mix(0.62, 1.0, smoothstep(0.0, 1.8, vBarkH));
+}
 `;
 
 function leafMaterial(sp, r1) {
