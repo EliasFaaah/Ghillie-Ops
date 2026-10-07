@@ -1,0 +1,111 @@
+{
+  "note": "forest edge spots away from the river, 17h/18h light test, more reference photos",
+  "files": {},
+  "size": "1920x1080",
+  "url": "/?autostart=1",
+  "timeout": 900,
+  "steps": [
+    {
+      "until": "window.__GO && __GO.state().boot.ready",
+      "timeout": 180
+    },
+    {
+      "eval": "__GO.setTime(10)"
+    },
+    {
+      "eval": "__GO.teleport(-657.9, 73.18, -180.5, 1.309, 0.02)"
+    },
+    {
+      "wait": 6
+    },
+    {
+      "shot": "forest_edge_1.jpg"
+    },
+    {
+      "eval": "__GO.teleport(95.3, 74.64, -242.5, 1.309, 0.02)"
+    },
+    {
+      "wait": 6
+    },
+    {
+      "shot": "forest_edge_2.jpg"
+    },
+    {
+      "eval": "__GO.teleport(810.2, 105.22, -211.7, 0.262, 0.02)"
+    },
+    {
+      "wait": 6
+    },
+    {
+      "shot": "forest_edge_3.jpg"
+    },
+    {
+      "eval": "__GO.bookmark('overview')"
+    },
+    {
+      "eval": "__GO.setTime(17)"
+    },
+    {
+      "wait": 10
+    },
+    {
+      "shot": "overview_17h.jpg"
+    },
+    {
+      "eval": "__GO.setTime(18)"
+    },
+    {
+      "wait": 15
+    },
+    {
+      "shot": "overview_18h_wait15.jpg"
+    },
+    {
+      "eval": "JSON.stringify(__GO.state().view)",
+      "as": "view18"
+    },
+    {
+      "eval": "__GO.setTime(10)"
+    },
+    {
+      "commons": "filetype:bitmap Buchenwald Sommer",
+      "count": 5,
+      "prefix": "wald2_photo_"
+    },
+    {
+      "commons": "filetype:bitmap Mischwald",
+      "count": 5,
+      "prefix": "wald3_photo_"
+    },
+    {
+      "commons": "filetype:bitmap Fichtenwald",
+      "count": 5,
+      "prefix": "wald4_photo_"
+    },
+    {
+      "commons": "filetype:bitmap Wiese Sommer",
+      "count": 5,
+      "prefix": "wiese_photo_"
+    },
+    {
+      "commons": "filetype:bitmap Blumenwiese",
+      "count": 5,
+      "prefix": "wiese2_photo_"
+    },
+    {
+      "commons": "filetype:bitmap H\u00fcgellandschaft",
+      "count": 5,
+      "prefix": "land_photo_"
+    },
+    {
+      "commons": "filetype:bitmap Mittelgebirge Landschaft",
+      "count": 5,
+      "prefix": "land2_photo_"
+    },
+    {
+      "commons": "filetype:bitmap Flusslandschaft Sommer",
+      "count": 5,
+      "prefix": "fluss_photo_"
+    }
+  ]
+}
