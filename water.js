@@ -1,4 +1,4 @@
-import { Mesh, BufferGeometry, BufferAttribute, ShaderMaterial, UniformsLib, UniformsUtils, Color, Vector2, Vector3, Matrix4, Plane, PerspectiveCamera, WebGLRenderTarget, HalfFloatType, LinearFilter, Frustum, Sphere } from 'three';
+import { Mesh, BufferGeometry, BufferAttribute, ShaderMaterial, UniformsLib, UniformsUtils, Color, Vector2, Vector3, Matrix4, Plane, PerspectiveCamera, WebGLRenderTarget, HalfFloatType, LinearFilter, Frustum, Sphere, CustomBlending, OneFactor, ZeroFactor, AddEquation } from 'three';
 import { MAP } from './layout.js';
 import { terrainGlsl } from './terrain.js';
 import { register, assert } from '../core/selftest.js';
@@ -10,16 +10,21 @@ const LIMIT = MAP.half + 60;
 export const REFLECTION_LAYER = 1;
 const REFLECTION_SCALE = 0.4;
 const REFLECTION_RANGE = 320;
+const SKY_BLEND = { blending: CustomBlending, blendSrc: OneFactor, blendDst: ZeroFactor, blendSrcAlpha: ZeroFactor, blendDstAlpha: ZeroFactor, blendEquation: AddEquation, blendEquationAlpha: AddEquation };
+const SKY_KEYS = Object.keys(SKY_BLEND);
 
 const VERTEX = `
 #include <common>
 #include <fog_pars_vertex>
 attribute vec4 aFlow;
+attribute float aBank;
 varying vec3 vWW;
 varying vec4 vFlow;
+varying float vBank;
 void main() {
   vWW = (modelMatrix * vec4(position, 1.0)).xyz;
   vFlow = aFlow;
+  vBank = aBank;
   vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
   gl_Position = projectionMatrix * mvPosition;
   #include <fog_vertex>
@@ -39,8 +44,11 @@ uniform vec3 uSunDir;
 uniform vec3 uLight;
 uniform vec3 uSunRadiance;
 uniform vec3 uDeep;
+uniform float uReflectOn;
+uniform float uSkyIn;
 varying vec3 vWW;
 varying vec4 vFlow;
+varying float vBank;
 
 float wHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float wNoise(vec2 p) {
@@ -56,45 +64,59 @@ vec2 wGrad(vec2 p) {
 
 void main() {
   float depth = vWW.y - terrainHeightAt(vWW.xz);
-  if (depth < -0.03) discard;
+  float wet = depth + (wNoise(vWW.xz * 0.45) * 0.65 + wNoise(vWW.xz * 1.7 + 5.3) * 0.35 - 0.5) * 0.22;
+  if (wet < -0.03) discard;
   vec3 toCam = cameraPosition - vWW;
   float dist = length(toCam);
   vec3 V = toCam / dist;
   vec2 fl = vFlow.xy;
+  vec2 ax = vec2(-fl.y, fl.x);
   vec2 q = vec2(vFlow.z - uTime * 0.9, vFlow.w);
-  float near = 1.0 - smoothstep(18.0, 90.0, dist);
-  float mid = 1.0 - smoothstep(70.0, 320.0, dist);
-  vec2 g = wGrad(q * vec2(0.28, 0.75)) * 0.5 * mid
-    + wGrad(vec2(q.x - uTime * 0.5, q.y) * vec2(0.7, 1.7) + 7.0) * 0.26 * mid
-    + wGrad(vec2(q.x - uTime * 1.2, q.y) * vec2(1.9, 3.9) + 3.0) * 0.14 * near;
+  float near = 1.0 - smoothstep(15.0, 80.0, dist);
+  float mid = 1.0 - smoothstep(60.0, 300.0, dist);
+  vec2 g = wGrad(q * vec2(0.32, 0.55)) * 0.45 * mid
+    + wGrad(vec2(q.x - uTime * 0.5, q.y) * vec2(1.1, 1.5) + 7.0) * 0.32 * mid
+    + wGrad(vec2(q.x - uTime * 1.2, q.y) * vec2(3.1, 3.7) + 3.0) * 0.22 * near;
   float calm = smoothstep(0.0, 0.5, depth);
-  vec3 N = normalize(vec3(0.0, 1.0, 0.0) - vec3(fl.x, 0.0, fl.y) * g.x * 0.7 * (0.4 + 0.6 * calm) - vec3(-fl.y, 0.0, fl.x) * g.y * 0.7 * (0.4 + 0.6 * calm));
+  vec2 tilt = (fl * g.x + ax * g.y) * 0.15 * (0.5 + 0.5 * calm);
+  vec3 N = normalize(vec3(-tilt.x, 1.0, -tilt.y));
   vec3 R = refract(-V, N, 0.75);
   float column = max(depth, 0.02);
   vec2 bedXZ = vWW.xz + R.xz / max(-R.y, 0.25) * min(column, 2.5);
   float bedDepth = max(vWW.y - terrainHeightAt(bedXZ), 0.04);
-  vec3 bedAlb = texture2D(uBed, bedXZ / 1.8).rgb * 0.85;
-  vec3 absorb = exp(-vec3(0.62, 0.17, 0.13) * bedDepth * 1.15);
-  vec3 body = bedAlb * uLight * absorb + uDeep * (1.0 - absorb) * uLight;
-  float shore = 1.0 - smoothstep(0.0, 0.45, depth);
-  float stripe = wNoise(vec2(q.x * 0.6, q.y * 1.2) - vec2(uTime * 0.3, 0.0) + wNoise(q * 0.5) * 2.5);
-  float foam = shore * smoothstep(0.38, 0.82, stripe + shore * 0.25) * 0.9;
+  vec3 bedAlb = texture2D(uBed, bedXZ / 1.8).rgb * 0.55;
+  float murk = 0.8 + 0.4 * wNoise(vWW.xz * 0.015 + 3.7);
+  vec3 absorb = exp(-vec3(1.05, 0.72, 0.95) * bedDepth * 1.2 * murk);
+  vec3 body = (bedAlb * absorb + uDeep * murk * (1.0 - absorb)) * uLight;
   float cosV = max(dot(N, V), 0.0);
   float fresnel = 0.02 + 0.98 * pow(1.0 - cosV, 5.0);
-  vec4 rc = uReflectMatrix * vec4(vWW + vec3(g.x, 0.0, g.y) * 0.9, 1.0);
-  vec3 refl = texture2D(uReflect, rc.xy / rc.w).rgb;
-  float planeOk = 1.0 - smoothstep(0.6, 3.5, abs(vWW.y - uPlaneY));
-  vec3 skyRefl = fogColor * 0.9;
-  refl = mix(skyRefl, refl, planeOk);
+  vec3 Rr = reflect(-V, N);
+  Rr.y = max(Rr.y, 0.002);
+  float rl = max(length(Rr.xz), 0.001);
+  vec2 rh = Rr.xz / rl;
+  float cr = dot(rh, ax);
+  float dB = clamp((vBank - vFlow.w * sign(cr)) /max(abs(cr), 0.08), 0.0, 240.0) + 4.0;
+  vec2 hp = vWW.xz + rh * dB;
+  float crown = 3.5 + 11.0 * wNoise(hp * 0.05) + 4.0 * wNoise(hp * 0.23 + 1.3);
+  float tree = (1.0 - smoothstep(crown - 1.2, crown + 1.2, Rr.y / rl * dB)) * (1.0 - smoothstep(0.25, 0.45, Rr.y));
+  vec3 treeCol = vec3(0.05, 0.075, 0.032) * (0.55 + 0.6 * wNoise(hp * 0.4)) * uLight * 0.32;
+  vec3 skyEnv = mix(fogColor, fogColor * vec3(0.62, 0.8, 1.1), smoothstep(0.0, 0.6, Rr.y));
+  vec3 envRefl = mix(skyEnv, treeCol, tree);
+  vec4 rc = uReflectMatrix * vec4(vWW + vec3(N.x, 0.0, N.z) * 6.0, 1.0);
+  vec4 rt = texture2D(uReflect, rc.xy / rc.w);
+  vec3 skyPart = mix(skyEnv, rt.rgb, uSkyIn);
+  vec3 sceneRefl = mix(mix(skyPart, treeCol, tree), rt.rgb, rt.a);
+  float planeOk = (1.0 - smoothstep(0.6, 3.5, abs(vWW.y - uPlaneY))) * uReflectOn;
+  vec3 refl = mix(envRefl, sceneRefl, planeOk);
   vec3 H = normalize(V + uSunDir);
-  float rough = mix(0.025, 0.2, smoothstep(40.0, 400.0, dist));
-  float a2 = pow(rough, 4.0);
+  float rough = mix(0.07, 0.24, smoothstep(30.0, 400.0, dist));
+  float a2 = rough * rough * rough * rough;
   float nh = max(dot(N, H), 0.0);
   float dd = nh * nh * (a2 - 1.0) + 1.0;
-  vec3 spec = uSunRadiance * (a2 / (3.14159 * dd * dd)) * fresnel * 0.25 * max(uSunDir.y, 0.0);
-  vec3 col = mix(body, refl, clamp(fresnel * 1.15, 0.0, 1.0)) + spec;
-  col = mix(col, vec3(0.8, 0.84, 0.82) * uLight * 0.8, foam);
-  gl_FragColor = vec4(col, smoothstep(-0.03, 0.12, depth));
+  float fs = 0.02 + 0.98 * pow(1.0 - max(dot(V, H), 0.0), 5.0);
+  vec3 spec = uSunRadiance * min(a2 / (3.14159 * dd * dd) * fs * 0.25, 14.0) * max(uSunDir.y, 0.0);
+  vec3 col = mix(body, refl, clamp(fresnel * 1.1, 0.0, 1.0)) + spec;
+  gl_FragColor = vec4(col, smoothstep(-0.03, 0.14, wet));
   #include <fog_fragment>
 }
 `;
@@ -109,7 +131,7 @@ export async function createWater(ctx, terrain, river, lighting) {
   }
   samples.push(river[river.length - 1]);
   const kept = samples.filter(s => Math.abs(s[0]) < LIMIT && Math.abs(s[1]) < LIMIT);
-  const pos = new Float32Array(kept.length * 6), flow = new Float32Array(kept.length * 8), idx = [];
+  const pos = new Float32Array(kept.length * 6), flow = new Float32Array(kept.length * 8), bank = new Float32Array(kept.length * 2), idx = [];
   let along = 0;
   kept.forEach((s, i) => {
     const prev = kept[Math.max(i - 1, 0)], next = kept[Math.min(i + 1, kept.length - 1)];
@@ -118,11 +140,13 @@ export async function createWater(ctx, terrain, river, lighting) {
     const nx = -tz / len, nz = tx / len, half = s[2] / 2 + MARGIN;
     pos.set([s[0] + nx * half, s[3], s[1] + nz * half, s[0] - nx * half, s[3], s[1] - nz * half], i * 6);
     flow.set([tx / len, tz / len, along, half, tx / len, tz / len, along, -half], i * 8);
+    bank.set([s[2] / 2, s[2] / 2], i * 2);
     if (i + 1 < kept.length) idx.push(i * 2, i * 2 + 1, i * 2 + 2, i * 2 + 1, i * 2 + 3, i * 2 + 2, i * 2, i * 2 + 2, i * 2 + 1, i * 2 + 1, i * 2 + 2, i * 2 + 3);
   });
   const geometry = new BufferGeometry();
   geometry.setAttribute('position', new BufferAttribute(pos, 3));
   geometry.setAttribute('aFlow', new BufferAttribute(flow, 4));
+  geometry.setAttribute('aBank', new BufferAttribute(bank, 1));
   geometry.setIndex(idx);
   geometry.computeBoundingSphere();
 
@@ -130,7 +154,8 @@ export async function createWater(ctx, terrain, river, lighting) {
   const uniforms = Object.assign(UniformsUtils.clone(UniformsLib.fog), {
     uTime: { value: 0 }, uBed: terrain.uniforms.tA4, uHeightTex: terrain.uniforms.uHeightTex, uReflect: { value: target.texture },
     uReflectMatrix: { value: new Matrix4() }, uPlaneY: { value: 0 }, uSunDir: { value: new Vector3(0, 1, 0) }, uLight: { value: new Vector3(1, 1, 1) },
-    uSunRadiance: { value: new Vector3(1, 1, 1) }, uDeep: { value: new Color(0.012, 0.05, 0.05) }
+    uSunRadiance: { value: new Vector3(1, 1, 1) }, uDeep: { value: new Color(0.022, 0.03, 0.016) },
+    uReflectOn: { value: 0 }, uSkyIn: { value: 0 }
   });
   const material = new ShaderMaterial({ uniforms, vertexShader: VERTEX, fragmentShader: FRAGMENT, transparent: true, depthWrite: false, fog: true });
   const mesh = new Mesh(geometry, material);
@@ -183,14 +208,21 @@ export async function createWater(ctx, terrain, river, lighting) {
     reflectCam.layers.set(REFLECTION_LAYER);
     uniforms.uReflectMatrix.value.copy(BIAS).multiply(reflectCam.projectionMatrix).multiply(reflectCam.matrixWorldInverse);
     clip.constant = -planeY + 0.05;
-    const prevTarget = rend.getRenderTarget(), prevShadow = rend.shadowMap.autoUpdate, prevClip = rend.clippingPlanes;
+    const prevTarget = rend.getRenderTarget(), prevShadow = rend.shadowMap.autoUpdate, prevClip = rend.clippingPlanes, prevAlpha = rend.getClearAlpha();
+    const sky = lighting.sky && lighting.sky.material;
+    const skyBlend = sky ? SKY_KEYS.map(k => sky[k]) : null;
+    if (sky) Object.assign(sky, SKY_BLEND);
+    uniforms.uSkyIn.value = sky ? 1 : 0;
     reflecting = true;
     mesh.visible = false;
     rend.shadowMap.autoUpdate = false;
     rend.clippingPlanes = [clip];
     rend.setRenderTarget(target);
+    rend.setClearAlpha(0);
     rend.clear();
     rend.render(scene, reflectCam);
+    rend.setClearAlpha(prevAlpha);
+    if (sky) SKY_KEYS.forEach((k, i) => { sky[k] = skyBlend[i]; });
     rend.clippingPlanes = prevClip;
     rend.shadowMap.autoUpdate = prevShadow;
     rend.setRenderTarget(prevTarget);
@@ -233,6 +265,7 @@ export async function createWater(ctx, terrain, river, lighting) {
         if ((p[0] - camera.position.x) ** 2 + (p[1] - camera.position.z) ** 2 < REFLECTION_RANGE ** 2) reflect = true;
       }
       mesh.visible = any;
+      uniforms.uReflectOn.value = reflect ? 1 : 0;
       const sun = lighting.sun;
       uniforms.uSunDir.value.copy(sun.position).normalize();
       sunTint.copy(sun.color).multiplyScalar(sun.intensity / Math.PI);
@@ -251,4 +284,6 @@ register('world/water', 'river water depth follows the channel and reflects the 
   assert(w.depthAt(mid[0], mid[1] + 160) === 0, 'terrain far from the river must be dry');
   assert(w.mesh.material.transparent && w.mesh.geometry.index.count > 100 && w.mesh.geometry.attributes.aFlow, 'water mesh must be a flowing ribbon');
   assert(w.target.texture && w.mesh.onBeforeRender, 'water needs a reflection target');
+  assert(w.mesh.geometry.attributes.aBank && w.mesh.geometry.attributes.aBank.count === w.mesh.geometry.attributes.aFlow.count, 'water needs the bank half width per vertex');
+  assert(!(ctx.world.lighting.sky && ctx.world.lighting.sky.material) || ctx.world.lighting.sky.material.blending !== CustomBlending, 'the sky blending must be restored after the reflection pass');
 });
