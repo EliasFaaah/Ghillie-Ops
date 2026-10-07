@@ -1,0 +1,8 @@
+{
+  "id": "0003-r1-extra",
+  "started": "2026-10-07T05:08:56.764Z",
+  "errors": [],
+  "qaExit": 0,
+  "qaLog": "qa: OK http://localhost:8790/?autostart=1\ngpu: ANGLE (NVIDIA, NVIDIA GeForce RTX 4080 (0x00002704) Direct3D11 vs_5_0 ps_5_0, D3D11) | timer query: true\n",
+  "finished": "2026-10-07T05:10:59.185Z"
+}

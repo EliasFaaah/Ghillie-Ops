@@ -1,0 +1,601 @@
+{
+  "url": "http://localhost:8790/?autostart=1",
+  "size": "1920x1080",
+  "started": "2026-10-07T05:08:56.815Z",
+  "chrome": "Chrome/154.0.8037.98",
+  "flags": [
+    "--headless=new",
+    "--use-angle=d3d11",
+    "--enable-gpu",
+    "--ignore-gpu-blocklist",
+    "--window-size=1920,1080",
+    "--remote-debugging-port=0",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--disable-extensions",
+    "--disable-sync",
+    "--mute-audio",
+    "--disable-background-networking",
+    "--disable-background-timer-throttling",
+    "--disable-renderer-backgrounding",
+    "--disable-backgrounding-occluded-windows",
+    "about:blank"
+  ],
+  "gpuCost": false,
+  "allowedHosts": [
+    "localhost",
+    "127.0.0.1",
+    "[::1]"
+  ],
+  "gpu": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4080 (0x00002704) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "timerQuery": true,
+    "hardware": true,
+    "maxClocksMHz": {
+      "gr": 3105,
+      "mem": 11201
+    }
+  },
+  "viewport": {
+    "w": 1920,
+    "h": 1080,
+    "dpr": 1
+  },
+  "console": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "foreignRequests": [],
+  "workers": [
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/14a7c53f-3409-41c4-97a3-c34a9e431340"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/14a7c53f-3409-41c4-97a3-c34a9e431340"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/14a7c53f-3409-41c4-97a3-c34a9e431340"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/14a7c53f-3409-41c4-97a3-c34a9e431340"
+    }
+  ],
+  "steps": [
+    {
+      "i": 0,
+      "step": {
+        "until": "window.__GO && __GO.state().boot.ready",
+        "timeout": 180
+      },
+      "ms": 24818
+    },
+    {
+      "i": 1,
+      "step": {
+        "eval": "__GO.setTime(10)"
+      },
+      "value": 10,
+      "ms": 153
+    },
+    {
+      "i": 2,
+      "step": {
+        "eval": "__GO.teleport(-657.9, 73.18, -180.5, 1.309, 0.02)"
+      },
+      "value": [
+        -657.9,
+        73.18,
+        -180.5,
+        1.309,
+        0.02
+      ],
+      "ms": 83
+    },
+    {
+      "i": 3,
+      "step": {
+        "wait": 6
+      },
+      "ms": 6001
+    },
+    {
+      "i": 4,
+      "step": {
+        "shot": "forest_edge_1.jpg"
+      },
+      "ms": 507
+    },
+    {
+      "i": 5,
+      "step": {
+        "eval": "__GO.teleport(95.3, 74.64, -242.5, 1.309, 0.02)"
+      },
+      "value": [
+        95.3,
+        74.64,
+        -242.5,
+        1.309,
+        0.02
+      ],
+      "ms": 23
+    },
+    {
+      "i": 6,
+      "step": {
+        "wait": 6
+      },
+      "ms": 6014
+    },
+    {
+      "i": 7,
+      "step": {
+        "shot": "forest_edge_2.jpg"
+      },
+      "ms": 343
+    },
+    {
+      "i": 8,
+      "step": {
+        "eval": "__GO.teleport(810.2, 105.22, -211.7, 0.262, 0.02)"
+      },
+      "value": [
+        810.2,
+        105.22,
+        -211.7,
+        0.262,
+        0.02
+      ],
+      "ms": 38
+    },
+    {
+      "i": 9,
+      "step": {
+        "wait": 6
+      },
+      "ms": 6014
+    },
+    {
+      "i": 10,
+      "step": {
+        "shot": "forest_edge_3.jpg"
+      },
+      "ms": 354
+    },
+    {
+      "i": 11,
+      "step": {
+        "eval": "__GO.bookmark('overview')"
+      },
+      "value": {
+        "eye": [
+          -700,
+          158.74158477783203,
+          -560
+        ],
+        "yaw": -2.300695984946628,
+        "pitch": -0.08467789179059301
+      },
+      "ms": 21
+    },
+    {
+      "i": 12,
+      "step": {
+        "eval": "__GO.setTime(17)"
+      },
+      "value": 17,
+      "ms": 227
+    },
+    {
+      "i": 13,
+      "step": {
+        "wait": 10
+      },
+      "ms": 10011
+    },
+    {
+      "i": 14,
+      "step": {
+        "shot": "overview_17h.jpg"
+      },
+      "ms": 131
+    },
+    {
+      "i": 15,
+      "step": {
+        "eval": "__GO.setTime(18)"
+      },
+      "value": 18,
+      "ms": 44
+    },
+    {
+      "i": 16,
+      "step": {
+        "wait": 15
+      },
+      "ms": 15003
+    },
+    {
+      "i": 17,
+      "step": {
+        "shot": "overview_18h_wait15.jpg"
+      },
+      "ms": 314
+    },
+    {
+      "i": 18,
+      "step": {
+        "eval": "JSON.stringify(__GO.state().view)",
+        "as": "view18"
+      },
+      "value": "{\"name\":\"world\",\"mode\":\"fly\",\"time\":18,\"camera\":{\"x\":-700,\"y\":158.74158477783203,\"z\":-560,\"yaw\":-2.300695984946628,\"pitch\":-0.08467789179059301,\"ground\":120.74158477783203},\"bookmarks\":[\"overview\",\"river_bridge\",\"meadow_ground\",\"farm\",\"radio_tower\",\"village\",\"quarry\",\"red_base\"],\"trees\":{\"BushA\":[39,222,16042],\"Fern\":[74]},\"foliage\":{\"OakA\":{\"main\":{\"r0\":0,\"r1\":920538,\"branch\":2128418,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":746404,\"branch\":64755,\"trees\":0},{\"r0\":0,\"r1\":1158560,\"branch\":183960,\"trees\":0},{\"r0\":0,\"r1\":379712,\"branch\":318738,\"trees\":0}]},\"OakB\":{\"main\":{\"r0\":0,\"r1\":927506,\"branch\":1851248,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":545252,\"branch\":34225,\"trees\":0},{\"r0\":0,\"r1\":941692,\"branch\":154825,\"trees\":0},{\"r0\":0,\"r1\":387116,\"branch\":290664,\"trees\":0}]},\"OakC\":{\"main\":{\"r0\":0,\"r1\":1171606,\"branch\":1548581,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":347416,\"branch\":26020,\"trees\":0},{\"r0\":0,\"r1\":1341922,\"branch\":115530,\"trees\":0},{\"r0\":0,\"r1\":567204,\"branch\":220299,\"trees\":0}]},\"Beech\":{\"main\":{\"r0\":0,\"r1\":3642622,\"branch\":10614765,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":1818528,\"branch\":244546,\"trees\":0},{\"r0\":0,\"r1\":4373590,\"branch\":754298,\"trees\":0},{\"r0\":0,\"r1\":1586178,\"branch\":1533704,\"trees\":0}]},\"FirA\":{\"main\":{\"r0\":0,\"r1\":7868140,\"branch\":4366358,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":1463440,\"branch\":43960,\"trees\":0},{\"r0\":0,\"r1\":1606384,\"branch\":236040,\"trees\":0},{\"r0\":0,\"r1\":1049796,\"branch\":657826,\"trees\":0}]},\"FirB\":{\"main\":{\"r0\":0,\"r1\":4432852,\"branch\":4062370,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":1656048,\"branch\":62059,\"trees\":0},{\"r0\":0,\"r1\":1380670,\"branch\":233634,\"trees\":0},{\"r0\":0,\"r1\":754232,\"branch\":625099,\"trees\":0}]},\"FirC\":{\"main\":{\"r0\":0,\"r1\":914216,\"branch\":2628222,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":125136,\"branch\":14382,\"trees\":0},{\"r0\":0,\"r1\":256600,\"branch\":143100,\"trees\":0},{\"r0\":0,\"r1\":144978,\"branch\":389879,\"trees\":0}]},\"Birch\":{\"main\":{\"r0\":0,\"r1\":1749834,\"branch\":4467001,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":3098040,\"branch\":195410,\"trees\":0},{\"r0\":0,\"r1\":1511186,\"branch\":278959,\"trees\":0},{\"r0\":0,\"r1\":515138,\"branch\":572633,\"trees\":0}]}},\"collisionTriangles\":2377015,\"navOpen\":0.8351840972900391,\"draw\":{\"propCells\":411}}",
+      "ms": 7
+    },
+    {
+      "i": 19,
+      "step": {
+        "eval": "__GO.setTime(10)"
+      },
+      "value": 10,
+      "ms": 291
+    },
+    {
+      "i": 20,
+      "step": {
+        "commons": "filetype:bitmap Buchenwald Sommer",
+        "count": 5,
+        "prefix": "wald2_photo_"
+      },
+      "value": 5,
+      "ms": 7869
+    },
+    {
+      "i": 21,
+      "step": {
+        "commons": "filetype:bitmap Mischwald",
+        "count": 5,
+        "prefix": "wald3_photo_"
+      },
+      "value": 5,
+      "ms": 3518
+    },
+    {
+      "i": 22,
+      "step": {
+        "commons": "filetype:bitmap Fichtenwald",
+        "count": 5,
+        "prefix": "wald4_photo_"
+      },
+      "value": 5,
+      "ms": 4491
+    },
+    {
+      "i": 23,
+      "step": {
+        "commons": "filetype:bitmap Wiese Sommer",
+        "count": 5,
+        "prefix": "wiese_photo_"
+      },
+      "value": 5,
+      "ms": 6294
+    },
+    {
+      "i": 24,
+      "step": {
+        "commons": "filetype:bitmap Blumenwiese",
+        "count": 5,
+        "prefix": "wiese2_photo_"
+      },
+      "value": 5,
+      "ms": 5961
+    },
+    {
+      "i": 25,
+      "step": {
+        "commons": "filetype:bitmap Hügellandschaft",
+        "count": 5,
+        "prefix": "land_photo_"
+      },
+      "value": 5,
+      "ms": 14654
+    },
+    {
+      "i": 26,
+      "step": {
+        "commons": "filetype:bitmap Mittelgebirge Landschaft",
+        "count": 5,
+        "prefix": "land2_photo_"
+      },
+      "value": 5,
+      "ms": 5253
+    },
+    {
+      "i": 27,
+      "step": {
+        "commons": "filetype:bitmap Flusslandschaft Sommer",
+        "count": 5,
+        "prefix": "fluss_photo_"
+      },
+      "value": 2,
+      "ms": 1945
+    }
+  ],
+  "results": {
+    "view18": "{\"name\":\"world\",\"mode\":\"fly\",\"time\":18,\"camera\":{\"x\":-700,\"y\":158.74158477783203,\"z\":-560,\"yaw\":-2.300695984946628,\"pitch\":-0.08467789179059301,\"ground\":120.74158477783203},\"bookmarks\":[\"overview\",\"river_bridge\",\"meadow_ground\",\"farm\",\"radio_tower\",\"village\",\"quarry\",\"red_base\"],\"trees\":{\"BushA\":[39,222,16042],\"Fern\":[74]},\"foliage\":{\"OakA\":{\"main\":{\"r0\":0,\"r1\":920538,\"branch\":2128418,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":746404,\"branch\":64755,\"trees\":0},{\"r0\":0,\"r1\":1158560,\"branch\":183960,\"trees\":0},{\"r0\":0,\"r1\":379712,\"branch\":318738,\"trees\":0}]},\"OakB\":{\"main\":{\"r0\":0,\"r1\":927506,\"branch\":1851248,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":545252,\"branch\":34225,\"trees\":0},{\"r0\":0,\"r1\":941692,\"branch\":154825,\"trees\":0},{\"r0\":0,\"r1\":387116,\"branch\":290664,\"trees\":0}]},\"OakC\":{\"main\":{\"r0\":0,\"r1\":1171606,\"branch\":1548581,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":347416,\"branch\":26020,\"trees\":0},{\"r0\":0,\"r1\":1341922,\"branch\":115530,\"trees\":0},{\"r0\":0,\"r1\":567204,\"branch\":220299,\"trees\":0}]},\"Beech\":{\"main\":{\"r0\":0,\"r1\":3642622,\"branch\":10614765,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":1818528,\"branch\":244546,\"trees\":0},{\"r0\":0,\"r1\":4373590,\"branch\":754298,\"trees\":0},{\"r0\":0,\"r1\":1586178,\"branch\":1533704,\"trees\":0}]},\"FirA\":{\"main\":{\"r0\":0,\"r1\":7868140,\"branch\":4366358,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":1463440,\"branch\":43960,\"trees\":0},{\"r0\":0,\"r1\":1606384,\"branch\":236040,\"trees\":0},{\"r0\":0,\"r1\":1049796,\"branch\":657826,\"trees\":0}]},\"FirB\":{\"main\":{\"r0\":0,\"r1\":4432852,\"branch\":4062370,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":1656048,\"branch\":62059,\"trees\":0},{\"r0\":0,\"r1\":1380670,\"branch\":233634,\"trees\":0},{\"r0\":0,\"r1\":754232,\"branch\":625099,\"trees\":0}]},\"FirC\":{\"main\":{\"r0\":0,\"r1\":914216,\"branch\":2628222,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":125136,\"branch\":14382,\"trees\":0},{\"r0\":0,\"r1\":256600,\"branch\":143100,\"trees\":0},{\"r0\":0,\"r1\":144978,\"branch\":389879,\"trees\":0}]},\"Birch\":{\"main\":{\"r0\":0,\"r1\":1749834,\"branch\":4467001,\"trees\":0},\"cascades\":[{\"r0\":0,\"r1\":0,\"branch\":0,\"trees\":0},{\"r0\":0,\"r1\":3098040,\"branch\":195410,\"trees\":0},{\"r0\":0,\"r1\":1511186,\"branch\":278959,\"trees\":0},{\"r0\":0,\"r1\":515138,\"branch\":572633,\"trees\":0}]}},\"collisionTriangles\":2377015,\"navOpen\":0.8351840972900391,\"draw\":{\"propCells\":411}}",
+    "refs": [
+      {
+        "file": "wald2_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/LibrisGeschiedenisPrijs2015.jpg/1920px-LibrisGeschiedenisPrijs2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:LibrisGeschiedenisPrijs2015.jpg",
+        "title": "File:LibrisGeschiedenisPrijs2015.jpg",
+        "license": "CC BY 2.0"
+      },
+      {
+        "file": "wald2_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/LibrisGeschiedenisprijs2015.jpg/1920px-LibrisGeschiedenisprijs2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:LibrisGeschiedenisprijs2015.jpg",
+        "title": "File:LibrisGeschiedenisprijs2015.jpg",
+        "license": "CC BY 2.0"
+      },
+      {
+        "file": "wald2_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/JosPalm2015.jpg/1920px-JosPalm2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:JosPalm2015.jpg",
+        "title": "File:JosPalm2015.jpg",
+        "license": "CC BY 2.0"
+      },
+      {
+        "file": "wald2_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Gipfel_des_Vojak.JPG/1920px-Gipfel_des_Vojak.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Gipfel_des_Vojak.JPG",
+        "title": "File:Gipfel des Vojak.JPG",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wald2_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Staatsarchiv_Chemnitz_im_Peretzhaus_Interior_%28107%29.jpg/1920px-Staatsarchiv_Chemnitz_im_Peretzhaus_Interior_%28107%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Staatsarchiv_Chemnitz_im_Peretzhaus_Interior_(107).jpg",
+        "title": "File:Staatsarchiv Chemnitz im Peretzhaus Interior (107).jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wald3_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/2017_Las_mieszany_na_stoku_Rudki%2C_Masyw_%C5%9Anie%C5%BCnika%2C_Sudety.jpg/1920px-2017_Las_mieszany_na_stoku_Rudki%2C_Masyw_%C5%9Anie%C5%BCnika%2C_Sudety.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:2017_Las_mieszany_na_stoku_Rudki,_Masyw_%C5%9Anie%C5%BCnika,_Sudety.jpg",
+        "title": "File:2017 Las mieszany na stoku Rudki, Masyw Śnieżnika, Sudety.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wald3_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Mischwald_Herbst_Panorama.jpg/1920px-Mischwald_Herbst_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Mischwald_Herbst_Panorama.jpg",
+        "title": "File:Mischwald Herbst Panorama.jpg",
+        "license": "CC BY-SA 2.5"
+      },
+      {
+        "file": "wald3_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Mischwald_Herbst.jpg/1920px-Mischwald_Herbst.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Mischwald_Herbst.jpg",
+        "title": "File:Mischwald Herbst.jpg",
+        "license": "CC BY-SA 2.5"
+      },
+      {
+        "file": "wald3_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Lake_Willoughby_October_2021_003.jpg/1920px-Lake_Willoughby_October_2021_003.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Lake_Willoughby_October_2021_003.jpg",
+        "title": "File:Lake Willoughby October 2021 003.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wald3_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Mischwald_in_S%C3%BCdtirol.jpg/1920px-Mischwald_in_S%C3%BCdtirol.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Mischwald_in_S%C3%BCdtirol.jpg",
+        "title": "File:Mischwald in Südtirol.jpg",
+        "license": "CC BY 4.0"
+      },
+      {
+        "file": "wald4_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/1920_Lambrecht_Fichtenwald_anagoria.JPG/1920px-1920_Lambrecht_Fichtenwald_anagoria.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:1920_Lambrecht_Fichtenwald_anagoria.JPG",
+        "title": "File:1920 Lambrecht Fichtenwald anagoria.JPG",
+        "license": "Public domain"
+      },
+      {
+        "file": "wald4_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Holovne_Liubomlskyi_Volynska-zakaznyk_botanical_Spruce_forest-general_view_near_first_guard_board.jpg/1920px-Holovne_Liubomlskyi_Volynska-zakaznyk_botanical_Spruce_forest-general_view_near_first_guard_board.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Holovne_Liubomlskyi_Volynska-zakaznyk_botanical_Spruce_forest-general_view_near_first_guard_board.jpg",
+        "title": "File:Holovne Liubomlskyi Volynska-zakaznyk botanical Spruce forest-general view near first guard board.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wald4_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Mountain_spruce_forest_of_the_Krkono%C5%A1e_Mts.jpg/1920px-Mountain_spruce_forest_of_the_Krkono%C5%A1e_Mts.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Mountain_spruce_forest_of_the_Krkono%C5%A1e_Mts.jpg",
+        "title": "File:Mountain spruce forest of the Krkonoše Mts.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wald4_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Milwaukee_Public_Museum_December_2022_02_%28Arctic--Spruce_Forest_Dwellers-_Moose%29.jpg/1920px-Milwaukee_Public_Museum_December_2022_02_%28Arctic--Spruce_Forest_Dwellers-_Moose%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Milwaukee_Public_Museum_December_2022_02_(Arctic--Spruce_Forest_Dwellers-_Moose).jpg",
+        "title": "File:Milwaukee Public Museum December 2022 02 (Arctic--Spruce Forest Dwellers- Moose).jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wald4_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Milwaukee_Public_Museum_November_2022_121_%28Arctic--Spruce_Forest_Dwellers-_Moose%29.jpg/1920px-Milwaukee_Public_Museum_November_2022_121_%28Arctic--Spruce_Forest_Dwellers-_Moose%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Milwaukee_Public_Museum_November_2022_121_(Arctic--Spruce_Forest_Dwellers-_Moose).jpg",
+        "title": "File:Milwaukee Public Museum November 2022 121 (Arctic--Spruce Forest Dwellers- Moose).jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wiese_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Claude_Monet_-_L%27%C3%89t%C3%A9_-_Google_Art_Project.jpg/1920px-Claude_Monet_-_L%27%C3%89t%C3%A9_-_Google_Art_Project.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_L%27%C3%89t%C3%A9_-_Google_Art_Project.jpg",
+        "title": "File:Claude Monet - L'Été - Google Art Project.jpg",
+        "license": "Public domain"
+      },
+      {
+        "file": "wiese_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/1874_Monet_Sommer_anagoria.JPG/1920px-1874_Monet_Sommer_anagoria.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:1874_Monet_Sommer_anagoria.JPG",
+        "title": "File:1874 Monet Sommer anagoria.JPG",
+        "license": "Public domain"
+      },
+      {
+        "file": "wiese_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Claude_Monet_-_Summer_-_1874_8914.jpg/1920px-Claude_Monet_-_Summer_-_1874_8914.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Summer_-_1874_8914.jpg",
+        "title": "File:Claude Monet - Summer - 1874 8914.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wiese_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Monet%2C_Summer%2C_1874%2C_Alte_Nationalgalerie%2C_Berlin_%282%29_%2839281569675%29.jpg/1920px-Monet%2C_Summer%2C_1874%2C_Alte_Nationalgalerie%2C_Berlin_%282%29_%2839281569675%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Monet,_Summer,_1874,_Alte_Nationalgalerie,_Berlin_(2)_(39281569675).jpg",
+        "title": "File:Monet, Summer, 1874, Alte Nationalgalerie, Berlin (2) (39281569675).jpg",
+        "license": "CC BY 2.0"
+      },
+      {
+        "file": "wiese_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Monet%2C_Summer%2C_1874%2C_Alte_Nationalgalerie%2C_Berlin_%281%29_%2828399622779%29.jpg/1920px-Monet%2C_Summer%2C_1874%2C_Alte_Nationalgalerie%2C_Berlin_%281%29_%2828399622779%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Monet,_Summer,_1874,_Alte_Nationalgalerie,_Berlin_(1)_(28399622779).jpg",
+        "title": "File:Monet, Summer, 1874, Alte Nationalgalerie, Berlin (1) (28399622779).jpg",
+        "license": "CC BY 2.0"
+      },
+      {
+        "file": "wiese2_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Biesdorfer_Blumenwiese%2C_Berlin-Biesdorf%2C_542-648.jpg/1920px-Biesdorfer_Blumenwiese%2C_Berlin-Biesdorf%2C_542-648.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Biesdorfer_Blumenwiese,_Berlin-Biesdorf,_542-648.jpg",
+        "title": "File:Biesdorfer Blumenwiese, Berlin-Biesdorf, 542-648.jpg",
+        "license": "CC BY-SA 3.0"
+      },
+      {
+        "file": "wiese2_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Blumenwiese_Gnalp_2_%E2%80%93_WAF_300_J_FL.jpg/1920px-Blumenwiese_Gnalp_2_%E2%80%93_WAF_300_J_FL.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Blumenwiese_Gnalp_2_%E2%80%93_WAF_300_J_FL.jpg",
+        "title": "File:Blumenwiese Gnalp 2 – WAF 300 J FL.jpg",
+        "license": "CC0"
+      },
+      {
+        "file": "wiese2_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Blumenwiese_Gnalp_%E2%80%93_WAF_300_J_FL.jpg/1920px-Blumenwiese_Gnalp_%E2%80%93_WAF_300_J_FL.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Blumenwiese_Gnalp_%E2%80%93_WAF_300_J_FL.jpg",
+        "title": "File:Blumenwiese Gnalp – WAF 300 J FL.jpg",
+        "license": "CC0"
+      },
+      {
+        "file": "wiese2_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/Blumenwiese_in_Ingolstadt_2024.jpg/1920px-Blumenwiese_in_Ingolstadt_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Blumenwiese_in_Ingolstadt_2024.jpg",
+        "title": "File:Blumenwiese in Ingolstadt 2024.jpg",
+        "license": "CC0"
+      },
+      {
+        "file": "wiese2_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Blumenwiese_1_Landschaftsschutzgebiet_Bodenseeufer_%2819_Teilgebiete%29.jpg/1920px-Blumenwiese_1_Landschaftsschutzgebiet_Bodenseeufer_%2819_Teilgebiete%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Blumenwiese_1_Landschaftsschutzgebiet_Bodenseeufer_(19_Teilgebiete).jpg",
+        "title": "File:Blumenwiese 1 Landschaftsschutzgebiet Bodenseeufer (19 Teilgebiete).jpg",
+        "license": "CC BY 4.0"
+      },
+      {
+        "file": "land_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Heeseberg_Richtung_Harz.jpg/1920px-Heeseberg_Richtung_Harz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Heeseberg_Richtung_Harz.jpg",
+        "title": "File:Heeseberg Richtung Harz.jpg",
+        "license": "CC BY-SA 3.0"
+      },
+      {
+        "file": "land_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Watenstedt_LSG.jpg/1920px-Watenstedt_LSG.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Watenstedt_LSG.jpg",
+        "title": "File:Watenstedt LSG.jpg",
+        "license": "CC0"
+      },
+      {
+        "file": "land_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Caspar_David_Friedrich_-_R%C3%BCgische_H%C3%BCgellandschaft_mit_Ba%C3%BCmen_-_NG.K%26H.B.16069-016_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/1920px-Caspar_David_Friedrich_-_R%C3%BCgische_H%C3%BCgellandschaft_mit_Ba%C3%BCmen_-_NG.K%26H.B.16069-016_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Caspar_David_Friedrich_-_R%C3%BCgische_H%C3%BCgellandschaft_mit_Ba%C3%BCmen_-_NG.K%26H.B.16069-016_-_National_Museum_of_Art,_Architecture_and_Design.jpg",
+        "title": "File:Caspar David Friedrich - Rügische Hügellandschaft mit Baümen - NG.K&H.B.16069-016 - National Museum of Art, Architecture and Design.jpg",
+        "license": "Public domain"
+      },
+      {
+        "file": "land_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/H%C3%BCgellandschaft_bei_Reichesdorf_I.JPG/1920px-H%C3%BCgellandschaft_bei_Reichesdorf_I.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:H%C3%BCgellandschaft_bei_Reichesdorf_I.JPG",
+        "title": "File:Hügellandschaft bei Reichesdorf I.JPG",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "land_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/H%C3%BCgellandschaft_bei_Reichesdorf_III.JPG/1920px-H%C3%BCgellandschaft_bei_Reichesdorf_III.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:H%C3%BCgellandschaft_bei_Reichesdorf_III.JPG",
+        "title": "File:Hügellandschaft bei Reichesdorf III.JPG",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "land2_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/2011-05-30_008_Young_Highland_cow%2C_Denmark.jpg/1920px-2011-05-30_008_Young_Highland_cow%2C_Denmark.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:2011-05-30_008_Young_Highland_cow,_Denmark.jpg",
+        "title": "File:2011-05-30 008 Young Highland cow, Denmark.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "land2_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Tr%C3%A0igh_Allt_Ch%C3%A0ilgeagg%2C_Highland%2C_Scotland.jpg/1920px-Tr%C3%A0igh_Allt_Ch%C3%A0ilgeagg%2C_Highland%2C_Scotland.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Tr%C3%A0igh_Allt_Ch%C3%A0ilgeagg,_Highland,_Scotland.jpg",
+        "title": "File:Tràigh Allt Chàilgeagg, Highland, Scotland.jpg",
+        "license": "CC BY 3.0"
+      },
+      {
+        "file": "land2_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Highland_cattle_Sec%C3%ABda_Gherd%C3%ABina.jpg/1920px-Highland_cattle_Sec%C3%ABda_Gherd%C3%ABina.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Highland_cattle_Sec%C3%ABda_Gherd%C3%ABina.jpg",
+        "title": "File:Highland cattle Secëda Gherdëina.jpg",
+        "license": "CC BY-SA 3.0"
+      },
+      {
+        "file": "land2_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Highland_Peak_Highland_bowl_Colorado.jpg/1920px-Highland_Peak_Highland_bowl_Colorado.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Highland_Peak_Highland_bowl_Colorado.jpg",
+        "title": "File:Highland Peak Highland bowl Colorado.jpg",
+        "license": "CC BY-SA 3.0"
+      },
+      {
+        "file": "land2_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/2011-05-30_018_DNFS_Young_Highland_cow%2C_Denmark.jpg/1920px-2011-05-30_018_DNFS_Young_Highland_cow%2C_Denmark.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:2011-05-30_018_DNFS_Young_Highland_cow,_Denmark.jpg",
+        "title": "File:2011-05-30 018 DNFS Young Highland cow, Denmark.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "fluss_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Elbe_bei_Bitter_Niedrigwasser_August_2017.jpg/1920px-Elbe_bei_Bitter_Niedrigwasser_August_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Elbe_bei_Bitter_Niedrigwasser_August_2017.jpg",
+        "title": "File:Elbe bei Bitter Niedrigwasser August 2017.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "fluss_photo_2.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Georgi%2C_Nils-_67._Geburtstag_Sophie_Dorothea_-_M%C3%BCnzkabinett%2C_Berlin_-_5526015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "source": "https://commons.wikimedia.org/wiki/File:Georgi,_Nils-_67._Geburtstag_Sophie_Dorothea_-_M%C3%BCnzkabinett,_Berlin_-_5526015.jpg",
+        "title": "File:Georgi, Nils- 67. Geburtstag Sophie Dorothea - Münzkabinett, Berlin - 5526015.jpg",
+        "license": "Public domain"
+      }
+    ]
+  },
+  "stats": {},
+  "shots": [
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0003-r1-extra\\forest_edge_1.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0003-r1-extra\\forest_edge_2.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0003-r1-extra\\forest_edge_3.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0003-r1-extra\\overview_17h.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0003-r1-extra\\overview_18h_wait15.jpg"
+  ],
+  "problems": [],
+  "ok": true,
+  "finished": "2026-10-07T05:10:59.173Z"
+}
