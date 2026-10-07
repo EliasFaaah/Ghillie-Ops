@@ -1,5 +1,5 @@
 import { Group, Mesh, BufferGeometry, BufferAttribute, MeshStandardMaterial, DataTexture, RedFormat, RGBAFormat, FloatType, UnsignedByteType, LinearFilter, LinearMipmapLinearFilter, NearestFilter, ClampToEdgeWrapping, RepeatWrapping, Color, SRGBColorSpace, Vector3 } from 'three';
-import { MAP, HEIGHT, HORIZON } from './layout.js';
+import { MAP, HEIGHT, HORIZON, QUARRY } from './layout.js';
 import { windUniforms, windGlsl } from '../veg/wind.js';
 import { register, assert } from '../core/selftest.js';
 
@@ -49,7 +49,7 @@ float meadowDry(vec2 wp) {
 }
 float meadowHeight(vec2 wp) { return 0.72 + 0.46 * smoothstep(0.25, 0.75, mNoise(wp * 0.0085 + 41.0)); }
 vec3 meadowMean(vec2 wp) {
-  return mix(vec3(0.058, 0.088, 0.028) * meadowTint(wp), vec3(0.170, 0.135, 0.075), meadowDry(wp) * 0.8) * 0.88;
+  return mix(vec3(0.060, 0.086, 0.031) * meadowTint(wp), vec3(0.170, 0.135, 0.075), meadowDry(wp) * 0.8) * 0.88;
 }
 `;
 
@@ -151,6 +151,9 @@ const MAP_FRAGMENT = `
   vec4 mk = texture2D(tMask, (wp + ${H.toFixed(1)}) / ${MAP.size.toFixed(1)}) * edgeK;
   float cav = vCav * edgeK;
   float n1 = tNoise(wp * 0.05), n2 = tNoise(wp * 0.23), n3 = tNoise(wp * 0.011);
+  vec2 qv = wp - vec2(${QUARRY.x.toFixed(1)}, ${QUARRY.z.toFixed(1)});
+  float qd = length(qv);
+  float qK = 1.0 - smoothstep(${QUARRY.rOut.toFixed(1)}, ${(QUARRY.rOut + 40).toFixed(1)}, qd + (n1 - 0.5) * 30.0);
   float fr = (gNz(wp, 1.2, 3) - 0.5) * 0.6 + (n2 - 0.5) * 0.4;
   float wR = clamp(smoothstep(0.12, 0.5, mk.g + fr * 0.22) + 1.0 - smoothstep(0.56, 0.67, gN.y + fr * 0.09 + (n1 - 0.5) * 0.08), 0.0, 1.0);
   float lip = clamp(wR * (1.0 - wR) * 4.0, 0.0, 1.0);
@@ -196,6 +199,14 @@ const MAP_FRAGMENT = `
       float dp = tNoise(wp * 0.07 + 13.0) * 0.6 + tNoise(wp * 0.27 + 2.0) * 0.4;
       dc *= mix(vec3(0.8, 0.79, 0.8), vec3(1.26, 1.2, 1.08), smoothstep(0.3, 0.75, dp));
       dc = mix(dc, vec3(dot(dc, vec3(0.33))) * vec3(1.3, 1.05, 0.7), smoothstep(0.55, 0.78, tNoise(wp * 0.045 + 50.0)) * 0.55);
+      float dl = dot(dc, vec3(0.2126, 0.7152, 0.0722)) / dot(tAvg[3], vec3(0.2126, 0.7152, 0.0722));
+      dc = mix(dc, tAvg[2] * vec3(1.12, 1.07, 0.96) * mix(1.0, clamp(dl, 0.55, 1.5), 0.6), qK * 0.7);
+      if (qK > 0.01 && dist < 400.0) {
+        float tu = qd + (tNoise(wp * 0.021 + 71.0) - 0.5) * 22.0;
+        float tr = abs(fract(tu / 13.0) - 0.5) * 13.0;
+        float rut = (1.0 - smoothstep(0.18, 0.3 + gFp, abs(tr - 0.95))) * smoothstep(0.4, 0.62, tNoise(wp * 0.045 + floor(tu / 13.0) * 7.3)) * smoothstep(0.975, 0.992, gN.y);
+        dc *= 1.0 - 0.32 * rut * qK;
+      }
       dc = mix(dc, tAvg[2] * (1.0 + 0.4 * n2), smoothstep(0.2, 0.65, -cav) * 0.6);
       float pud = smoothstep(0.71, 0.77, tNoise(wp * 0.085 + 31.0) * 0.75 + tNoise(wp * 0.33 + 4.0) * 0.25 + max(-cav, 0.0) * 0.25) * smoothstep(0.986, 0.997, gN.y) * (1.0 - smoothstep(180.0, 420.0, dist)) * (1.0 - wet);
       dc = mix(dc, dc * 0.55, pud);
@@ -217,8 +228,14 @@ const MAP_FRAGMENT = `
       vec2 tg = normalize(vec2(-gN.z, gN.x) + 0.0001);
       float cr = tNoise(vec2(dot(wp, tg) * 0.6, sy * 0.09 + 5.0));
       float wall = (1.0 - tw.y) * (1.0 - smoothstep(0.12, 0.6, gFp));
-      float joint = max((1.0 - smoothstep(0.0, 0.07 + gFp, sd)) * (0.3 + 0.7 * tHash(vec2(floor(sy * 0.53), 7.0))), (1.0 - smoothstep(0.0, 0.035 + gFp * 0.6, abs(cr - 0.5))) * 0.6 * smoothstep(0.4, 0.7, tNoise(vec2(dot(wp, tg) * 0.15, sy * 0.3)))) * wall;
-      rc *= vec3(1.07, 1.01, 0.9) * mix(1.0, mix(0.74, 1.2, bands), wall) * (1.0 - 0.5 * joint);
+      float joint = max((1.0 - smoothstep(0.0, 0.07 + gFp, sd)) * (0.2 + 0.8 * tHash(vec2(floor(sy * 0.53), 7.0))) * smoothstep(0.3, 0.62, tNoise(vec2(dot(wp, tg) * 0.08, floor(sy * 0.53) * 1.7))), (1.0 - smoothstep(0.0, 0.035 + gFp * 0.6, abs(cr - 0.5))) * 0.6 * smoothstep(0.4, 0.7, tNoise(vec2(dot(wp, tg) * 0.15, sy * 0.3)))) * wall;
+      float wallC = (1.0 - tw.y) * (1.0 - smoothstep(1.5, 5.0, gFp));
+      float coarse = tNoise(vec2(sy * 0.21, n3 * 3.0 + 29.0));
+      float streak = tNoise(vec2(dot(wp, tg) * 0.4, sy * 0.05 + 3.0));
+      rc *= vec3(1.07, 1.01, 0.9) * mix(1.0, mix(0.74, 1.2, bands), wall) * (1.0 - 0.42 * joint);
+      rc *= mix(1.0, mix(0.78, 1.16, coarse) * mix(0.82, 1.06, streak), wallC) * (1.0 + 0.12 * qK);
+      float scr = smoothstep(0.15, 0.55, -cav) * tw.y;
+      rc = mix(rc, rc * vec3(1.1, 1.06, 1.0) * (0.7 + 0.6 * textureGrad(tNz, wp / 76.8, gDx / 76.8, gDy / 76.8).g), scr * 0.6);
       col += wR * rc;
       if (detail > 0.01) nrm = normalize(nrm + wR * tTriNormal(tN2, rp, tw, ${LAYERS[2][1].toFixed(2)}) * detail);
       rough += wR * ${ROUGH[2].toFixed(2)};
