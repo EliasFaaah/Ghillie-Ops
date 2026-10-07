@@ -1,0 +1,1164 @@
+{
+  "url": "http://localhost:8790/?autostart=1",
+  "size": "1920x1080",
+  "started": "2026-10-07T04:53:35.059Z",
+  "chrome": "Chrome/154.0.8037.98",
+  "flags": [
+    "--headless=new",
+    "--use-angle=d3d11",
+    "--enable-gpu",
+    "--ignore-gpu-blocklist",
+    "--window-size=1920,1080",
+    "--remote-debugging-port=0",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--disable-extensions",
+    "--disable-sync",
+    "--mute-audio",
+    "--disable-background-networking",
+    "--disable-background-timer-throttling",
+    "--disable-renderer-backgrounding",
+    "--disable-backgrounding-occluded-windows",
+    "about:blank"
+  ],
+  "gpuCost": false,
+  "allowedHosts": [
+    "localhost",
+    "127.0.0.1",
+    "[::1]"
+  ],
+  "gpu": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4080 (0x00002704) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "timerQuery": true,
+    "hardware": true,
+    "maxClocksMHz": {
+      "gr": 3105,
+      "mem": 11201
+    }
+  },
+  "viewport": {
+    "w": 1920,
+    "h": 1080,
+    "dpr": 1
+  },
+  "console": [
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - OakA: trunk ends 1.62 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - OakB: trunk ends 1.95 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - OakC: trunk ends 4.67 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - Beech: trunk ends 1.48 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - FirA: trunk ends 5.56 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - FirB: trunk ends 4.64 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - FirC: trunk ends 7.70 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[veg/foliage] src/veg/foliage.js:416 - Birch: trunk ends 3.85 m above the ground, rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:29"
+    },
+    {
+      "level": "error",
+      "text": "[selftest] FAIL render/lighting \"setTime moves the sun, environment and fog together\" at src/render/lighting.js:174 - environment and fog must be rebuilt for a new time",
+      "where": "/src/core/selftest.js:46"
+    },
+    {
+      "level": "error",
+      "text": "[selftest] FAIL veg/trees \"tree sets pick LODs by distance, keep dither fades and draw every tree as an impostor\" at src/veg/trees.js:430 - oak instances missing",
+      "where": "/src/core/selftest.js:46"
+    },
+    {
+      "level": "error",
+      "text": "[selftest] FAIL veg/grass \"grass tiers follow the camera, bend away from actors and flatten from blasts\" at src/veg/grass.js:380 - Cannot read properties of undefined (reading 'x')",
+      "where": "/src/core/selftest.js:46"
+    },
+    {
+      "level": "error",
+      "text": "[selftest] FAIL veg/foliage \"leaf and branch lanes follow screen size and never list a tree twice\" at src/veg/foliage.js:647 - OakA trunk ends 1.62 m above the ground: rebuild the tree assets with build_all.py",
+      "where": "/src/core/selftest.js:46"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [],
+  "foreignRequests": [],
+  "workers": [
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/8848a33d-377d-45fd-bd98-9b771b950f73"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/8848a33d-377d-45fd-bd98-9b771b950f73"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/8848a33d-377d-45fd-bd98-9b771b950f73"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/8848a33d-377d-45fd-bd98-9b771b950f73"
+    },
+    {
+      "type": "worker",
+      "url": "blob:http://localhost:8790/0b9958b4-b15d-46fc-a3ca-f363d2c56ab3"
+    }
+  ],
+  "steps": [
+    {
+      "i": 0,
+      "step": {
+        "until": "window.__GO && __GO.state().boot.ready",
+        "timeout": 180
+      },
+      "ms": 23375
+    },
+    {
+      "i": 1,
+      "step": {
+        "eval": "__GO.setTime(10)"
+      },
+      "value": 10,
+      "ms": 163
+    },
+    {
+      "i": 2,
+      "step": {
+        "eval": "__GO.teleport(-435, 89.75, -285, -1.401, -0.05)"
+      },
+      "value": [
+        -435,
+        89.75,
+        -285,
+        -1.401,
+        -0.05
+      ],
+      "ms": 76
+    },
+    {
+      "i": 3,
+      "step": {
+        "wait": 6
+      },
+      "ms": 6002
+    },
+    {
+      "i": 4,
+      "step": {
+        "shot": "forest_1.jpg"
+      },
+      "ms": 618
+    },
+    {
+      "i": 5,
+      "step": {
+        "eval": "__GO.teleport(-225, 52.3, 195, 2.63, -0.05)"
+      },
+      "value": [
+        -225,
+        52.3,
+        195,
+        2.63,
+        -0.05
+      ],
+      "ms": 41
+    },
+    {
+      "i": 6,
+      "step": {
+        "wait": 6
+      },
+      "ms": 6006
+    },
+    {
+      "i": 7,
+      "step": {
+        "shot": "forest_2.jpg"
+      },
+      "ms": 302
+    },
+    {
+      "i": 8,
+      "step": {
+        "eval": "__GO.teleport(-615, 80.54, 735, -3.025, -0.05)"
+      },
+      "value": [
+        -615,
+        80.54,
+        735,
+        -3.025,
+        -0.05
+      ],
+      "ms": 23
+    },
+    {
+      "i": 9,
+      "step": {
+        "wait": 6
+      },
+      "ms": 6014
+    },
+    {
+      "i": 10,
+      "step": {
+        "shot": "forest_3.jpg"
+      },
+      "ms": 326
+    },
+    {
+      "i": 11,
+      "step": {
+        "eval": "__GO.teleport(663.2, 30.67, 108.2, 0.785, 0.02)"
+      },
+      "value": [
+        663.2,
+        30.67,
+        108.2,
+        0.785,
+        0.02
+      ],
+      "ms": 28
+    },
+    {
+      "i": 12,
+      "step": {
+        "wait": 6
+      },
+      "ms": 6013
+    },
+    {
+      "i": 13,
+      "step": {
+        "shot": "forest_edge.jpg"
+      },
+      "ms": 113
+    },
+    {
+      "i": 14,
+      "step": {
+        "eval": "__GO.teleport(-435, 89.75, -285, -1.401, -0.05)"
+      },
+      "value": [
+        -435,
+        89.75,
+        -285,
+        -1.401,
+        -0.05
+      ],
+      "ms": 36
+    },
+    {
+      "i": 15,
+      "step": {
+        "wait": 3
+      },
+      "ms": 3005
+    },
+    {
+      "i": 16,
+      "step": {
+        "stats": "forest",
+        "seconds": 6
+      },
+      "ms": 6276
+    },
+    {
+      "i": 17,
+      "step": {
+        "eval": "__GO.setTime(18)"
+      },
+      "value": 18,
+      "ms": 108
+    },
+    {
+      "i": 18,
+      "step": {
+        "eval": "__GO.bookmark('overview')"
+      },
+      "value": {
+        "eye": [
+          -700,
+          158.74158477783203,
+          -560
+        ],
+        "yaw": -2.300695984946628,
+        "pitch": -0.08467789179059301
+      },
+      "ms": 51
+    },
+    {
+      "i": 19,
+      "step": {
+        "wait": 6
+      },
+      "ms": 6014
+    },
+    {
+      "i": 20,
+      "step": {
+        "shot": "overview_18h.jpg"
+      },
+      "ms": 108
+    },
+    {
+      "i": 21,
+      "step": {
+        "eval": "__GO.setTime(8)"
+      },
+      "value": 8,
+      "ms": 45
+    },
+    {
+      "i": 22,
+      "step": {
+        "eval": "__GO.bookmark('village')"
+      },
+      "value": {
+        "eye": [
+          16,
+          79.49097595214843,
+          215
+        ],
+        "yaw": 2.761086276477428,
+        "pitch": 0.03911188066960242
+      },
+      "ms": 53
+    },
+    {
+      "i": 23,
+      "step": {
+        "wait": 6
+      },
+      "ms": 6015
+    },
+    {
+      "i": 24,
+      "step": {
+        "shot": "village_08h.jpg"
+      },
+      "ms": 105
+    },
+    {
+      "i": 25,
+      "step": {
+        "eval": "__GO.setTime(10)"
+      },
+      "value": 10,
+      "ms": 20
+    },
+    {
+      "i": 26,
+      "step": {
+        "commons": "filetype:bitmap mixed forest interior summer Germany",
+        "count": 5,
+        "prefix": "wald_photo_"
+      },
+      "value": 0,
+      "error": "no reference images for filetype:bitmap mixed forest interior summer Germany",
+      "ms": 599
+    },
+    {
+      "i": 27,
+      "step": {
+        "commons": "filetype:bitmap forest edge meadow summer Germany",
+        "count": 5,
+        "prefix": "waldrand_photo_"
+      },
+      "value": 5,
+      "ms": 5239
+    },
+    {
+      "i": 28,
+      "step": {
+        "commons": "filetype:bitmap meadow tall grass summer Germany",
+        "count": 5,
+        "prefix": "gras_photo_"
+      },
+      "value": 0,
+      "error": "no reference images for filetype:bitmap meadow tall grass summer Germany",
+      "ms": 603
+    },
+    {
+      "i": 29,
+      "step": {
+        "commons": "filetype:bitmap hilly landscape forest fields Germany summer panorama",
+        "count": 5,
+        "prefix": "landschaft_photo_"
+      },
+      "value": 0,
+      "error": "no reference images for filetype:bitmap hilly landscape forest fields Germany summer panorama",
+      "ms": 622
+    },
+    {
+      "i": 30,
+      "step": {
+        "commons": "filetype:bitmap quarry Germany",
+        "count": 5,
+        "prefix": "steinbruch_photo_"
+      },
+      "value": 5,
+      "ms": 9899
+    },
+    {
+      "i": 31,
+      "step": {
+        "commons": "filetype:bitmap stone bridge stream Germany",
+        "count": 5,
+        "prefix": "wasser_photo_"
+      },
+      "value": 5,
+      "ms": 7393
+    },
+    {
+      "i": 32,
+      "step": {
+        "commons": "filetype:bitmap village street Bavaria summer",
+        "count": 5,
+        "prefix": "dorf_photo_"
+      },
+      "value": 5,
+      "ms": 11237
+    },
+    {
+      "i": 33,
+      "step": {
+        "steam": 1874880,
+        "count": 6,
+        "prefix": "aaa_arma_"
+      },
+      "value": 6,
+      "ms": 897
+    },
+    {
+      "i": 34,
+      "step": {
+        "steam": 221100,
+        "count": 6,
+        "prefix": "aaa_dayz_"
+      },
+      "value": 6,
+      "ms": 667
+    },
+    {
+      "i": 35,
+      "step": {
+        "steam": 686810,
+        "count": 6,
+        "prefix": "aaa_hll_"
+      },
+      "value": 6,
+      "ms": 664
+    },
+    {
+      "i": 36,
+      "step": {
+        "steam": 393380,
+        "count": 6,
+        "prefix": "aaa_squad_"
+      },
+      "value": 6,
+      "ms": 832
+    },
+    {
+      "i": 37,
+      "step": {
+        "steam": 1938090,
+        "count": 6,
+        "prefix": "aaa_cod_"
+      },
+      "value": 6,
+      "ms": 620
+    },
+    {
+      "i": 38,
+      "step": {
+        "steam": 2507950,
+        "count": 6,
+        "prefix": "aaa_deltaforce_"
+      },
+      "value": 6,
+      "ms": 722
+    },
+    {
+      "i": 39,
+      "step": {
+        "eval": "__GO.selftest()",
+        "as": "selftest"
+      },
+      "value": {
+        "running": false,
+        "done": true,
+        "total": 44,
+        "passed": 40,
+        "failed": 4,
+        "failures": [
+          {
+            "module": "render/lighting",
+            "name": "setTime moves the sun, environment and fog together",
+            "where": "src/render/lighting.js:174",
+            "reason": "environment and fog must be rebuilt for a new time"
+          },
+          {
+            "module": "veg/trees",
+            "name": "tree sets pick LODs by distance, keep dither fades and draw every tree as an impostor",
+            "where": "src/veg/trees.js:430",
+            "reason": "oak instances missing"
+          },
+          {
+            "module": "veg/grass",
+            "name": "grass tiers follow the camera, bend away from actors and flatten from blasts",
+            "where": "src/veg/grass.js:380",
+            "reason": "Cannot read properties of undefined (reading 'x')"
+          },
+          {
+            "module": "veg/foliage",
+            "name": "leaf and branch lanes follow screen size and never list a tree twice",
+            "where": "src/veg/foliage.js:647",
+            "reason": "OakA trunk ends 1.62 m above the ground: rebuild the tree assets with build_all.py"
+          }
+        ]
+      },
+      "ms": 7208
+    }
+  ],
+  "results": {
+    "refs": [
+      {
+        "file": "waldrand_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/St._Martin_Am_Sand_002_2024_07_17.jpg/1920px-St._Martin_Am_Sand_002_2024_07_17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:St._Martin_Am_Sand_002_2024_07_17.jpg",
+        "title": "File:St. Martin Am Sand 002 2024 07 17.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "waldrand_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Wundersch%C3%B6ne_Landschaft_im_Sommer.jpg/1920px-Wundersch%C3%B6ne_Landschaft_im_Sommer.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Wundersch%C3%B6ne_Landschaft_im_Sommer.jpg",
+        "title": "File:Wunderschöne Landschaft im Sommer.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "waldrand_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Beilstein_-_Billensbach_-_Wiese_und_W%C3%A4ldchen_im_SO_des_Dorfes_im_Oktober_%281.1%29.jpg/1920px-Beilstein_-_Billensbach_-_Wiese_und_W%C3%A4ldchen_im_SO_des_Dorfes_im_Oktober_%281.1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Beilstein_-_Billensbach_-_Wiese_und_W%C3%A4ldchen_im_SO_des_Dorfes_im_Oktober_(1.1).jpg",
+        "title": "File:Beilstein - Billensbach - Wiese und Wäldchen im SO des Dorfes im Oktober (1.1).jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "waldrand_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/Beilstein_-_Billensbach_-_Wiese_und_W%C3%A4ldchen_im_SO_des_Dorfes_im_Oktober_%281.2%29.jpg/1920px-Beilstein_-_Billensbach_-_Wiese_und_W%C3%A4ldchen_im_SO_des_Dorfes_im_Oktober_%281.2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Beilstein_-_Billensbach_-_Wiese_und_W%C3%A4ldchen_im_SO_des_Dorfes_im_Oktober_(1.2).jpg",
+        "title": "File:Beilstein - Billensbach - Wiese und Wäldchen im SO des Dorfes im Oktober (1.2).jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "waldrand_photo_5.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Dogs_of_all_nations._In_prose_and_rhyme_%281903%29_%2814767127561%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "source": "https://commons.wikimedia.org/wiki/File:Dogs_of_all_nations._In_prose_and_rhyme_(1903)_(14767127561).jpg",
+        "title": "File:Dogs of all nations. In prose and rhyme (1903) (14767127561).jpg",
+        "license": "No restrictions"
+      },
+      {
+        "file": "steinbruch_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Marcasite%2C_Calcite._Quarry_Becke-Oese%2C_Hemer%2C_Sauerland%2C_Germany-8952.jpg/1920px-Marcasite%2C_Calcite._Quarry_Becke-Oese%2C_Hemer%2C_Sauerland%2C_Germany-8952.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Marcasite,_Calcite._Quarry_Becke-Oese,_Hemer,_Sauerland,_Germany-8952.jpg",
+        "title": "File:Marcasite, Calcite. Quarry Becke-Oese, Hemer, Sauerland, Germany-8952.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "steinbruch_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Germany_Jena_Moenchsberg_quarry_April_2023.jpg/1920px-Germany_Jena_Moenchsberg_quarry_April_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Germany_Jena_Moenchsberg_quarry_April_2023.jpg",
+        "title": "File:Germany Jena Moenchsberg quarry April 2023.jpg",
+        "license": "CC0"
+      },
+      {
+        "file": "steinbruch_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Marcasite%2C_Calcite._Quarry_Becke-Oese%2C_Hemer%2C_Sauerland%2C_Germany-8949.jpg/1920px-Marcasite%2C_Calcite._Quarry_Becke-Oese%2C_Hemer%2C_Sauerland%2C_Germany-8949.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Marcasite,_Calcite._Quarry_Becke-Oese,_Hemer,_Sauerland,_Germany-8949.jpg",
+        "title": "File:Marcasite, Calcite. Quarry Becke-Oese, Hemer, Sauerland, Germany-8949.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "steinbruch_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Abandoned_limestone_quarry_Unica.jpg/1920px-Abandoned_limestone_quarry_Unica.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Abandoned_limestone_quarry_Unica.jpg",
+        "title": "File:Abandoned limestone quarry Unica.jpg",
+        "license": "CC BY-SA 3.0"
+      },
+      {
+        "file": "steinbruch_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/A_quarry%2C_Dipkarpaz%2C_Northern_Cyprus.jpg/1920px-A_quarry%2C_Dipkarpaz%2C_Northern_Cyprus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:A_quarry,_Dipkarpaz,_Northern_Cyprus.jpg",
+        "title": "File:A quarry, Dipkarpaz, Northern Cyprus.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wasser_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/SEB-Sch%C3%B6nbacherWeg-Br%C3%BCcke_20240128_135535.jpg/1920px-SEB-Sch%C3%B6nbacherWeg-Br%C3%BCcke_20240128_135535.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:SEB-Sch%C3%B6nbacherWeg-Br%C3%BCcke_20240128_135535.jpg",
+        "title": "File:SEB-SchönbacherWeg-Brücke 20240128 135535.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wasser_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/SEB-Sch%C3%B6nbacherWeg-Br%C3%BCcke_20240216_145943.jpg/1920px-SEB-Sch%C3%B6nbacherWeg-Br%C3%BCcke_20240216_145943.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:SEB-Sch%C3%B6nbacherWeg-Br%C3%BCcke_20240216_145943.jpg",
+        "title": "File:SEB-SchönbacherWeg-Brücke 20240216 145943.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wasser_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Olfen%2C_Dreibogenbr%C3%BCcke_--_2021_--_8888.jpg/1920px-Olfen%2C_Dreibogenbr%C3%BCcke_--_2021_--_8888.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Olfen,_Dreibogenbr%C3%BCcke_--_2021_--_8888.jpg",
+        "title": "File:Olfen, Dreibogenbrücke -- 2021 -- 8888.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wasser_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Nottuln%2C_Geb%C3%A4ude_-Stiftsplatz_6-_--_2016_--_3820.jpg/1920px-Nottuln%2C_Geb%C3%A4ude_-Stiftsplatz_6-_--_2016_--_3820.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Nottuln,_Geb%C3%A4ude_-Stiftsplatz_6-_--_2016_--_3820.jpg",
+        "title": "File:Nottuln, Gebäude -Stiftsplatz 6- -- 2016 -- 3820.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "wasser_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Waldbillig_%28LU%29%2C_Schiessent%C3%BCmpel_--_2015_--_6033.jpg/1920px-Waldbillig_%28LU%29%2C_Schiessent%C3%BCmpel_--_2015_--_6033.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Waldbillig_(LU),_Schiessent%C3%BCmpel_--_2015_--_6033.jpg",
+        "title": "File:Waldbillig (LU), Schiessentümpel -- 2015 -- 6033.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "dorf_photo_1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/G%C3%B6rauer_Anger_Luftbild-20210821-RM-170741.jpg/1920px-G%C3%B6rauer_Anger_Luftbild-20210821-RM-170741.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:G%C3%B6rauer_Anger_Luftbild-20210821-RM-170741.jpg",
+        "title": "File:Görauer Anger Luftbild-20210821-RM-170741.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "dorf_photo_2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Kreuzung_Valepper_Stra%C3%9Fe_und_Beginn_Wanderweg_zur_Rotwand_2025-07-19.jpg/1920px-Kreuzung_Valepper_Stra%C3%9Fe_und_Beginn_Wanderweg_zur_Rotwand_2025-07-19.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Kreuzung_Valepper_Stra%C3%9Fe_und_Beginn_Wanderweg_zur_Rotwand_2025-07-19.jpg",
+        "title": "File:Kreuzung Valepper Straße und Beginn Wanderweg zur Rotwand 2025-07-19.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "dorf_photo_3.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Spielplatz_am_Spitzingsee_2025-07-19.jpg/1920px-Spielplatz_am_Spitzingsee_2025-07-19.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Spielplatz_am_Spitzingsee_2025-07-19.jpg",
+        "title": "File:Spielplatz am Spitzingsee 2025-07-19.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "dorf_photo_4.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Wegweiser_Spitzingsee_Rundweg%2C_Zum_Bockerlbahn-Weg_2025-07-19.jpg/1920px-Wegweiser_Spitzingsee_Rundweg%2C_Zum_Bockerlbahn-Weg_2025-07-19.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Wegweiser_Spitzingsee_Rundweg,_Zum_Bockerlbahn-Weg_2025-07-19.jpg",
+        "title": "File:Wegweiser Spitzingsee Rundweg, Zum Bockerlbahn-Weg 2025-07-19.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "dorf_photo_5.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Wegweiser_Spitzingsee_Rundweg_2025-07-19.jpg/1920px-Wegweiser_Spitzingsee_Rundweg_2025-07-19.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "source": "https://commons.wikimedia.org/wiki/File:Wegweiser_Spitzingsee_Rundweg_2025-07-19.jpg",
+        "title": "File:Wegweiser Spitzingsee Rundweg 2025-07-19.jpg",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "file": "aaa_arma_1.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1874880/ss_70d3b4416f7c191d01b96253957bee9b6cab47be.1920x1080.jpg?t=1789052055",
+        "source": "https://store.steampowered.com/app/1874880",
+        "title": "Arma Reforger screenshot 0",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_arma_2.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1874880/ss_e89540e53a4969f3de49ad6238fe29ff859ecfd2.1920x1080.jpg?t=1789052055",
+        "source": "https://store.steampowered.com/app/1874880",
+        "title": "Arma Reforger screenshot 1",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_arma_3.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1874880/ss_c09c59c3d65086cc4020fd55659cc5ffaaa79333.1920x1080.jpg?t=1789052055",
+        "source": "https://store.steampowered.com/app/1874880",
+        "title": "Arma Reforger screenshot 2",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_arma_4.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1874880/ss_3f3ff3f68acb3194931fb6cffd4565325c98d833.1920x1080.jpg?t=1789052055",
+        "source": "https://store.steampowered.com/app/1874880",
+        "title": "Arma Reforger screenshot 3",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_arma_5.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1874880/ss_f7ea90e5ffd1c59453b358fa446eb0b1759ba9c7.1920x1080.jpg?t=1789052055",
+        "source": "https://store.steampowered.com/app/1874880",
+        "title": "Arma Reforger screenshot 4",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_arma_6.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1874880/ss_a05d4a7f125269a9e990b97b0dfac4e1e0ba8965.1920x1080.jpg?t=1789052055",
+        "source": "https://store.steampowered.com/app/1874880",
+        "title": "Arma Reforger screenshot 5",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_dayz_1.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/221100/ss_bf0e5d5538d95a1cb943a7963489ba4df2782942.1920x1080.jpg?t=1789982846",
+        "source": "https://store.steampowered.com/app/221100",
+        "title": "DayZ screenshot 0",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_dayz_2.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/221100/ss_4b71f0ac633c88e8af8de1c4eec0b5b263f989cc.1920x1080.jpg?t=1789982846",
+        "source": "https://store.steampowered.com/app/221100",
+        "title": "DayZ screenshot 1",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_dayz_3.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/221100/ss_0487147f80e9350d9c655deb7f3d25b3876a1958.1920x1080.jpg?t=1789982846",
+        "source": "https://store.steampowered.com/app/221100",
+        "title": "DayZ screenshot 2",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_dayz_4.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/221100/ss_06f0e97dd31b322d38dfd137b268d793ff62f86f.1920x1080.jpg?t=1789982846",
+        "source": "https://store.steampowered.com/app/221100",
+        "title": "DayZ screenshot 3",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_dayz_5.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/221100/ss_9517bb26b6811f70b5b19ece4bce3e90452378d3.1920x1080.jpg?t=1789982846",
+        "source": "https://store.steampowered.com/app/221100",
+        "title": "DayZ screenshot 4",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_dayz_6.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/221100/ss_54729794426ffcfb74cb90176edd80b2225eb4fc.1920x1080.jpg?t=1789982846",
+        "source": "https://store.steampowered.com/app/221100",
+        "title": "DayZ screenshot 5",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_hll_1.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/686810/ss_f0fa9e773551614a2fe2439f29ad6f74e0937120.1920x1080.jpg?t=1790181050",
+        "source": "https://store.steampowered.com/app/686810",
+        "title": "Hell Let Loose screenshot 0",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_hll_2.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/686810/ss_9b0d65c3c557fe8de37faed89582a6ddad90895e.1920x1080.jpg?t=1790181050",
+        "source": "https://store.steampowered.com/app/686810",
+        "title": "Hell Let Loose screenshot 1",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_hll_3.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/686810/ss_883861c13f66ad21f92cbb1374cca638aba7ff37.1920x1080.jpg?t=1790181050",
+        "source": "https://store.steampowered.com/app/686810",
+        "title": "Hell Let Loose screenshot 2",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_hll_4.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/686810/ss_7e4c1216a340eed4905124ef2b7fc07506ad677b.1920x1080.jpg?t=1790181050",
+        "source": "https://store.steampowered.com/app/686810",
+        "title": "Hell Let Loose screenshot 3",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_hll_5.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/686810/ss_4a0298406d284993944c79f44dd51ae6c3a22f84.1920x1080.jpg?t=1790181050",
+        "source": "https://store.steampowered.com/app/686810",
+        "title": "Hell Let Loose screenshot 4",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_hll_6.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/686810/ss_bcdb6c79fa996cfe2ed2a7c28815ab5ab0ed1329.1920x1080.jpg?t=1790181050",
+        "source": "https://store.steampowered.com/app/686810",
+        "title": "Hell Let Loose screenshot 5",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_squad_1.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/393380/ss_646857af730262e7f6f92e67bf2d8b47bf0c662c.1920x1080.jpg?t=1790892056",
+        "source": "https://store.steampowered.com/app/393380",
+        "title": "Squad screenshot 0",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_squad_2.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/393380/ss_0ca9f1167852de187a7f929da20421ddb08fc752.1920x1080.jpg?t=1790892056",
+        "source": "https://store.steampowered.com/app/393380",
+        "title": "Squad screenshot 1",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_squad_3.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/393380/ss_a50882d54e8fdf8478bbbe5cd8df4bd086fc1a0f.1920x1080.jpg?t=1790892056",
+        "source": "https://store.steampowered.com/app/393380",
+        "title": "Squad screenshot 2",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_squad_4.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/393380/ss_b256c427c3dc178a04fb54c92d563aae12c0ea36.1920x1080.jpg?t=1790892056",
+        "source": "https://store.steampowered.com/app/393380",
+        "title": "Squad screenshot 3",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_squad_5.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/393380/ss_6b6aa0741b6e65f34b153f0e6468412e104dbc64.1920x1080.jpg?t=1790892056",
+        "source": "https://store.steampowered.com/app/393380",
+        "title": "Squad screenshot 4",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_squad_6.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/393380/ss_6fabf783d6897ad15486b2051c997d9f9a8f2ab0.1920x1080.jpg?t=1790892056",
+        "source": "https://store.steampowered.com/app/393380",
+        "title": "Squad screenshot 5",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_cod_1.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1938090/ee5f6b6aebe4dc9e86b49c4e309d361b132df308/ss_ee5f6b6aebe4dc9e86b49c4e309d361b132df308.1920x1080.jpg?t=1790698535",
+        "source": "https://store.steampowered.com/app/1938090",
+        "title": "Call of Duty® screenshot 0",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_cod_2.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1938090/ca97243a998802a38c7cddf195cee327c5760353/ss_ca97243a998802a38c7cddf195cee327c5760353.1920x1080.jpg?t=1790698535",
+        "source": "https://store.steampowered.com/app/1938090",
+        "title": "Call of Duty® screenshot 1",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_cod_3.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1938090/6b8f4040a1e923f036e04d9eb21ecb0f866be57e/ss_6b8f4040a1e923f036e04d9eb21ecb0f866be57e.1920x1080.jpg?t=1790698535",
+        "source": "https://store.steampowered.com/app/1938090",
+        "title": "Call of Duty® screenshot 2",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_cod_4.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1938090/c6f865bd79b76a1fa50c59cd17a68d7837abf0b2/ss_c6f865bd79b76a1fa50c59cd17a68d7837abf0b2.1920x1080.jpg?t=1790698535",
+        "source": "https://store.steampowered.com/app/1938090",
+        "title": "Call of Duty® screenshot 3",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_cod_5.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1938090/619503d5c40001a5e72717bedccbbca027084d94/ss_619503d5c40001a5e72717bedccbbca027084d94.1920x1080.jpg?t=1790698535",
+        "source": "https://store.steampowered.com/app/1938090",
+        "title": "Call of Duty® screenshot 4",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_cod_6.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1938090/88dbb0eae312359216204ce3ab34b2f476177efd/ss_88dbb0eae312359216204ce3ab34b2f476177efd.1920x1080.jpg?t=1790698535",
+        "source": "https://store.steampowered.com/app/1938090",
+        "title": "Call of Duty® screenshot 5",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_deltaforce_1.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2507950/6f153694ed0c1349d554890c2758050ea629f6f0/ss_6f153694ed0c1349d554890c2758050ea629f6f0.1920x1080.jpg?t=1790238079",
+        "source": "https://store.steampowered.com/app/2507950",
+        "title": "Delta Force screenshot 0",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_deltaforce_2.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2507950/6e6783dfed5715c4ac1166dfc12efdf70d6a05ad/ss_6e6783dfed5715c4ac1166dfc12efdf70d6a05ad.1920x1080.jpg?t=1790238079",
+        "source": "https://store.steampowered.com/app/2507950",
+        "title": "Delta Force screenshot 1",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_deltaforce_3.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2507950/9a43813e3a8e24baa672368b87f3ba486ed7d483/ss_9a43813e3a8e24baa672368b87f3ba486ed7d483.1920x1080.jpg?t=1790238079",
+        "source": "https://store.steampowered.com/app/2507950",
+        "title": "Delta Force screenshot 2",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_deltaforce_4.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2507950/b8f752f35705bdf9b586cf224672bee45bc6d9bc/ss_b8f752f35705bdf9b586cf224672bee45bc6d9bc.1920x1080.jpg?t=1790238079",
+        "source": "https://store.steampowered.com/app/2507950",
+        "title": "Delta Force screenshot 3",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_deltaforce_5.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2507950/03daf5266860fc6c3b4ecd9dccb9acb45803276d/ss_03daf5266860fc6c3b4ecd9dccb9acb45803276d.1920x1080.jpg?t=1790238079",
+        "source": "https://store.steampowered.com/app/2507950",
+        "title": "Delta Force screenshot 4",
+        "license": "store screenshot"
+      },
+      {
+        "file": "aaa_deltaforce_6.jpg",
+        "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2507950/7f494c124f7f95e09fd82c78de8efaf973d8e15b/ss_7f494c124f7f95e09fd82c78de8efaf973d8e15b.1920x1080.jpg?t=1790238079",
+        "source": "https://store.steampowered.com/app/2507950",
+        "title": "Delta Force screenshot 5",
+        "license": "store screenshot"
+      }
+    ],
+    "selftest": {
+      "running": false,
+      "done": true,
+      "total": 44,
+      "passed": 40,
+      "failed": 4,
+      "failures": [
+        {
+          "module": "render/lighting",
+          "name": "setTime moves the sun, environment and fog together",
+          "where": "src/render/lighting.js:174",
+          "reason": "environment and fog must be rebuilt for a new time"
+        },
+        {
+          "module": "veg/trees",
+          "name": "tree sets pick LODs by distance, keep dither fades and draw every tree as an impostor",
+          "where": "src/veg/trees.js:430",
+          "reason": "oak instances missing"
+        },
+        {
+          "module": "veg/grass",
+          "name": "grass tiers follow the camera, bend away from actors and flatten from blasts",
+          "where": "src/veg/grass.js:380",
+          "reason": "Cannot read properties of undefined (reading 'x')"
+        },
+        {
+          "module": "veg/foliage",
+          "name": "leaf and branch lanes follow screen size and never list a tree twice",
+          "where": "src/veg/foliage.js:647",
+          "reason": "OakA trunk ends 1.62 m above the ground: rebuild the tree assets with build_all.py"
+        }
+      ]
+    }
+  },
+  "stats": {
+    "forest": {
+      "seconds": 6,
+      "frames": 181,
+      "cpu": {
+        "n": 181,
+        "mean": 32.933,
+        "p50": 31.7,
+        "p95": 46,
+        "p99": 54.6,
+        "max": 56.7,
+        "bucketMs": 1,
+        "hist": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          3,
+          4,
+          4,
+          12,
+          10,
+          6,
+          12,
+          14,
+          15,
+          12,
+          11,
+          9,
+          67
+        ]
+      },
+      "gpu": {
+        "n": 181,
+        "mean": 32.002,
+        "p50": 30.586,
+        "p95": 37.143,
+        "p99": 41.741,
+        "max": 42.12,
+        "bucketMs": 1,
+        "hist": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          55,
+          39,
+          11,
+          6,
+          11,
+          52
+        ]
+      },
+      "interval": {
+        "n": 181,
+        "mean": 33.349,
+        "p50": 32.1,
+        "p95": 46.5,
+        "p99": 55.2,
+        "max": 57,
+        "bucketMs": 1,
+        "hist": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          2,
+          6,
+          9,
+          9,
+          9,
+          12,
+          13,
+          12,
+          15,
+          9,
+          9,
+          73
+        ]
+      },
+      "mainThreadMsPerFrame": 33.234,
+      "gpuCoverage": 1,
+      "gpuValid": true,
+      "gpuState": {
+        "available": true,
+        "samples": 55,
+        "fullClockShare": 1,
+        "pstates": {
+          "P0": 55
+        },
+        "graphicsMHz": {
+          "min": 2820,
+          "p50": 2820,
+          "max": 2820
+        },
+        "memoryMHz": {
+          "min": 11201,
+          "max": 11201
+        },
+        "maxMHz": {
+          "gr": 3105,
+          "mem": 11201
+        },
+        "utilization": {
+          "mean": 89.691
+        }
+      }
+    }
+  },
+  "shots": [
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0002-r1-refs\\forest_1.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0002-r1-refs\\forest_2.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0002-r1-refs\\forest_3.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0002-r1-refs\\forest_edge.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0002-r1-refs\\overview_18h.jpg",
+    "C:\\Users\\Leschke\\Downloads\\GhillieBridge\\qa\\bridge\\out\\0002-r1-refs\\village_08h.jpg"
+  ],
+  "problems": [
+    "step 26 {\"commons\":\"filetype:bitmap mixed forest interior summer Germany\",\"count\":5,\"prefix\":\"wald_photo_\"}: no reference images for filetype:bitmap mixed forest interior summer Germany",
+    "step 28 {\"commons\":\"filetype:bitmap meadow tall grass summer Germany\",\"count\":5,\"prefix\":\"gras_photo_\"}: no reference images for filetype:bitmap meadow tall grass summer Germany",
+    "step 29 {\"commons\":\"filetype:bitmap hilly landscape forest fields Germany summer panorama\",\"count\":5,\"prefix\":\"landschaft_photo_\"}: no reference images for filetype:bitmap hilly landscape forest fields Germany summer panorama"
+  ],
+  "ok": false,
+  "finished": "2026-10-07T04:55:35.479Z"
+}
